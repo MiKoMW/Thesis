@@ -7,6 +7,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{epigraph}
 \usepackage{graphicx} %Added by Songbo
+\usepackage{multirow}
 
 % Flexible Qoute
 
@@ -116,19 +117,19 @@ You're at Edinburgh, Scotland.
 
 A dialogue system is a conversational agent that can converse with humans in natural language. It can help us solve many tedious tasks effectively or bring entertainment value to our daily life. Recent advances in dialogue systems (such as virtual assistants) enable us to engage in natural conversational interactions with computers. It substantially increases the accessibility of state of the art technologies to people with diverse backgrounds. And for those with impairments, it could transform their daily living into a journey toward capability instead of disability.
 
-Since Alan Turing published his landmark work in 1950\cite{turing1950computing}, the intelligence level of a machine is described as how well the machine is able to fool a human into believing that it, the machine, is a human based on its text responses. If the human evaluator cannot tell the difference between the machine from a human, the machine is said to have passed the Turing test, which signifies a high level of intelligence of an AI. It has been the goal for the development of dialogue systems for decades and there are various attempts have been proposed to pass the Turing test. Recently, advances in neural network based language models enable us to learn entire dialogue models directly from conversational data. But we are still far from our goal. Most of the previous systems have failed to model the longer prior context of the conversation adequately, thereby creating a situation where extended dialogues rapidly become incoherent and unnatural sounding, with repetition being a key problem. Like I mentioned above, Siri fails to model anaphoras and elided constructions and produces repetitive and incoherent responses. It is a problem which need to be adequately solved before our agents could look forward to passing the Turing test.
+Since Alan Turing published his landmark work in 1950\cite{turing1950computing}, the intelligence level of a machine is described as how well the machine is able to fool a human into believing that it, the machine, is a human based on its text responses. If a human is unable to distinguish the difference between the machine from a human, the machine is said to have passed the Turing test. We could say such a machine signifies a significantly high level of intelligence of an AI. It has been the goal for the development of dialogue systems for decades and various attempts have been proposed to pass the Turing test. Recently, advances in neural network based language models enable us to learn entire dialogue models directly from conversational data. Although we improve the performance of neural models by increasing the number of parameters and training with more data, we are still far from our goal. Most of the previous systems have failed to model the longer prior context of the conversation adequately, thereby creating a situation where extended dialogues rapidly become incoherent and unnatural sounding, with repetition being a key problem. As I mentioned above, Siri fails to model anaphoras and elided constructions and produces repetitive and incoherent responses. It is a problem which need to be adequately solved before our agents could look forward to attempting the Turing test.
 
-In this section, we will briefly review the recent development of dialogue systems. Specifically, we will discuss two types of dialogue systems: the chit-chat dialogue system and goal-oriented dialogue system, particularly current statistical spoken dialogue system (hereafter SDS). We will discuss their architectures, pros and cons, and their main limitations to achieve coherent open-domain conversations. The majority of this thesis is about how to create an environment for neural models to learn linguistic patterns within coherent extended dialogues and how to integrate these models into the existing dialogue systems. It constitutes a first step towards modelling coherent open-domain conversations and will potentially enable the existing dialogue systems utilising useful linguistic information and produce coherent responses.
+In this section, we will briefly review the recent development of dialogue systems. Specifically, we will discuss two types of dialogue systems: the chit-chat dialogue system and goal-oriented dialogue system, particularly current statistical spoken dialogue system (hereafter SDS). We will discuss their architectures, pros and cons, and their main limitations to achieve coherent open-domain conversations. The majority of this thesis is about how to create an environment for neural models to learn linguistic patterns within coherent extended dialogues and how to integrate these models into the existing dialogue systems. It constitutes a first step towards modelling coherent open-domain conversations and will potentially enable the existing dialogue systems utilising valuable linguistic information to produce coherent responses.
 
 \section {A Brief Review of Existing Dialogue Systems}
 
 \subsection{The Chit-chat Dialogue System}
 
-The chit-chat dialogue systems are usually called chatbots. These systems are designed and implemented to carry extended conversations with the goal of mimicking the unstructured conversations or ‘chats’ characteristic of informal human-human interaction. They are mainly aiming to provide entertainment value. Existing chatbots majorly fall into the following subcategories: the rule-based systems, the corpus-based systems, as will be discussed in order below.
+The chit-chat dialogue systems are usually called chatbots. These systems are designed and implemented to carry extended conversations with the goal of mimicking the ‘chats’ characteristic of informal human-human interaction. They are mainly aiming to provide entertainment value. Existing chatbots majorly fall into the following subcategories: the rule-based systems, the corpus-based systems, as will be discussed in order below.
 
-\subsubsection*{The rule-based systems}
+\subsubsection*{The Rule-based Systems}
 
-Instead of letting machines learning the conversation strategy from human behaviours, we could ask humans to encode these human intelligence directly as rules and ask machines to interpret them. Dialogue agents could use these rules to generate dialogue utterances effectively. Normally, a message input will be processed by a set of carefully pre-defined rules e.g., a key-word look-up dictionary, if-else conditions, or more sophisticated machine learning classifiers. After rule conditions are evaluated, relevant actions will be executed, such as outputting an utterance in storage, manipulating the input message or selecting some related historical contexts.
+Instead of letting machines to learn the conversation strategy from human behaviours, we could ask humans to encode these human intelligence directly as rules and ask machines to interpret them. Dialogue agents could use these rules to generate dialogue utterances effectively. Normally, a message input will be processed by a set of carefully pre-defined rules e.g., a key-word look-up dictionary, if-else conditions, or more sophisticated machine learning classifiers\cite{jiweilithesis}. Consequently, the dialogue agent would produce a natural language response by outputting an utterance in storage, manipulating the input message or selecting some related historical contexts based on these rules.
 
 \begin{figure}[h]
     \centering
@@ -137,15 +138,15 @@ Instead of letting machines learning the conversation strategy from human behavi
     \label{fig:elizarule}
 \end{figure}
 
-One of the epoch-making rule-based dialogue systems in history is ELIZA\cite{weizenbaum1966eliza}. ELIZA operates by first searching a keyword existing in the input text from a real human based on a hand-crafted keyword dictionary. If a keyword is found, a rule is applied to manipulate and transform the user’s original input and forwarded back to the user. Otherwise, ELIZA responded either with a generic response or copying one sentence from the dialogue history. There are many extensions of ELIZA, for example, PARRY\cite{parkinson1977conversational} and ALICE\cite{wallace1995artificial}. PARRY,, which simulated a patient with schizophrenia, relies on global variables to keep track of the emotional state, as opposed to ELIZA where responses are generated only based on the previous sentence. Artificial Intelligence Markup Language(AIML), which is the basis of ALICE, provides an effect tool to write sophisticated conversations logic in a machine-readable format.
+One of the epoch-making rule-based dialogue systems in history is ELIZA\cite{weizenbaum1966eliza}. ELIZA operates by first searching a keyword existing in the input text from a real human based on a hand-crafted keyword dictionary. If a keyword is found, a rule is applied to manipulate and transform the user’s original input and forwarded back to the user. Otherwise, ELIZA responded either with a generic response or copying one sentence from the dialogue history. There are many extensions of ELIZA, one famous example is ALICE\cite{wallace1995artificial}. ALICE is powered by Artificial Intelligence Markup Language(AIML), which provides an effect tool to write sophisticated conversations logic in a machine-readable format.
 
-ELIZA-style systems are recognized as an important milestone in developing modern dialogue systems. Even nowadays, with the rapid development of large fancy neural network architecture and increasing number of conversational corpora, these rule-based dialogue systems could always be a very strong baseline. On the other hand, their drawbacks are obvious: Rule-based systems predominantly rely on the set of pre-defined rules and these rules have to be carefully designed and implemented. Building a sophisticated rule-based system is very expensive because the number of these rules skyrockets. Rule-based systems do not have the ability to understand human languages, nor do they know how to generate meaningful natural language utterances. Consequently, they are very brittle and only able to conduct very superficial conversations.
+ELIZA-style systems are recognized as an important milestone in developing modern dialogue systems. Even nowadays, with the rapid development of large fancy neural network architecture and increasing number of conversational corpora, these rule-based dialogue systems could always provide a very strong baseline. On the other hand, their drawbacks are obvious: Rule-based systems predominantly rely on the set of pre-defined rules and these rules have to be carefully designed and implemented. Building a sophisticated rule-based system is very expensive because the number of these rules escalates rapidly. Rule-based systems do not have the ability to understand human languages, nor do they know how to generate meaningful natural language utterances\cite{jiweilithesis}. Consequently, they are very brittle and only able to conduct very superficial conversations.
 
-\subsubsection*{The corpus-based systems}
+\subsubsection*{The Corpus-based Systems}
 
-Coding conversations logic manually is astronomically expensive and infeasible for many applications. Corpus-based dialogue system could potentially mitigate this issue by mining conversations of human-human conversations, or sometimes mining the human responses from human-machine conversations, instead of using hand-built rules. These data-driven approaches are becoming increasingly popular due to the increasing computing power and the creation of large scale conversational data-set. 
+Coding conversations logic manually is astronomically expensive and infeasible for many applications. Corpus-based dialogue system could potentially mitigate this issue by mining conversations of human-human conversations, or sometimes mining the human responses from human-machine conversations, instead of using hand-built rules. These data-driven approaches are becoming widely popular due to the increasing computing power and the creation of large scale conversational dataset. 
 
-There are two common architectures for such system:  information retrieval (IR), and machine learned sequence transduction. Due to the limitation that IR-based chatbots can only mirror training data, it is often to treat response generation as a machine translation task which transduces from the user’s prior turn to the system’s turn. This method offers the promise of scalability and language-independence, together with the capacity to implicitly learn semantic and syntactic relations between pairs, and to capture contextual dependencies in a way not possible with IR-based approaches.
+There are two common architectures for such system:  information retrieval (IR), and machine learned sequence transduction. Due to the limitation that IR-based chatbots can only mirror training data, it is often to treat response generation as a machine translation task which transduces from the user’s prior turn to the system’s turn. This method offers the promise of scalability and language-independence, together with the capacity to capture contextual dependencies in a way not possible with IR-based approaches.
 
 \begin{figure}[h]
     \centering
@@ -163,11 +164,11 @@ This idea was firstly developed by Ritter et al\cite{ritter2011data}. (cited in 
     \label{fig:HERD}
 \end{figure}
 
-However, even if one has access to an enormous dataset for training, there is still a significant proportion of unseen dialogue states. Techniques, such as smoothing, can only help to a limited extent, because of the radical extent to which data is sparse. Consequently, generating responses using end-to-end methods tends to generate generic, uninformative and non-coherent replies (e.g., generating ``I don’t know." regardless of the context). In addition, encoder-decoder response generators focus on generating single responses, instead of forming a coherent continuous conversation\cite{jurafsky2019speech}. Humans could easily notice these unnatural and mechanical responses (e.g. the Siri conversation above). Techniques, such as Reinforcement learning (RL) and adversarial networks, will be introduce in Chapter 2 to address this issue\cite{li2017adversarial}\cite{li2016deep}.
+However, even if one has access to an enormous dataset for training, there is still a significant proportion of unseen dialogue states. Techniques, such as smoothing, can only help to a limited extent, because of the radical extent to which data is sparse. Consequently, generating responses using end-to-end methods tends to generate generic, uninformative and non-coherent replies (e.g., generating ``I don’t know." regardless of the context). In addition, encoder-decoder response generators focus on generating single responses, instead of forming a coherent continuous conversation\cite{jurafsky2019speech}. Humans could easily notice these unnatural and mechanical responses (e.g. the Siri conversation above). Techniques, such as Reinforcement learning (RL) and adversarial networks, will be introduce in Chapter 2 to address this issue\cite{li2017adversarial,li2016deep}.
 
-\subsection{The Goal-oriented Dialogue system}
+\subsection{The Goal-oriented Dialogue System}
 
- Goal-oriented Dialogue systems are sometimes also called task-based dialogue systems, in which they use conversation with users to help complete tasks like making an airplane reservation, booking a hotel or buying a product. Famous examples of such agents are digital assistants (Siri, Alexa, Google Home, Cortana, et.). With the power of cloud computing and internet of things technologies, these conversations AIs are changing our daily life and developing a 10 billion pounds worth industry (add citation). Here, I would like to introduce the architectures of existing statistical spoken dialogue systems (hereafter SDSs) and their main challenges to perform coherent conversations in an open domain. 
+ Goal-oriented dialogue systems are sometimes also called task-based dialogue systems, in which they use conversation with users to help complete tasks like making a restaurant reservation, booking a hotel or setting up an alarm. Famous examples of such agents are digital assistants (Siri, Alexa, Google Home, Cortana, et.). With the power of cloud computing and internet of things technologies, these conversations AIs are changing our daily life and developing a 10 billion pounds worth industry. Here, I would like to introduce the architectures of existing statistical spoken dialogue systems (hereafter SDSs) and their main challenges to perform coherent conversations in an open domain. 
 
 \begin{figure}[h]
     \centering
@@ -176,34 +177,33 @@ However, even if one has access to an enormous dataset for training, there is st
     \label{fig:sds}
 \end{figure}
 
-Current SDSs have three key components which are shown as Figure \ref{fig:sds}. Semantics decoder decodes the meaning in utterances into dialogue acts which describe the current intention of the user, for example, confirm(food=Korean). Then, dialogue manager, which usually consists of a belief tracker and a policy network, will keep track of the belief states and produce a dialogue act as the response. Dialogue manager treats dialogue generation as a partially observable Markov decision processes (POMDPs)\cite{williams2007partially,young2013pomdp,young2010hidden} which explicitly models the uncertainty natural of human conversations with Bayesian methods. Such framework provides robustness against the errors created by speech recognizers operating in noisy environments. Later a semantic encoder (natural language generator) will map this act back into natural language.
+Current SDSs have three key components which are shown as Figure\ref{fig:sds}. Semantics decoder decodes the meaning in utterances into dialogue acts which describe the current intention of the user, for example, confirm(food=Korean). Then, dialogue manager, which usually consists of a belief tracker and a policy network, will keep track of the belief states and produce a dialogue act as the response. Dialogue manager treats dialogue generation as a partially observable Markov decision processes (POMDPs)\cite{williams2007partially,young2013pomdp,young2010hidden} which explicitly models the uncertainty natural of human conversations with Bayesian methods. Such framework provides robustness against the errors created by speech recognition. Later a semantic encoder (natural language generator) will map this act back into natural language.
 
-However, keeping track of the belief states under such a framework presents a tough challenge. Exact model representation is infeasible due to the limitation of computational complexity\cite{young2013pomdp}. Carefully constructed approximation and additional independent assumption are needed. For example, if we are willing to find an expensive 5-star hotel in the city center, in order to make the inference practical, we have to assume that there is no relation between a hotel to be expensive and it is a 5-star hotel. It is clearly not true. In addition, as shown in Figure\ref{fig:sds}, pre-defined ontology is needed in order to keep track of the dialogue state. This makes the existing dialogue system infeasible to perform conversations in an open-domain. One research direction would be build a SDS which can support a natural conversation about any topic within a wide coverage Knowledge Graph (KG). This forms the definition of an open-domain spoken dialogue system (Add citation)\cite{http://mi.eng.cam.ac.uk/research/dialogue/EPSRCProj/stories/desc.html}.
+However, keeping track of the belief states under such a framework presents a tough challenge. Exact model representation is infeasible due to the limitation of computational complexity\cite{young2013pomdp}. Carefully constructed approximation and additional independent assumption are needed. For example, if we are willing to find an expensive 5-star hotel in the city center, in order to make the inference practical, we have to assume that there is no relation between a hotel is expensive and it is a 5-star hotel. It is clearly not true. In addition, as shown in Figure\ref{fig:sds}, pre-defined ontology is needed in order to keep track of the dialogue state. This makes the existing dialogue system infeasible to perform conversations in an open-domain. One research direction would be building a SDS which can support a natural conversation about any topic within a wide coverage Knowledge Graph (KG). This forms the definition of an open-domain spoken dialogue system\cite{opendomain}.
+
+
 
 
 \section {Thesis Outline}
 
-In this dissertation, we mainly address problems involved in the chit-chat system and the interactive QA system. First, we explore how to build an engaging chit-chat style dialogue system that is able to conduct interesting, meaningful, coherent, consistent, and long-term conversation with humans. More specially, for the chit-chat system, we (a) use mutual information to avoid dull and generic responses (Li et al., 2016a,c, 2017c); (b) address user consistency issues to avoid inconsistent responses from the same user (Li et al., 2016b); (c) develop reinforcement learning methods to foster the long-term success of conversations (Li et al., 2016d); and (d) use adversarial learning methods to generate machine responses that are indistinguishable from human-generated responses (Li et al., 2017d);
-Second, we explore how a bot can best improve itself through the online interactions with humans that makes a chatbot system trully INTERACTIVE. We develop interactive di- alogue systems for factoid question-answering: (a) we design an environment that provides the agent the ability to ask humans questions and to learn when and what to ask (Li et al., 2017b); (b) we train a conversation agent through interaction with humans in an online fashion, where a bot improves through communicating with humans and learning from the mistakes that it makes (Li et al., 2017a).
-CHAPTER1. INTRODUCTION 10
-We start off by providing background knowledge on SEQ2SEQ models, memory net- work models and policy gradient reinforcement learning models in Chapter 2. The afore- mentioned four problems for the chit-chat style dialogue generation systems will be de- tailed in Chapters 3,4,5,6, and the two issues with the interactive QA system will be de- tailed in Chapters 7 and 8. We conclude this dissertation and discuss future avenue for chatbot development in Chapter 9.
+In this thesis, we mainly focus on creating a framework in which neural models could learn linguistic patterns within in extended coherent dialogues.
 
+First, we explore how to build such a framework by designing, collecting and annotating a conversational dataset. This dataset consists of extended coherent dialogues of questions and responses. These dialogues should describe the relations within a knowledge graph with clear links between the phrases in the questions to nodes in a knowledge graph. Second, we analyse the collected dataset statistically in order to investigate how human behave differently under different context in different domain. Later, we will introduce a proposed neural model to model these linguistic patterns and how the existing dialogue systems could benefit from such a model.
 
-
-
-
-
+We start off by providing background knowledge on language modelling, training dialogue models, available dataset and how to evaluate such dialogue models in Chapter 2. In chapter 3,4, I will describe the design and creation of our framework in details and perform analysis to figure out the common patterns within these dialogues. Chapter 5,6 will introduce our proposed neural models and methods to integrate them into current dialogue systems. We will discuss our finding in Chapter 7 and mention some further improvement to our framework in Chapter 8.
 
 \chapter{Background}
 
-\section{Modelling Dialogues}
+\section{Language Modelling}
 \subsection{N-gram Models}
-\subsection{Recurrent Neural Networks and its Variations}
+
+\subsection{Recurrent Neural Networks and its Variants}
 RNN
 Long Short Term Memory
 \subsection{Attention Mechanism}
 \subsection{Self-Attentional Model}
-\subsection{Pre-Trained Language Embedding}
+\subsection{Transfer Learning and Pre-trained Language Embedding}
+
 
 \section{Machine Learning Paradigms for Dialogue Modelling}
 \subsection{Supervised Learning}
@@ -217,10 +217,18 @@ Talk about Deep Reinforcement Learning for Dialogue Generation\cite{li2016deep} 
 Ubuntu
 Twitter
 ...
-\subsection{Goal-Oriented Dialogue Dataset}
-\subsubsection*{Task-Oriented}
-\subsubsection*{Visual Question Answering}
-\subsubsection*{Corpus Grounded on Other Types of Knowledge}
+\subsection{Question-answering Dialogue Dataset}
+GuessWhat!
+FOILIT
+CoQA
+Complex Sequential Question Answering\cite{saha2018complex}
+...
+\subsection{Task-Oriented}
+MulltiOZ
+Air ticket booking
+...
+
+
 
 \section{Dialogue Model Evaluation}
 \subsection{Intrinsic Evaluation}
@@ -229,9 +237,8 @@ BLEU Score
 ...
 Talk about their limitation.
 \subsection{Extrinsic Evaluation}
-Evaluation on Downstream tasks.
-Question Answering Tasks. Precision Recall F1
-Goal Oriented.
+Evaluation on downstream tasks.
+Question Answering Tasks. Use precision and rcall or F1 Score as its evaluation metrics.
 
 \subsection{Human Evaluation}
 Best but expensive.
@@ -240,17 +247,22 @@ Best but expensive.
 
 \chapter{Extended Dialogues Grounded on Knowledge Graph: A Corpus}
 \section{Corpus Design}
-I will talk about the motivation of this corpus. I will talk about what does this dataset looks like and how it is annotated.
+I will talk about the motivation of this corpus. I will talk about what does this dataset look like and how is it annotated.
 
-\section{comparison with Related Work}
-
-
+\section{Comparison with Related Work}
+I will build a similar table.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{table.jpeg}
+    \caption{A Comparing between Existing Corpora and our Dataset.}
+    \label{fig:TABLE}
+\end{figure}
 
 \section{Implementation}
+\subsubsection*{Generating Questions from Knowledge Graph}
+This method doesn't work.
 \subsubsection*{Sampling from Knowledge Graph}
-
 \subsubsection*{Web-interface for Data Collection}
-
 \subsubsection*{Tools for Annotating the Dataset}
 
 \section{Data Collection Procedure}
@@ -260,27 +272,20 @@ I will talk about the motivation of this corpus. I will talk about what does thi
 
 \chapter{Statistical Analysis}
 
-Size of the corpus.
-Average length of the dialogue and sentences.
-Work token ratio.
-Statistic about how many proroun, how many anaphoras and elided constructions per turn.
-Statistic about question types.
+Currently, I have collected 71 conversations, which contains 426 questions together with their answers, from 12 participants. The average length for the questions and answers is 6.8 and 5.1 separately. The word token ratio for the question is 0.2 which is less than 0.3 for answers. And the top 5 question words are what, when, and, who, where.
 
-Comparison of the above spastics when there is a topic shift or not.
-
-Comparison of the above spastics when the domain is familiar or not.
+After I collect this dataset in the next three weeks, I will investigate how different contexts (e.g. there is a topic shift, the domain is unfamiliar) influences the appearance of different linguistics patterns within the dialogues.
 
 \chapter{Modelling Coherent Dialogues Using Neural Networks}
-I will write proposed neural model here.
+I will write my proposed neural model here.
 
 \chapter{Towards Building Coherent Open-domain Dialogue Systems}
-I will write how to integrate the neural with existing dialogue system. 
+I will investigate how to integrate the neural with an existing dialogue system. 
 
 \chapter{Discussion}
+I will discuss interesting findings from the above analysis and try to interpret them based on linguistic knowledge. 
 
 \chapter{Conclusion and Future Work}
-
-
 
 % use the following and \cite{} as above if you use BibTeX
 % otherwise generate bibtem entries
