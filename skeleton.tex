@@ -14,7 +14,6 @@
 \usepackage{tabu}
 \usepackage[options ]{algorithm2e}
 \usepackage[ruled,vlined]{algorithm2e}
-\usepackage{algorithmic}
 
 
 % Flexible Qoute
@@ -135,9 +134,9 @@ A dialogue system is a conversational agent that can converse with humans in nat
 
 Since Alan Turing published his landmark work in 1950\cite{turing1950computing}, the intelligence level of a machine is described as how well the machine is able to fool a human into believing that it, the machine, is a human based on its text responses. If a human is unable to distinguish the difference between the machine from a human, the machine is said to have passed the Turing test. We could say such a machine signifies a significantly high level of intelligence of an AI. It has been the goal for the development of dialogue systems for decades and various attempts have been proposed to pass the Turing test. Recently, advances in neural network based language models enable us to learn entire dialogue models directly from conversational data. Although we improve the performance of neural models by increasing the number of parameters and training with more data, we are still far from our goal. Most of the previous systems have failed to model the longer prior context of the conversation adequately, thereby creating a situation where extended dialogues rapidly become incoherent and unnatural sounding, with repetition being a key problem. 
 
-As I demonstrated in the example conversation at the beginning, humans tend to utilise linguistic patterns, such as anaphora and sluicing to reduce repetitions. In contract, dialogue systems rarely produces pronouns and unable to model elided construction therefore produce unnatural speech in the context. For example, in order to answer the second question ("Where was he born?"), humans are able to interpret the anaphora (He refers to Alan Turing.) and produce a short answer (In Warrington Lodge.), in contrast to Siri's heavy and verbose response. The challenge for the Apple's inhouse system here is to know when such an answer conveys the intended content, and when it doesn't. The system has to make a decent decision on when content can be elided while still ensuring that the user can easily interpret the system's message and retrieve that message accurately. In addition, a wrong interpretation of a question could lead to an unhelpful and diverged response. Siri fails to use context to parse fragments and understand the sluicing in the final question. The misunderstanding of the context leads to a complete unhelpful and unrelated response. The lack of reliable systematic analysis of such linguistic patterns and the inadequate representation of the context are the main reasons for the unnaturalness of this dialogue system. It is a problem which need to be adequately solved before our agents could look forward to attempting the Turing test. And this is the main motivation for this project.
+As I demonstrated in the example conversation at the beginning, humans tend to utilise linguistic patterns, such as anaphora and sluicing to reduce repetitions. In contract, dialogue systems rarely produces pronouns and unable to model elided construction therefore produce unnatural speech in the context. For example, in order to answer the second question ("Where was he born?"), humans are able to interpret the anaphora (He refers to Alan Turing.) and produce a short answer (In Warrington Lodge.). Compared to human's responses, Siri's responses are heavy and verbose. The challenge for Siri, and many other dialogue systems, is to know when such an answer conveys the intended content, and when it doesn't. The system has to make a decent decision on when content can be elided while still ensuring that the user can easily interpret the system's message and retrieve that message accurately. In addition, a wrong interpretation of a question could lead to an unhelpful and diverged response. Siri fails to understand the context to parse fragments and interpret the sluicing in the final question. The misunderstanding of the context leads to a completely unhelpful and incoherent response. The main reasons of this unnaturalness for Siri is the lack of reliable systematic analysis of such linguistic patterns and the inadequate representation of the context. It is a problem which need to be adequately addressed before our agents could look forward to attempting the Turing test. This is the main motivation for this project.
 
-In this section, we will briefly review the recent development of dialogue systems. Specifically, we will discuss two types of dialogue systems: the chit-chat dialogue system (known as chat bots), and the task-oriented dialogue system.  We will focus in this thesis on machine learning approaches to developing such systems, rather than the use of hand-crafted rules, since the former methods are now dominant and the latter are highly brittle and restricted to toy domains. We will discuss their architectures, pros and cons, and their main limitations to achieve coherent open-domain conversations. The majority of this thesis is about how to create an environment for neural models to learn linguistic patterns within coherent extended dialogues and how to integrate these models into the existing dialogue systems. It constitutes a first step towards modelling coherent open-domain conversations and will potentially enable the existing dialogue systems utilising valuable linguistic information to produce coherent responses.
+In this section, we will briefly review the recent development of dialogue systems. Specifically, we will discuss two types of dialogue systems: the chit-chat dialogue systems (known as chat bots), and the task-oriented dialogue systems.  We will focus on machine learning approaches to developing such systems, rather than the use of hand-crafted rules, since the former methods are now dominant and the latter are highly brittle and restricted to toy domains. We will discuss their architectures, pros and cons, and their main limitations to achieve coherent open-domain conversations. The majority of this thesis is about how to create an environment for neural models to learn linguistic patterns within coherent extended dialogues and how to integrate these models into the existing dialogue systems. It constitutes a first step towards modelling coherent open-domain conversations and will potentially enable the existing dialogue systems utilising valuable linguistic information to produce coherent responses.
 
 \section {A Brief Review of Existing Dialogue Systems}
 
@@ -158,14 +157,13 @@ Instead of letting machines to learn the conversation strategy from human behavi
 
 There are many well-known rule-based dialogue systems in history, such as ELIZA\cite{weizenbaum1966eliza}, ALICE\cite{wallace1995artificial}. There are also languages such as Artificial Intelligence Markup Language(AIML), which provides an effect tool to write sophisticated conversations logic in a machine-readable format\cite{wallace1995artificial}.
 
-The development of rule-based systems is an important milestone in developing modern dialogue systems. They demonstrate how easy to fool a user into thinking there is intelligence in the machines behaviour when in fact there is no understanding and comprehension at all. Consequently, their drawbacks are obvious: rule-based systems predominantly rely on the set of pre-defined rules and these rules have to be carefully designed and implemented. Building a sophisticated rule-based system is very expensive because the number of these rules escalates rapidly. Rule-based systems do not have the ability to understand human languages, nor they don't know how to generate meaningful natural language utterances\cite{jiweilithesis}. Consequently, they are very brittle and only able to conduct very superficial conversations. Despite the lack of intelligence, even with the recent rapid development of large fancy neural network architecture and increasing number of conversational corpora, these rule-based dialogue systems could always provide a very strong baseline.
-
+The development of rule-based systems is an important milestone in developing modern dialogue systems. They demonstrate how easy to fool a user into thinking there is intelligence in the machines behaviour when in fact there is no understanding and comprehension at all. Consequently, their drawbacks are obvious: rule-based systems predominantly rely on the set of pre-defined rules and these rules have to be carefully designed and implemented. Building a sophisticated rule-based system is very expensive because the number of these rules escalates rapidly. Rule-based systems do not have the ability to understand human languages and generate meaningful natural language utterances\cite{jiweilithesis}. Consequently, they are very brittle and only able to conduct very superficial conversations. Despite the lack of intelligence, even with the recent rapid development of large fancy neural network architecture and increasing number of conversational corpora, these rule-based dialogue systems could always provide a very strong baseline.
 
 \subsubsection*{The Corpus-based Systems}
 
-Coding conversations logic manually is astronomically expensive and infeasible for many applications. Corpus-based dialogue system could potentially alleviate this issue by mining conversations of human-human conversations, or sometimes mining the human responses from human-machine conversations, instead of using hand-built rules. These data-driven approaches are becoming widely popular due to the increasing computing power and the creation of large scale conversational dataset. 
+Coding conversation logics manually is astronomically expensive and infeasible for many applications. Corpus-based dialogue system could potentially alleviate this issue by mining human-human conversations, or sometimes mining the human responses from human-machine conversations, instead of using hand-built rules. These data-driven approaches are becoming widely popular due to the increasing computing power and the creation of large scale conversational dataset. 
 
-There are two common architectures for such system:  information retrieval (IR), and machine learned sequence transduction. Due to the limitation that IR-based chatbots can only mirror training data, it is often to treat response generation as a machine translation task which transduces from the user’s prior turn to the system’s turn. This method offers the promise of scalability and language-independence, together with the capacity to capture contextual dependencies in a way not possible with IR-based approaches.
+There are two common architectures for such system: information retrieval (IR), and machine learned sequence transduction. Due to the limitation that IR-based chatbots can only mirror training data, it is often to treat response generation as a machine translation task which transduces from the user’s prior turn to the system’s turn. This method offers the promise of scalability and language-independence, together with the capacity to capture contextual dependencies in a way not possible with IR-based approaches.
 
 \begin{figure}[h]
     \centering
@@ -174,7 +172,7 @@ There are two common architectures for such system:  information retrieval (IR),
     \label{fig:seq2seq}
 \end{figure}
 
-This idea was firstly developed by Ritter et al\cite{ritter2011data}. (cited in Jurafsky and Martin\cite{jurafsky2019speech}) using phrase-based machine translation to translate a user turn to a system response. In 2015, transduction models for response generation were modelled instead using encoder-decoder (seq2seq) models\cite{shang2015neural,strub2017end,sordoni2015neural}. However, the simple seq2seq generation architecture is unable to model the prior context of the conversation. Serban et al\cite{serban2016building} suggests a hierarchical (HRED) model that summarizes information over multiple prior turns. This model consists of two recurrent neural networks (RNNs) stacked on top of each other: one is a sentence-level RNN which encodes each utterance into a fixed length vector, while a conversation-level RNN takes as input each utterance vector and outputs a vector that summarizes the conversation so far. The vector is mapped back to text using a recurrent decoder. This gives a way for the previous information to be passed to future turns as hidden states\cite{lowe2017training}.
+This idea was firstly developed by Ritter et al\cite{ritter2011data}. (cited in Jurafsky and Martin\cite{jurafsky2019speech}) using phrase-based machine translation to translate a user turn to a system response. In 2015, transduction models for response generation were modelled using encoder-decoder (seq2seq) models\cite{shang2015neural,strub2017end,sordoni2015neural}. However, the simple seq2seq generation architecture is unable to model the prior context of the conversation. Serban et al\cite{serban2016building} suggests a hierarchical (HRED) model that summarizes information over multiple prior turns. This model consists of two recurrent neural networks (RNNs) stacked on top of each other: one is a sentence-level RNN which encodes each utterance into a fixed length vector, while a conversation-level RNN takes each utterance vector as input and outputs a vector that summarizes the conversation so far. The vector is mapped back to text using a recurrent decoder. This gives a way for the previous information to be passed to future turns as hidden states\cite{lowe2017training}.
 
 \begin{figure}[h]
     \centering
@@ -187,7 +185,7 @@ However, even if one has access to an enormous dataset for training, there is st
 
 \subsection{The Goal-oriented Dialogue System}
 
- Goal-oriented dialogue systems are sometimes also called task-based dialogue systems, in which they converse with users to help complete tasks like making a restaurant reservation, booking a hotel or setting up an alarm. Famous examples of such agents are digital assistants (Siri, Alexa, Google Home, Cortana, et.) which can be viewed as a combination of chatbots and goal-oriented dialogue system. With the power of cloud computing and internet of things technologies, these conversations AIs are changing our daily life and developing a 10 billion pounds worth industry. Here, I would like to introduce the architectures of existing statistical spoken dialogue systems (hereafter SDSs) and their main challenges to perform coherent conversations in an open domain. 
+ Goal-oriented dialogue systems are sometimes also called task-based dialogue systems, in which they converse with users to help complete tasks like making a restaurant reservation, booking a hotel or setting up an alarm. Famous examples of such agents are digital assistants (Siri, Alexa, Google Home, Cortana, et.)\cite{siri,alexa,googlehome,cortana} which can be viewed as a combination of chatbots and goal-oriented dialogue systems. With the power of cloud computing and internet of things technologies, these conversations AIs are changing our daily life and developing a 10 billion pounds worth industry\cite{chatbotmarket}. Here, I would like to introduce the architectures of existing statistical spoken dialogue systems (hereafter SDSs) and their main challenges to perform coherent conversations in an open domain. 
 
 \begin{figure}[h]
     \centering
@@ -209,30 +207,29 @@ In this thesis, we mainly focus on creating a framework in which neural models c
 
 Firstly, we explore how to build such a framework by designing, collecting and annotating a conversational dataset. This dataset consists of extended coherent dialogues of questions and responses. These dialogues should describe the relations within a knowledge graph with clear links between the phrases in the questions to nodes in a knowledge graph. Secondly, we analyse the collected dataset statistically in order to investigate how human behave differently under different context in different domain. Later, we will introduce a proposed neural model to model these linguistic patterns and how the existing dialogue systems could benefit from such a model.
 
-We start off by providing background knowledge on available corpora to train dialogue models and how to evaluate these dialogue models in Chapter 2. In chapter 3,4, I will describe the design and creation of our framework in details and perform analysis to figure out the common patterns within these dialogues. Chapter 5,6 will introduce our proposed neural models and methods to integrate them into current dialogue systems. We will discuss our finding in Chapter 7 and mention some further improvement to our framework in Chapter 8.
+We start off by providing background knowledge on available corpora to train dialogue models and how to evaluate these dialogue models in Chapter 2. In chapter 3 and chapter 4, we will describe the design and creation of our framework in details and perform analysis to figure out the common patterns within these dialogues. Chapter 5 will introduce our proposed neural models and methods in order to model coherent dialogues with neural networks. We will briefly summarize our findings and mention some further work in Chapter 6.
 
 \chapter{Background}
 
-In this chapter, we investigate the existing resources and frameworks to build a neural dialogue model. The later sections investigate the evaluation metrics of neural dialogue models.
+In this chapter, we investigate the existing resources and frameworks to build a neural dialogue model and summarize the popular evaluation metrics for the dialogue modeling task.
 
 \section{Corpora for Training Dialogue Models}
 
-Humans perform dialogues with different purposes, under different situations and in different modalities. There is a vast amount of data available documenting human communications. Some of these data is collected as corpora and these corpora are classified into different categories. Each category has different characteristics, utilities and applications. In order to make the most of the available resources, we discuss the important distinctions between each type of dialogue corpora: whether the corpus features constrained or unconstrained dialogues; whether a corpus is written, spoken; whether a corpus features human-human interactions or human-machine interactions. Afterwards, I give a brief summary about current public available corpora.
+Humans perform dialogues with different purposes, under different situations and in different medias. There is a vast amount of data available documenting human communications. Some of these data is collected as corpora and these corpora can be classified into different categories. Each category has different characteristics, utilities and applications. In order to make the most of the available resources, we discuss the important distinctions between each type of dialogue corpora: whether the corpus features constrained or unconstrained dialogues; whether a corpus is written, spoken; whether a corpus features human-human interactions or human-machine interactions. Afterwards, I give a brief summary about current public available corpora.
 
 \subsection{Chit-chat or Goal-oriented Corpora}
 
-People use different languages for different purposes. We may want to call an airliner to book a ticket or chat with our friends to share our ideas. The purpose of our conversation will have a significant influence on the language we use. Similarly, the way in which a dialogue corpus is collected can also have a significant influence on the model we built from. Some conversations are relatively causal, informal and unconstrained, which we usually call them chit-chats. There are many chit-chat corpora and most of them are aiming to mimic spontaneous and unplanned spoken interactions between humans. Consequently, they are also referred as Spontaneous (Unconstrained) Corpora. Another large proportion of the existing corpora focus on a particular topic or intend to solve a specific task. In such situations, the task or topic is pre-specified and participants are discouraged from deviating from the topic. We refer to these as Task-Oriented or Constrained Dialogue Corpora.
+People use different languages for different purposes. We may want to call an airliner to book a ticket or chat with our friends to share our brilliant ideas. The purpose and motivation of our conversation will have a significant influence on the language we use. Similarly, the way in which a dialogue corpus is collected can also have a significant influence on the model we built from. Some conversations are relatively causal, informal and unconstrained, which we usually call them chit-chats. There are many chit-chat corpora and most of them are aiming to mimic spontaneous and unplanned spoken interactions between humans. Consequently, they are also referred as Spontaneous (Unconstrained) Corpora\cite{serban2018survey}. Another large proportion of the existing corpora focus on a particular topic or intend to solve a specific task. In such situations, the task or topic is pre-specified and participants are discouraged from deviating from the topic. We refer to these as Task-Oriented or Constrained Dialogue Corpora.
 
-Spontaneous Corpora bear a close resemblance to natural dialogues which will normally reflect our daily commutation well with richer grammar and vocabularies. However, such corpora are usually in plain text with less informative annotations. Consequently, people usually train models with end-to-end methods and it is very difficult to evaluate the performance of the models.  
+Spontaneous corpora usually contains richer grammar and vocabularies, which reflect our daily commutation well. However, such corpora are usually in plain text with less informative annotations. Consequently, people usually train models with end-to-end methods suing those corpora. Such setting could reduce the interpretability of models' reasoning and pose additional challenges to models' evaluation, which we will discuss in later section. 
 
-For constrained dialogues, some experimental conditions in which dialogues were collected can result in unnatural behaviours that do not correlate well to the true typical dialogue patterns of human-human interaction in day-to-day settings. Therefore, all experimental conditions have to be carefully designed to make sure that the conversations have the desired properties we are looking for. It is generally hard to do before we actually run the experiment and do statistics. Not only the experiment instruction but also the demographics of the participants will significantly influence the data we collected\cite{ai2007comparing,young2013pomdp}.
-
+For constrained dialogues, some experimental conditions in which dialogues were collected can result in unnatural behaviours. Consequently, dialogues in goal-oriented corpora usually don't bear a close resemblance to our daily commutations and do not correlate well to the true typical dialogue patterns in natural conversations. Therefore, all experimental conditions have to be carefully designed to make sure that the conversations have the desired properties we are looking for. Not only the experiment instruction, but also many other factors (e.g. the demographics of the participants\cite{ai2007comparing,young2013pomdp}) could significantly influence the data we collected. It is generally hard to do before we actually run the experiment. Designing a constrained dialogues is particularly challenging, 
 
 \subsection{Written, Spoken or Multi-modal Corpora}
 
-Another important distinction between dialogue corpora is whether participants (interlocutors) interact through written language, spoken language, or in a multi-modal setting (e.g. using both speech and visual modalities). Written and spoken language differ substantially w.r.t. their linguistic properties. Spoken language tends to be less formal, containing lower information content and many more pronouns than written language\cite{carter2006cambridge,biber2001diachronic}. Due to these differences between spoken and written language, we emphasize the distinction between dialogue corpora in written and spoken language in the following sections.
+Another important distinction between dialogue corpora is whether participants interact through written language, spoken language, or in a multi-modal setting (e.g. using both speech and visual modalities). Written and spoken language differ from each other and have substantially different linguistic properties. Spoken language tends to be informal, containing less information per utterance and have more pronouns than written language\cite{carter2006cambridge,biber2001diachronic}.
 
-Similarly, dialogues involving visual and other modalities differ from dialogues without these modalities\cite{serban2015survey,duncan1983charles}. When a visual modality is available —- for example, when two human interlocutors converse face-to-face — body language and eye gaze have a significant impact on what is said and how it is said \cite{gibson1963perception,lord1974perception,cooper1974control,chartrand1999chameleon,de2013speaker}. Consequently, in the dataset we collected, no participants could visually see each other.
+Similarly, dialogues involving visual and other modalities differ from dialogues without these modalities\cite{serban2015survey,duncan1983charles}. When a visual modality (e.g. body language, eye contact, hand motions) is available, such non-verbal information could influence the distributions of many linguistic properties significantly\cite{gibson1963perception,lord1974perception,cooper1974control,chartrand1999chameleon,de2013speaker}. Consequently, we should take all those factors in to account in designing our own corpus.
 
 \subsection{Human-Human or Human-Machine Corpora}
 
@@ -713,11 +710,11 @@ Our Dataset                       & 2020 & \bluecheck & \bluecheck           & N
 
 \chapter{Analysis and Discussion}
 
-In this chapter, we perform some quantitative and qualities analysis based on our corpus. We made several hypothesis according to our observation and we statistically test their significance using t-test.
+In this chapter, we perform some quantitative and qualitative analysis based on our corpus. We made several hypothesis according to our observation and we statistically test their significance using t-test.
 
 \section{Summary of the Corpus}
 
-In previous chapter, we introduce a novel conversational question answering dataset. Our dataset contains 240 natural conversations, each has 6 question-answering pairs, in 10 distinct topics. These Conversations are divided into two categories: continuous and discontinuous. There are 140 continuous and 100 discontinues conversations. Discontinues conversations are additionally split into two subgroup, dis1 (conversation with only one gap) and "Dis2" (conversations with many gaps). There are 43 "dis1" conversations and 57 "dis2" conversations. A detailed count for each topics is shown in table\ref{tab:topiccount}.
+In previous chapter, we introduce a novel conversational question answering dataset. Our dataset contains 240 natural conversations, each has 6 question-answering pairs, in 10 distinct topics. These Conversations are divided into two categories: continuous and discontinuous. There are 140 continuous and 100 discontinues conversations. Discontinues conversations are additionally split into two subgroup, dis1 (conversation with only one gap) and "Dis2" (conversations with many gaps). There are 43 "dis1" conversations and 57 "dis2" conversations. A detailed count for each topics is shown in Table\ref{tab:topiccount}. Table\ref{tab:datacount} shows various count about the data set. 
 
 % Please add the following required packages to your document preamble:
 % \usepackage{graphicx}
@@ -742,7 +739,6 @@ Tianjin            & Q1173       & 13         & 6              & 5              
 \label{tab:topiccount}
 \end{table}
 
-Table\ref{tab:datacount} shows various count about the data set. 
 
 \begin{table}[]
 \centering
@@ -759,11 +755,29 @@ Number of Tokens    & 15.2K \\ \hline
 \end{table}
 
 
+\subsection{Inter-Annotator Agreement of the Corpus}
 
+Inter-annotator agreement is a measure of how well two (or more) annotators can make the same annotation decision for a certain category. Cohen's Kappa is used here for calculating the agreement score between two annotators.
 
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+Tag                                                                            & Cohen's Kappa & Aggrement                \\ \hline
+Anaphora                                                                       & 0.9476        & Almost perfect agreement \\ \hline
+\begin{tabular}[c]{@{}l@{}}Short\\ Answer\end{tabular}                         & 0.9370        & Almost perfect agreement \\ \hline
+Error                                                                          & 0.0           & Slight agreement         \\ \hline
+Sluicing                                                                       & 0.0           & Slight agreement         \\ \hline
+\begin{tabular}[c]{@{}l@{}}Totally\\ Irrelevant\end{tabular}                   & 0.0           & Slight agreement         \\ \hline
+\begin{tabular}[c]{@{}l@{}}Additional\\ information outside graph\end{tabular} & 0.3405        & Fair agreement           \\ \hline
+\begin{tabular}[c]{@{}l@{}}Additional\\ information within graph\end{tabular}  & invalid       & Poor agreement           \\ \hline
+\begin{tabular}[c]{@{}l@{}}Conversation\\ Control\end{tabular}                 & 0.6060        & Moderate agreement       \\ \hline
+\end{tabular}
+\caption{Inter-annotator Agreement of the Corpus}
+\label{tab:agree}
+\end{table}
 
-
-
+According to Table\ref{tab:agree}, Anaphora and Short Answer have a almost perfect agreement. The main reason is that the definition of these two tags are relative disambiguate,    
 
 
 
@@ -775,10 +789,6 @@ Number of Tokens    & 15.2K \\ \hline
 
 
 \chapter{Modelling Coherent Dialogues Using Neural Networks}
-
-
-\subsection{Multi-modal deep neural network architecture with hierarchical attentional encoder}
-\noindent
 
 
 In order to encode a coherent dialogue, we need to model long-distance dependencies not only between words in one utterance, but also between sentences within the discourse. For example, in order to model an elided construction, our model has to infer the omission from the longer prior context of the conversation, because such information may not appear in the current utterance. To model that, I propose a hierarchical attentional encoder which is inspired by Xing et al. \cite{xing2018hierarchical}. I extend their model with context windows which the size of the windows is a predefined hyper-parameter to control how many previous turns we are modelling. 
