@@ -382,7 +382,7 @@ Our task pairs up two participants, a Questioner and an Answerer, who discuss th
 
 The Questioner and The Answerer will talk in turns. They have freedom to choose how to phrase their sentences and keep the conversation natural, although, what they are talking about is constrained. Each turn, there will be a unique highlighted (red) relation in the graph together with a highlighted (green) node in this edge. The participants should only talk about the unique highlighted edge and node in each turn.
 
-The Questioner is the initiator of the conversation. In order to start a conversation, Questioner should ask a question based on the relation (edge) in red. The node marked in green should be the answer of the question. The Questioner will send the natural language question together with the same graph with the same marking to the Answerer. After the Answered received the question, he/she have to answer the question according to the marked graph and the conversation history so far. Then the Answerer will send the response to the Questioner and the marking on the graph will be updated according to a predefined script. Now the two participants have to start next turn. One import fact is the conversation history so far is always visible to both participants. Consequently, their utterance will always depend on the context of the on-going conversation.
+The Questioner is the initiator of the conversation. In order to start a conversation, Questioner should ask a question based on the relation (edge) in red. The node marked in green should be the answer of the question. The Questioner will send the natural language question together with the same graph with the same marking to the Answerer. After the Answerer received the question, he/she have to answer the question according to the marked graph and the conversation history so far. Then the Answerer will send the response to the Questioner and the marking on the graph will be updated according to a predefined script. Now the two participants have to start next turn. One import fact is the conversation history so far is always visible to both participants. Consequently, their utterance will always depend on the context of the on-going conversation.
 
 \begin{figure}[h]
     \centering
@@ -404,24 +404,17 @@ Our corpus consists of 240 coherent extended conversations collected via crowd-s
     \label{fig:exampledata}
 \end{figure}
 
-In addition, all the data entries are annotated with labels in Table\ref{tab:terms} and Table\ref{tab:tags} which will be discussed later in this section.
+All the knowledge graphs are sampled from WikiData\cite{vrandevcic2014wikidata} and each graph has 12 nodes. The sequence of marking (highlighted relations and nodes) in each conversation is predefined by human annotators. Some demographic information of the participants, such as age, gender and nationalities, are collection under their permission. In addition, all the data entries are annotated with labels in Table\ref{tab:terms} and Table\ref{tab:tags} which will be discussed later in this section.
+
 
 
 
 \subsection{Important Aspects of the Corpus}
-
 \subsubsection*{Knowledge Graph as External Knowledge}
 
+Instead of letting the participants to ask questions solely based on their prior common knowledge, external information as grounded knowledge is provided. Different people have different interpretation about the world, conversations based on participants' common knowledge often rely on implicit context about the participants. This brings additional challenge to produce dialogue state representations.
 
-Instead of letting the participants to ask questions solely based on their prior common knowledge, external information as grounded knowledge is provided. Different people have different interpretation about the world, conversations based on participants' common knowledge often rely on implicit context. This brings additional challenge to produce dialogue state representations and make it harder to control the conversation flow.
-
-There are many efforts towards this direction, in which researcher\cite{strub2017end,shekhar2017foil,reddy2019coqa,zhou2018dataset,de2017guesswhat,das2017visual,das2017learning} try to model visually grounded conversations using different machine learning paradigms (including RL) in a question answering setting. However, the imperfect performance of the image encoding network leads to a poor RL policy, which is the bottleneck of the whole system. Instead of learning the best conversational strategy, the model learns to find the most effective protocol by utilizing the strength of the answering network. This protocol will clearly not produce natural conversations. 
-
-Instead of grounding conversations on images, Reddy et al.\cite{reddy2019coqa} proposed a conversational question answering challenge (CoQA) which contains question answering conversations in natural language grounded on a short paragraph with its supporting evidence. However, the top models on the leader board surpass human performance. Even if we ignore the sequence labelling nature of the task, which humans may under-perform, it is clear that even the state of the art neural model would not achieve human intelligence on these kinds of natural language understanding tasks. The results above demonstrate that whatever representations these models learn, they are fundamentally different from what we are expecting. This emphasises the importance of the interpretability of a network's reasoning. We need a framework in which we can perform controlled evaluation, because only then we can justify its decisions.
-
-
-In our framework, we use knowledge graph as our external knowledge base. As illustrated in Figure\ref{fig:kg}, a knowledge graph contains nodes and relations. The nodes are entities, the arcs are labelled with the relations between those entities. The arrow on the arc indicates the direction of the relation. There are many advantages for using knowledge graphs as the external knowledge:
-
+As I mentioned in Chapter 2, using images or text paragraph is not idea for modeling open domain coherent dialogues in a question answering setting\cite{strub2017end,shekhar2017foil,reddy2019coqa,zhou2018dataset,de2017guesswhat,das2017visual,das2017learning,reddy2019coqa}. In our framework, we use knowledge graph as our external knowledge base. There are many advantages for using knowledge graphs as the external knowledge:
 
 \begin{figure}[h]
     \centering
@@ -431,34 +424,27 @@ In our framework, we use knowledge graph as our external knowledge base. As illu
 \end{figure}
 
 \begin{enumerate}
-   \item Knowledge graph have two modalities.
+   \item \textbf{Knowledge graph have two modalities.} 
+   As illustrated in Figure\ref{fig:kgjson} and Figure\ref{fig:kg}, knowledge graph can be stored as structural data in the computer memory or visualized as an image graph. These two representations convey exactly the same information with different modalities. This provides both machine-readability and human-readability. By doing this, human participants don't outperform during the task and machines could learn effectively through the strong supervision signals it provided.
    
-   As demonstrated in Figure\ref{fig:kgjson}, knowledge graph can be stored as structural data in the computer memory or visualized as an image graph. These two representations convey exactly the same information with different modalities. This provides both machine-readability and human-readability.
+   \item \textbf{Knowledge graphs are unambiguous.} Different people have different way to interpret a sentence and label a text span. This makes the evaluation of the text-based question-answering task very challenging. As I mentioned above, human usually under-perform under such tasks. Unlike plain text, knowledge graph is unambiguous. Accurate evaluation is possible under this framework.
    
-   \item Knowledge graphs are unambiguous.
+   \item  \textbf{Knowledge graphs are structural.} Knowledge graphs are structural in the sense that the relations between entities are easily interpretable. This makes it extremely easy to control the topic and topic switch of the conversations.
    
-   Different people have different way to interpret a sentence and label a text span. This makes the evaluation of the Question-answering task very challenging. As I mentioned above, human usually under-perform under such tasks. Unlike plain text, knowledge graph is unambiguous wich make the evaluation more accurate.
-   
-   \item  Knowledge graphs are structural.
-   
-   Knowledge graph are structural in the sense that the relations between entities are easily interpretable. This makes it extremely easy to control the topic and topic switch of the conversations.
-
+    \item \textbf{Knowledge graphs are open domain.} There are many existing knowledge graph datasets\cite{vrandevcic2014wikidata,bollacker2008freebase}. These knowledge graphs covers a wide range of topics which could be considered as open-domain.
     
-    \item Knowledge graphs are open domain.
+    \item \textbf{Knowledge graphs are well-studied.} There are many prior works related to knowledge graphs, such as embedding\cite{lin2015learning}. In addition, a knowledge graph is a directed graph, there are many algorithms (e.g. depth first search) we could use for many purposes.
     
-    There are many existing knowledge graph datasets\cite{vrandevcic2014wikidata,bollacker2008freebase}. These knowledge graphs covers a wide range of topics which could be considered open-domain.
-    
-    \item Knowledge graphs are well-studied.
-    
-    There are many prior works related to knowledge graphs, such as embedding\cite{lin2015learning}, which could be useful for developing our own system. In addition, a knowledge graph is a directed graph, there are many algorithms, such as depth-first search, we could use for many purposes, such as sampling a sub-graph from the whole graph.
 
 \end{enumerate}
 
-As outlined above, knowledge graphs seem to be a good resource of external knowledge in our task. There are two popularly knowledge graphs which are widely used in literature, we decide to use WikiData\cite{vrandevcic2014wikidata} instead of Freebase\cite{bollacker2008freebase}. WikiData has a running API which researchers could query the API directly instead of dealing with raw data.
+
+As outlined above, knowledge graphs  is a good resource of external knowledge in our task. There are two popularly knowledge graphs which are widely used in literature, we decide to use WikiData\cite{vrandevcic2014wikidata} instead of Freebase\cite{bollacker2008freebase}. WikiData has an operating API. Researchers could directly query the API instead of dealing with raw data which can be hundreds of Gigabit.
 
 \subsubsection*{Natural Conversation Grounded on Knowledge Graph}
 
-In our framework, we sample sub-graphs from Wikidata. Each graph contains 12 nodes and all these nodes are connected via edges. Each edge annotates the relations between these nodes. For each conversation, there will be 6 relations and answer nodes highlighted in sequence. For each turn, there will be a new relations and answer node highlighted, however, the rest graph remain the same. The sequence of highlighting relations (path) is predefined in order to control the topic switches in the conversation. Here\ref{tab:terms}, I would like to introduce some terminologies before we demonstrating different types of sampled graphs.
+For each conversation, there will be 6 relations and answer nodes highlighted in sequence. The sequence of the highlighted relations together with the highlighted node, which we call a path, is predefined in order to control the topic switches for each conversation. Different patterns of topic switches (paths) will have influence on the appearances of various linguistic patterns. In Table\ref{tab:terms}, I would like to introduce some terminologies before we investigate the relations between those two patterns. 
+
 
 \begin{table}[]
 \begin{tabular}{|l|l|}
@@ -473,43 +459,13 @@ Links         & \begin{tabular}[c]{@{}l@{}}When two turns are talking about the 
 \label{tab:terms}
 \end{table}
 
+
 We sampled 10 sub graphs from Wikidata in 10 distinct topics. For each subgraph, we generate 4 paths for each graph with different number of gaps and links in the path. By doing this, we would like to investigate under what situation, human tend to produce various linguistic patterns, particularly elided construction, in an extended coherent dialogue.
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{qa1.png}
-    \caption{Questioner(above) and Answerer(below) Interface for Question Answering Task.}
-    \label{fig:kgjson}
-\end{figure}
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{eaxmppledata.png}
-    \caption{An Example Collected Data-point}
-    \label{fig:exampledata}
-\end{figure}
-
-
-
-
-For each conversation, there are two participants. One is Questioner and the other is Answerer. They will talk in turns. They have freedom to choose how to phrase their sentences and keep the conversation natural, although, what they are talking about is constrained. Questioner is the initiator of the conversation. In order to start a conversation, Questioner should ask a question based on the relation (arc) in RED. The node marked in GREEN should be the answer of the question. Answerer will receive the question from the Questioner together with the same graph and the same marking and he/she has to give a response which is the answer to that question. After Questioner received the response from Answerer, the graph will be updated automatically. Then Questioner could ask one more question to keep the conversation going naturally and the whole process will be repeated for 6 turns. During the experiment, participants should not see each other, because no-vocable commutation could influence the experiment outcome. There is no other hard constrain in our task, because we would like to keep the conversation as natural as possible.
-
-
-
-Each conversation is linked with the subgraph it grounded on. Within the conversation, each question-answering pair is linked with the highlighted relation and node in the knowledge graph. In addition, some demographic information about the participants, such as age, gender and nationalities, os also collection under their permission. Here is an example of collected data-point\ref{fig:exampledata}.
-
-
-
 
 
 \subsubsection*{Annotations for Linguistics Patterns}
 
-Each utterance is labelled with various linguistics patterns by human annotators. There are five labels in our datast. Four of them are considered to be classification tasks, which the annotator see the whole utterance and decide if the sentence contains such a pattern. The rest four tags are considered to be sequence labelling tasks, which these tags are labeled to a text span of the original utterance. Table\ref{tab:tags} summarize the details about our tag set. In addition, you could find more details about the tag set in the annotation schema in appendix.
-
-
-
+Each utterance in the corpus is tagged with various linguistics patterns by human annotators. There are eight such tags in our corpus. Four of them are considered to be class label. Consequently, tagging those tags is a classification task which the annotator see the whole utterance and annotate the tags to the whole sentence. The rest four tags are sequence labels, which these tags are labeled to a text span of the original utterance. Table\ref{tab:tags} summarizes the details about our tag set. All annotators are tagging the corpus according to the annotation schema in Appendix.  
 
 % Please add the following required packages to your document preamble:
 % \usepackage{multirow}
@@ -535,16 +491,10 @@ Type                            & Tag                                           
 \end{table}
 
 
-
 \newpage
-
-
-
-
-
 \section{Implementation}
 
-In this section, I would introduce the tool-kits I have developed and used during this project. I will also mentioned the publicly available packages I have adapted for the development.
+This section introduces the tool-kits have been developed and used during this project. In addition, we brief discuss the technical difficulties and their solutions during the project.
 
 \subsection{Sampling from Knowledge Graph}
 
@@ -559,22 +509,40 @@ In order sample sub-graphs from Wikidata, a Java toolkit named KnowledgeGraphCli
 
 In order to interact with Wikidata, a Java package name Wikidata Toolkit\cite{wikitoolkit} is used. This package provide APIs to query Wikidata for entities (nodes in Figure\ref{fig:kg}) and relations relation to it.
 
-A sub-graph is sampled from via a depth-first search algorithm. We pre-defined a set of "interesting relations" which we only explore next connected node if the relation is in that set. We clearly don't want to include relations which are rarely mentioned in our daily life. For example, we would rarely talk about relations like: Obama is an instance of human and human is a sub lass of animal. We start the search at a predefined node, for example, Obama(Q76). Q76 is the unique Wikidata ID for Obama. We potentially could traversal all nodes which are connected with Obama, however, I set the maxmim depth of the search to be 2. After the search, we would have a set of edges an nodes which will form a directed graph. In order to visualise the graph, I applied force-directed algorithm to make reduce the overlap among nodes.
+
+
+A sub-graph is sampled via a depth-first search algorithm. We pre-defined a set of "interesting relations" which we only explore a connected node if the relation connecting that node and current node is in the set. We clearly don't want to include relations which are rarely mentioned in our daily life. For example, we would rarely talk about relations like: Obama is an instance of human and human is a subclass of animal. We start the search at a predefined node, for example, Obama(Q76). Q76 is the unique Wikidata ID for Obama. We potentially could traversal all nodes which are connected to Obama, however, I set the maximum depth of the search to be 4. In other words, we only explore nodes 4 connection away from the starting node. After the search, we would have a set of edges and nodes which will form a directed graph. In order to visualise the graph, I tried to apply force-directed algorithm to make reduce the overlap among these nodes.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.4\textwidth]{obama.png}
+    \includegraphics[width=0.4\textwidth]{directed.png}
     \caption{An Example Force-Directed Graph.}
     \label{fig:obama}
 \end{figure}
 
-However, such a graph is not very human interpretable. I decided to follow a semi-automatic approach which I manually select nodes and edges from the above graph and directly give x and y indexes of each node. In addition, the paths are also manually generated. By this approach, I generated 40 graphs in 10 distinct topics.
+However, such a graph is not very human interpretable and visible. I decided to follow a semi-automatic approach which I manually select nodes and edges from the above graph and directly give the coordinate for each node. In addition, the paths are also manually generated. By this approach, we generated 40 graphs in 10 distinct topics.
 
 \subsection{Generating Questions from Knowledge Graph}
 
-Instead of collecting dialogues from human partiancipants, Indurthi et al.\cite{indurthi2017generating} has try to automatically generate question answer pairs from a given knowledge graph. 
+Instead of collecting dialogues from human participants, Indurthi et al.\cite{indurthi2017generating} has tried to automatically generate question answer pairs from a given knowledge graph. From each such set, they use a subset of keywords to generate a natural language question that has a unique answer. They treat this subset of keywords as a sequence and use an encoder-decoder model to generate natural questions from it.
 
-They first extract a set of keywords from entities and relationships expressed in a triple stored in the knowledge graph. From each such set, we use a subset of keywords to generate a natural language question that has a unique answer. They treat this subset of keywords as a sequence and use an encoder-decoder model to generate natural questions from it. I re-implemented their experiment in a similar setting and my experiment results are shown in table\ref{tab:genresult}. The larger model is a bi-directional RNN containing one hidden layer of 1000 units. I also build a small model, use a bi-directional RNN containing one hidden layer of 500 units due to the limitation of computation power. However, their method faces domain-adaption problem which could not produce grammatical sentences with out-domain data. Consequently, this dataset requires human intelligence which crowdsourcing is needed. 
+
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Predicate        & CEO           \\
+Subject          & Sundar Pichai \\
+Object           & Google        \\
+Parent Predicate & designation   \\
+Domain           & person        \\
+Range            & organization  \\ \hline
+\end{tabular}
+\caption{An example set of keywords constructed from the triple(Sundar Pichai, CEO, Google)\cite{indurthi2017generating}}
+\label{tab:keyword}
+\end{table}
+
+We re-implemented their experiment in a similar setting and the experiment results are shown in Table\ref{tab:genresult}. The larger model is a bi-directional RNN containing one hidden layer of 1000 units. We also build a small model, use a bi-directional RNN containing one hidden layer of 500 units due to the limitation of computation power. However, their method faces domain-adaption problem which could not produce grammatical sentences with out-domain data. Consequently, this dataset requires human intelligence and crowdsourcing is reqiured. 
 
 \begin{table}[]
 \centering
@@ -589,9 +557,11 @@ BiRNN-Large-Experiment & 49.72      \\ \hline
 \label{tab:genresult}
 \end{table}
 
+\newpage
 \subsection{Web-interface for Data Collection}
 
-In order to collect this corpus via crowd-sourcing, I built a web-interface together with a web server from scratch. A large proportion of my effort have been spent into developing these software. There are two major challenges: 1) This is a production system, which real users have to interact with this system. Consequently, the system has to be thoroughly tested. 2) Sometimes, human behaviour are unpredictable. Because this system is directly interact with humans, it's very challenging to design the system in order to achieve desired results.
+In order to collect this corpus via crowd-sourcing, we built a web-interface together with a web server from scratch. A large proportion of our effort for this project have been spent into developing this software. There are two major challenges during the development: 1) This is a production system, which real users have to interact with this system. Consequently, the system has to be thoroughly tested. 2) Sometimes, human behaviour are unpredictable. It's very challenging to design and implement a robust system that could handle unexpected human behaviours.
+
 
 \begin{figure}[h]
     \centering
@@ -600,7 +570,7 @@ In order to collect this corpus via crowd-sourcing, I built a web-interface toge
     \label{fig:web}
 \end{figure}
 
-As shown in Figure\ref{fig:web}, if a new user participates in our experiment, he/she will be shown a detailed instruction about the experiment. If the participant decides to take part in the experiment, he/she has to sign a consent form according to the data protection regulation. If the user agree with terms and conditions of the experiment, after registering an account, the user could see the web-page for the task. More detailed workflow and screen shots are in appendix. In order to develop this web interface, I have used many packages.
+As shown in Figure\ref{fig:web}, if a new user participates in our experiment, he/she will be shown a detailed instruction about the experiment. If the participant decides to take part in the experiment, he/she has to sign a consent form according to the data protection regulation. If the user agrees with the terms and conditions of the experiment, after registering an account, the user could see the web-page for our task. More detailed workflow and screen shots of this web interface are in appendix. In order to develop this web interface, we have used many packages.
 
 \begin{table}[]
 \centering
@@ -610,19 +580,18 @@ Package                  & Purpose                                              
 NodeJS\cite{nodejs}      & Writing Web-server.                                       \\ \hline
 MongoDB\cite{monodb}     & Database for storing user information and collected data. \\ \hline
 ReactJS\cite{react}      & Build user interfaces.                                    \\ \hline
-AntD\cite{antd}           & Important components for user interface.                  \\ \hline
-G6\cite{g6}              & Rendering knowledge graphs in frontend.                   \\ \hline
-Socket.IO\cite{socketio} & Writing socket server for online chatting.                \\ \hline
+AntD\cite{antd}           & Components for user interface.                  \\ \hline
+G6\cite{g6}              & Rendering knowledge graphs in front end.                   \\ \hline
+Socket.IO\cite{socketio} & Writing the socket server for online chatting.                \\ \hline
 \end{tabular}
 \caption{Packages Imported for Developing the Web-interface.}
 \label{tab:packages}
 \end{table}
 
 
-
 \subsubsection{Tools for Annotating the Dataset}
 
-In order to annotate the dataset, a toolkit named doccano\cite{doccano} is used. This is a easy to use web application which provides features for sequence to sequences task, classification task and sequence labelling task. I have played with many annotation tools, most of them are professional and complicated to set up.
+In order to annotate the dataset, a toolkit named doccano\cite{doccano} is used. This is an easy to use web application which provides features for sequence to sequences tasks, classification tasks and sequence labelling tasks. Many other annotation tools have also been explored. However, most of them are professional and complicated to set up.
 
 In addition, I develop a tool for post-processing and parsing our corpus which is frequently used during my data analysis.
 
@@ -638,70 +607,66 @@ In addition, I develop a tool for post-processing and parsing our corpus which i
 \newpage
 \section{Data Collection Procedure}
 
-In this section, I introduce how the corpus is collected. The whole data collection experiment runs for 2 months which is the most challenging and time-consuming part for this project. These are several constrains of this experiment which makes organizing and organizing this experiment extremely hard. During the experiment, I have organized totally 30 sessions. The project is funded by Informatics Student Service and each participant will be paid a 5 pounds Amazon Voucher.
+In this section, we introduce how the corpus is collected. The whole data collection experiment runs for 2 months which is the most challenging and time-consuming part for this project. Totally 30 experiment sessions have been scheduled. The project is funded by Informatics Student Service and each participant will be paid a 5 pounds Amazon Voucher for their work. These are several constrains of the experiment which make organizing and running this experiment extremely hard.
 
 \begin{enumerate}
    \item Each experiment session need two participants at the same time. 
 
    \item Only native speakers could participate in this experiment.
  
-   \item Building a robust system that multiple users could interact simultaneously is hard. 
+   \item Building a robust system that multiple users could interact with simultaneously is hard. 
        
 \end{enumerate}
 
-In this section, I discuss our data collection procedure in the following order: Advertising the Experiment, Scheduling the Experiment and Paying the participants. Finally, I would like to give some advises for futures researchers who are aiming to collect a dialogue corpus in lager scale. 
 
+In this section, we discuss our data collection procedure in the following order: Advertising the Experiment and Scheduling the Experiment. Finally, I would like to give some advises for futures researchers who are aiming to collect a dialogue corpus in a lager scale.
 
 \subsubsection*{Advertising the Experiment}
 
-In order to recruit enough participants in this project, advertising this experiment is crucial. I have try several methods.
+In order to recruit enough participants for this project, advertising this experiment is crucial. We have try several methods:
 
 \begin{enumerate}
-   \item Email the whole Informatics students.
+   \item Emailing the whole Informatics students.
 
-   \item Pin leaflet around the camps. 
+   \item Pinning leaflet around the camps. 
  
    \item Posting advertisement on social medial (Facebook).
 \end{enumerate}
 
-Emailing students is the most effective approach which I recruit most of the participant from. An alternative is approach is to deploy the task to crowdsourcing platform, such as Amazon Mechanic Turk\cite{mturk}.  Based on my own experience, we are able to recruit hundreds of participants overnight.
+Emailing students is the most effective approach which I recruit most of the participant from. An alternative approach is to deploy this experiment to crowdsourcing platform, such as Amazon Mechanic Turk\cite{mturk}. Hundreds of participants could be recruited overnight if the experiment is reasonably paid.
 
 
 \subsubsection*{Scheduling the Experiment}
 
-The most challenging part of the data collection and even the whole project is to schedule the sessions. It is very difficult pair up the participants and find a suitable time for both of them. I have tried to make a google form and ask participants to select in their available time. Or I have send all the interested participants a group email and ask them if they have time for a fix-time session. Because not all people check their email regularly, it takes time for our participants to reply. Consequently, all of the above approaches don't work well enough.
+The most challenging part of the data collection and even the whole project is to schedule these experiment sessions. It is very difficult to pair up the participants and find a suitable time for both of them. We have tried to make a google form and ask participants to select their available time slots. We also he tried to send a group email to  all the interested participants and ask them if they are available for a fixed time session. Because people don't check their emails regularly, it takes time for our participants to reply. Consequently, all of the above approaches don't work well for our experiment.
 
-Finally, I start follow the following procedural which works reasonably well. 
+Finally, we start following the this procedural and it works reasonably well.
 
 \begin{enumerate}
-   \item Build an online survey to ask roughly when are they available next week.
+
+    \item Participants have to be registered on a list if they are interested in his project.
+
+   \item Build an online survey and ask participants roughly when are they available next week.
 
    \item Pair up participants who are available on the same data.
  
-   \item Ask permission to share their email with other participants.
+   \item Ask permission to share their emails with other participants.
    
-    \item Ask permission to share their email with other participants.
+    \item Send this pair of participants a group email and ask them to find a suitable time themselves.
 
-    \item Send them a group email and ask them to find a suitable time for the experiment session.
-
-    \item Confirm the attendance one day before the experiment and send them detailed instruction for the experiment sessions.
+    \item Confirm the attendance one day before the experiment session and send them a detailed instruction for that session.
     
 \end{enumerate}
 
-However, when the scale of the corpus goes larger. I strongly encourage researchers to hire full time in-house annotators, if the resource is available.
-
-\subsubsection*{Payment Method}
-
-All payment are sent via Amazon Vouchers.
-
+However, when the scale of the corpus goes larger (thousands of conversations), we strongly encourage researchers to hire full time in-house annotators, if the resource is available.
 
 \section{Data Annotation Procedure}
 
-The whole corpus is annotated by in-house annotators (my friends and I) according to an Annotation Schema (See Appendix). The majority of the annotation work is done by myself. A subset of the corpus (10\%) has been annotated twice by different annotators, in order to calculate the inter-annotator agreement. Cohen's Kappa is used for calculate agreement between annotators.
+The whole corpus is annotated by in-house annotators (my friends and I) according to an annotation schema (See Appendix). The majority of the annotation work is done by myself. A subset of the corpus (10\%) has been annotated twice by different annotators, in order to calculate the inter-annotator agreement. Cohen's Kappa is used for calculating the agreement between annotators.
 
 \section{Compare to Previous Work}
 
-Our corpus contains natural extended conversations grounded on an external wide-coverage structural knowledge graph. At present, there are no such datasets exist (see Table\ref{tab:compare}) and this is what our dataset is mainly developed for.
+Our corpus contains natural extended conversations grounded on an external wide-coverage structural knowledge graph. At present, there are no such datasets exist (see Table\ref{tab:compare}) and this is what our corpus mainly developed for.
 
 % Please add the following required packages to your document preamble:
 % \usepackage{graphicx}
@@ -721,27 +686,22 @@ GuessWhat\cite{de2017guesswhat}   & 2017 & \bluecheck & \xmark               & O
 Our Dataset                       & 2020 & \bluecheck & \bluecheck           & Natural Text Response & Knowledge Graph         \\ \hline
 \end{tabular}%
 }
-\caption{A Comparison between this Dataset with Existing Related Question Answering Datasets.}
+\caption{A Comparison between this Corpus with Existing Relevant Question Answering Corpora.}
 \label{tab:compare}
 \end{table}
 
 
-
-
-
-
 \chapter{Analysis and Discussion}
 
-In this chapter, we perform some quantitative and qualitative analysis based on our corpus. We made several hypothesis according to our observation and we statistically test their significance using t-test.
+In this chapter, we perform some quantitative and qualitative analysis based on our corpus. We made several hypothesis according to our observation and we test the significance of these hypothesis statistically using t-test.
 
 \section{Summary of the Corpus}
 
-In previous chapter, we introduce a novel conversational question answering dataset. Our dataset contains 240 natural conversations, each has 6 question-answering pairs, in 10 distinct topics. These Conversations are divided into two categories: continuous and discontinuous. There are 140 continuous and 100 discontinues conversations. Discontinues conversations are additionally split into two subgroup, dis1 (conversation with only one gap) and "Dis2" (conversations with many gaps). There are 43 "dis1" conversations and 57 "dis2" conversations. A detailed count for each topics is shown in Table\ref{tab:topiccount}. Table\ref{tab:datacount} shows various count about the data set. 
+In previous chapter, we introduce a novel conversational question answering corpus. Our corpus contains 240 natural conversations, each has 6 question-answering pairs, in 10 distinct topics. These conversations are divided into two categories: continuous and discontinuous. There are 140 continuous and 100 discontinues conversations. Discontinues conversations are additionally split into two subgroup, discontinuous1 (conversation with only one gap) and discontinuous2 (conversations with many gaps). There are 43 "dis1" conversations and 57 "dis2" conversations. Table\ref{tab:topiccount} shows a detailed count for conversations of each topics in each categories.
 
 % Please add the following required packages to your document preamble:
 % \usepackage{graphicx}
 \begin{table}[]
-\resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|l|l|l|l|}
 \hline
 Topics             & WikiData ID & Continuous & Discontinuous1 & Discontinuous2 \\ \hline
@@ -755,12 +715,14 @@ Apple              & Q312        & 11         & 7              & 6              
 CPU                & Q5300       & 19         & 0              & 7              \\ \hline
 London             & Q84         & 12         & 5              & 6              \\ \hline
 Tianjin            & Q1173       & 13         & 6              & 5              \\ \hline
-\end{tabular}%
-}
+\end{tabular}
 \caption{Detailed Topics Count for the Corpus.}
 \label{tab:topiccount}
 \end{table}
 
+
+
+Table\ref{tab:datacount} shows basic statistics for our corpus.
 
 \begin{table}[]
 \centering
@@ -777,40 +739,177 @@ Number of Tokens    & 15.2K \\ \hline
 \end{table}
 
 
-\subsection{Inter-Annotator Agreement of the Corpus}
 
-Inter-annotator agreement is a measure of how well two (or more) annotators can make the same annotation decision for a certain category. Cohen's Kappa is used here for calculating the agreement score between two annotators.
+
+\subsection*{Inter-Annotator Agreement of the Corpus}
+
+Inter-annotator agreement is a measure of how well two (or more) annotators can make the same annotation decision for a certain category. Cohen's Kappa is used here for calculating the agreement score between two annotators. The higher agreement score for a tag, the more confident the tag is valid. High agreement scores are desirable properties for a corpus to demonstrate the good quality of its annotations. 
 
 \begin{table}[]
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
-Tag                                                                            & Cohen's Kappa & Aggrement                \\ \hline
+Tag                                                                            & Cohen's Kappa & Agreement                \\ \hline
 Anaphora                                                                       & 0.9476        & Almost perfect agreement \\ \hline
-\begin{tabular}[c]{@{}l@{}}Short\\ Answer\end{tabular}                         & 0.9370        & Almost perfect agreement \\ \hline
+\begin{tabular}[c]{@{}l@{}}Short Answer\end{tabular}                         & 0.9370        & Almost perfect agreement \\ \hline
 Error                                                                          & 0.0           & Slight agreement         \\ \hline
 Sluicing                                                                       & 0.0           & Slight agreement         \\ \hline
 \begin{tabular}[c]{@{}l@{}}Totally\\ Irrelevant\end{tabular}                   & 0.0           & Slight agreement         \\ \hline
 \begin{tabular}[c]{@{}l@{}}Additional\\ information outside graph\end{tabular} & 0.3405        & Fair agreement           \\ \hline
-\begin{tabular}[c]{@{}l@{}}Additional\\ information within graph\end{tabular}  & invalid       & Poor agreement           \\ \hline
+\begin{tabular}[c]{@{}l@{}}Additional\\ information within graph\end{tabular}  & -0.0084(invalid)       & Poor agreement           \\ \hline
 \begin{tabular}[c]{@{}l@{}}Conversation\\ Control\end{tabular}                 & 0.6060        & Moderate agreement       \\ \hline
 \end{tabular}
 \caption{Inter-annotator Agreement of the Corpus}
 \label{tab:agree}
 \end{table}
 
-According to Table\ref{tab:agree}, Anaphora and Short Answer have a almost perfect agreement. The main reason is that the definition of these two tags are relative disambiguate,    
+According to Table\ref{tab:agree}, Anaphora and Short Answer have a almost perfect agreement. Labels such as "Additional information outside graph" and "Conversation Control" have a lower Kappa score. This behaviour is expected and there are several reason:
+
+\begin{enumerate}
+
+    \item According to the annotation schema, the criteria for tags, such as Anaphora, is less ambiguous. Different interpretation of the semantics of the sentences usually doesn't influence on the judgment of that tag.
+    
+   \item There are obvious heuristics for tags, such as Anaphora and Sluicing. For example, the appearance of a pronoun may indicate the appearance of an anaphora and the appearance of a wh word indicates the possibility of a sluicing. 
+
+   \item Tags, like Amphora, can usually be determined by the grammars instead of semantics of a sentence. 
+ 
+   \item Annotating Amphora is a classification task, which is easier than a sequence labelling task.
+   
+   \item Annotators have to make inference about the conversation context in order to make a decision for tags like "Additional information within graph".
+   
+\end{enumerate}
+
+In addition, we noticed that the Kappa score is 0.0 for many tags. Some tags are extremely sparse in the corpus and many rarely appear within the 10\% of the dataset.
+
+\subsection*{Demographic of the Participants}
+
+There are totally 17 native English speakers involved in our experiment. 7 of them are female and 10 of them are male. The majority of the participants (11) are from the United Kingom, 4 participants are from Singapore and 2 participants are from the United States. All participants are students from the University of Edinburgh and all of them are between 18 and 24.
+
+\section{Statistical Analysis}
+
+In this section, we perform some statistical analysis on the dataset. We additionally make some hypothesises according to our observations. The significance of each hypothesises is tested via t-test.
+
+Table\ref{tab:ori} shows the count of each tags in the whole corpus. In this table, the filed of "Condition" is empty. This means all numbers in that table are subject to the whole corpus. If the filed of "Condition" is "Question", it means we only consider all the questions in this table. This filed acts like a filter for the dataset. In the table, it shows how many utterances satisfies the given "Condition". It also shows that how many utterances contain each tag and the proportion of the utterances with that tag in the utterances satisfies the "Condition". For example, Table\ref{tab:ori} shows that there are 2880 utterances in the dataste. 1197 of them contain Anaphora tag which consisit 41.56\% of thses utterances.
+
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{}            \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{2880}        \\ \hline
+Tags                                 & Count & Proportion per Utterance \\ \hline
+Anaphora                             & 1197  & 0.4156                   \\ \hline
+Short Answer                         & 902   & 0.3132                   \\ \hline
+Error                                & 11    & 0.0038                   \\ \hline
+Sluicing                             & 27    & 0.0094                   \\ \hline
+Additional information outside graph & 50    & 0.0174                   \\ \hline
+Additional information within graph  & 26    & 0.0090                   \\ \hline
+Conversation Control                 & 181   & 0.0628                   \\ \hline
+Conversation Control                 & 26    & 0.0090                   \\ \hline
+\end{tabular}
+\caption{Statistics of Tags for the Corpus }
+\label{tab:ori}
+\end{table}
+
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{Continuous}  \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{1680}        \\ \hline
+Tags                                 & Count & Proportion per Utterance \\ \hline
+Anaphora                             & 737   & 0.4387                   \\ \hline
+Short Answer                         & 529   & 0.3149                   \\ \hline
+Error                                & 6     & 0.0036                   \\ \hline
+Sluicing                             & 25    & 0.0149                   \\ \hline
+Additional information outside graph & 41    & 0.0185                   \\ \hline
+Additional information within graph  & 9     & 0.0054                   \\ \hline
+Conversation Control                 & 104   & 0.0619                   \\ \hline
+Conversation Control                 & 13    & 0.0077                   \\ \hline
+\end{tabular}%
+}
+\caption{Statistics of Tags for Continuous  Conversations.}
+\label{tab:con}
+\end{table}
 
 
 
 
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{Continuous}  \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{1680}        \\ \hline
+Tags                                 & Count & Proportion per Utterance \\ \hline
+Anaphora                             & 737   & 0.4387                   \\ \hline
+Short Answer                         & 529   & 0.3149                   \\ \hline
+Error                                & 6     & 0.0036                   \\ \hline
+Sluicing                             & 25    & 0.0149                   \\ \hline
+Additional information outside graph & 41    & 0.0185                   \\ \hline
+Additional information within graph  & 9     & 0.0054                   \\ \hline
+Conversation Control                 & 104   & 0.0619                   \\ \hline
+Conversation Control                 & 13    & 0.0077                   \\ \hline
+\end{tabular}%
+}
+\caption{Statistics of Tags for Continuous  Conversations.}
+\label{tab:con}
+\end{table}
 
+% \begin{minipage}{\textwidth}
+%         \begin{minipage}[t]{0.45\textwidth}
+%             \centering
+%             \makeatletter\def\@captype{table}\makeatother
+%           \resizebox{\textwidth}{!}{%
+% \begin{tabular}{|l|l|l|}
+% \hline
+% Condition                            & \multicolumn{2}{l|}{NoGap Question} \\ \hline
+% Total Number of Uutterance           & \multicolumn{2}{l|}{993}            \\ \hline
+% Tags                                 & Count   & Proportion per Utterance  \\ \hline
+% Anaphora                             & 675     & 0.6789                    \\ \hline
+% Short Answer                        & 0       & 0                         \\ \hline
+% Error                                & 3       & 0.0030                    \\ \hline
+% Sluicing                             & 26      & 0.0262                    \\ \hline
+% Additional information outside graph & 16      & 0.0161                    \\ \hline
+% Additional information within graph  & 4       & 0.0040                    \\ \hline
+% Conversation Control                 & 99      & 0.0997                    \\ \hline
+% Conversation Control                 & 8       & 0.0081                    \\ \hline
+% \end{tabular}%
+% }
+% \caption{title1}
+%         \end{minipage}
+%         \begin{minipage}[t]{0.45\textwidth}
+%         \centering
+%         \makeatletter\def\@captype{table}\makeatother
+%          \resizebox{\textwidth}{!}{%
+% \begin{tabular}{|l|l|l|}
+% \hline
+% Condition                            & \multicolumn{2}{l|}{NoGap Question} \\ \hline
+% Total Number of Uutterance           & \multicolumn{2}{l|}{993}            \\ \hline
+% Tags                                 & Count   & Proportion per Utterance  \\ \hline
+% Anaphora                             & 675     & 0.6789                    \\ \hline
+% Short Answer                         & 0       & 0                         \\ \hline
+% Error                                & 3       & 0.0030                    \\ \hline
+% Sluicing                             & 26      & 0.0262                    \\ \hline
+% Additional information outside graph & 16      & 0.0161                    \\ \hline
+% Additional information within graph  & 4       & 0.0040                    \\ \hline
+% Conversation Control                 & 99      & 0.0997                    \\ \hline
+% Conversation Control                 & 8       & 0.0081                    \\ \hline
+% \end{tabular}%
+% }
+% \caption{title2}
+%         \end{minipage}
+%     \end{minipage}
 
-
-
-
-
-\chapter{Modelling Coherent Dialogues Using Neural Networks}
+% \chapter{Modelling Coherent Dialogues Using Neural Networks}
 
 
 In order to encode a coherent dialogue, we need to model long-distance dependencies not only between words in one utterance, but also between sentences within the discourse. For example, in order to model an elided construction, our model has to infer the omission from the longer prior context of the conversation, because such information may not appear in the current utterance. To model that, I propose a hierarchical attentional encoder which is inspired by Xing et al. \cite{xing2018hierarchical}. I extend their model with context windows which the size of the windows is a predefined hyper-parameter to control how many previous turns we are modelling. 
