@@ -1274,10 +1274,25 @@ We will use precision and recall, which are well-established metrics for questio
 
 
 
-\chapter{Conclusion and Future Work}
+\chapter{Conclusion}
 
 
+\section{Summary}
 
+In this project, we first briefly introduce the history and development of dialogue systems in terms of rule-based system, corpus-based systems and the architecture of the state of the art spoken dialogue systems. Then we discuss the important distinctions between different dialogue corpora: whether the corpus features constrained or unconstrained dialogues; whether a corpus is written, spoken; whether a corpus features human-human interactions or human-machine interactions. Afterwards, we review the publicly available corpora for training dialogue systems. We also investigate Intrinsic Evaluation, Extrinsic Evaluation and Human Evaluation methods for dialogue system evaluation and discuss the pros and cons of each approach.
+
+The motivation for this project is to build a coherent open-domain dialogue systems with neural networks. To the best of our knowledge, there is no publicly available corpus suitable on training coherent open-domain dialogue models. To achieve this goal, we design and collect a novel corpus contains extended coherent dialogues of questions and responses that are information in a knowledge graph. These dialogues describe the relations within a knowledge graph with clear links between the phrases in the questions to nodes in a knowledge graph. The purpose for this corpus is to perform statistical analysis about various linguistic patterns within coherent dialogues, thereby, create a framework for neural models to learn how to parse these patterns and produce more coherent responses. This corpus has been collected via crowd-sourcing. The dialogue collection experiment was running for 3 months which 30 sessions have been organized. In order to prepare this experiment, several toolkits have been developed.
+
+The main focus for this project is to investigate when the appearance of an elided construction is natural and convey the intended content. A detailed statistical analysis have been conducted on this corpus. We find:
+\begin{enumerate}
+   \item Gaps have influences on anaphor and sluicing. An utterance is more likely to contain these patterns without a gap.
+
+   \item Links have an obvious influence on sluicing however links don’t have an obvious influence on anaphor.
+ 
+\end{enumerate}
+
+
+\section{Future Work}
 
 Current statistical spoken dialogue systems (hereafter SDSs) have three key components which are shown as Figure \ref{fig:sds}. Semantics decoder decodes the meaning in utterances into dialogue acts which describe the current intention of the user, for example, confirm(food=Korean). Then, dialogue manager, which usually consists of a belief tracker and a policy network, will keep track of the belief states and produce a dialogue act as the response. Later a semantic encoder (natural language generator) will map this act back into natural language. Although the current statistical SDSs do explicitly capture the dialogue history via belief tracking, they may not utilize rich linguistic information inside a coherent dialogue. I would like to integrate our conversation model into the semantic decoder and encoder to enable the current SDSs to understand and produce more coherent dialogues. In addition, current SDSs require pre-defined ontology in order to keep track of the belief state. I would like to investigate whether we could connect a SDS to a wide coverage knowledge graph and build a dialogue system which can support a natural conversation about any topic within the knowledge graph.
 
