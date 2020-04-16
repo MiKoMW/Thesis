@@ -1226,9 +1226,9 @@ Not only for elided construction, the above statistics also demonstrates that pe
 
 \chapter{Modelling Coherent Dialogues Using Neural Networks}
 
-In order to model the coherent dialogues in this corpus, we proposed a novel neural architecture. However, this model is not implemented due to the scale of this project. The corpus only contains 240 conversations. As I argued in Chapter 2, this may be insufficient to train such a complicated neural network. In this chapter, we introduce our proposed framework to train a neural dialogue models if the resources are aviliable in the future.
+In order to model the coherent dialogues in this corpus, we proposed a novel neural architecture. However, this model is not implemented due to the scale of this project. The corpus only contains 240 conversations. As I argued in Chapter 2, this may be insufficient to train such a complicated neural network. In this chapter, we introduce our proposed framework to train a neural dialogue models if the resources are available in the future.
 
-\section{Hierarchical Attentional Encoder wth Context Windows}
+\section{Hierarchical Attentional Encoder with Context Windows}
 
 In order to encode coherent dialogue, we need to model long-distance dependencies not only between words in one utterance, but also between sentences within the discourse. For example, in order to model an elided construction, our model has to infer the omission from the longer prior context of the conversation, because such information may not appear in the current utterance. To model that, we propose a hierarchical attentional encoder which is inspired by Xing et al. \cite{xing2018hierarchical}. We extend their model with context windows which the size of the windows is a predefined hyper-parameter to control how many previous turns we are modelling. 
 
@@ -1284,6 +1284,7 @@ In this project, we first briefly introduce the history and development of dialo
 The motivation for this project is to build a coherent open-domain dialogue systems with neural networks. To the best of our knowledge, there is no publicly available corpus suitable on training coherent open-domain dialogue models. To achieve this goal, we design and collect a novel corpus contains extended coherent dialogues of questions and responses that are information in a knowledge graph. These dialogues describe the relations within a knowledge graph with clear links between the phrases in the questions to nodes in a knowledge graph. The purpose for this corpus is to perform statistical analysis about various linguistic patterns within coherent dialogues, thereby, create a framework for neural models to learn how to parse these patterns and produce more coherent responses. This corpus has been collected via crowd-sourcing. The dialogue collection experiment was running for 3 months which 30 sessions have been organized. In order to prepare this experiment, several toolkits have been developed.
 
 The main focus for this project is to investigate when the appearance of an elided construction is natural and convey the intended content. A detailed statistical analysis have been conducted on this corpus. We find:
+
 \begin{enumerate}
    \item Gaps have influences on anaphor and sluicing. An utterance is more likely to contain these patterns without a gap.
 
@@ -1291,19 +1292,17 @@ The main focus for this project is to investigate when the appearance of an elid
  
 \end{enumerate}
 
+We prove the statistical significance of those hypothesis on our corpus.
 
 \section{Future Work}
 
-Current statistical spoken dialogue systems (hereafter SDSs) have three key components which are shown as Figure \ref{fig:sds}. Semantics decoder decodes the meaning in utterances into dialogue acts which describe the current intention of the user, for example, confirm(food=Korean). Then, dialogue manager, which usually consists of a belief tracker and a policy network, will keep track of the belief states and produce a dialogue act as the response. Later a semantic encoder (natural language generator) will map this act back into natural language. Although the current statistical SDSs do explicitly capture the dialogue history via belief tracking, they may not utilize rich linguistic information inside a coherent dialogue. I would like to integrate our conversation model into the semantic decoder and encoder to enable the current SDSs to understand and produce more coherent dialogues. In addition, current SDSs require pre-defined ontology in order to keep track of the belief state. I would like to investigate whether we could connect a SDS to a wide coverage knowledge graph and build a dialogue system which can support a natural conversation about any topic within the knowledge graph.
+Due to the scale of this project and the limitation of the available resources, only 240 conversations have been collected in the corpus. In order to train decent dialogue models using deep neural networks, a larger corpus should be collected. For collecting a larger corpus, both the topics of the knowledge graphs and tags in our tag set should be further diversified.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.80\textwidth]{sds.png}
-    \caption{Architecture of a Spoken Dialogue System.\cite{gasic}}
-    \label{fig:sds}
-\end{figure}
+During this project, we have implemented a web interface for this task-specific dialogue collection experiment. This interface is for single purpose. A general purpose toolkit for crowd sourcing goal-orientated dialogue corpora should be developed. This toolkit should facilitate researchers to design, create and deploy such tasks into crowd sourcing platforms, such as Amazon Mechanic Turk\cite{mturk}. There are existing similar toolkits\cite{lee2018dialcrowd,miller2017parlai}, it's not easy enough to create a similar experiment by only using these tools.
 
-Cheng et al.\cite{cheng2019learning} has developed a transition-base neural semantic parser with a generic tree-generation algorithm. By integrating a conversation model with an existing neural semantic parser, we may enable it to perform semantic parsing over an extended coherent dialogue.
+In chapter 5, we proposed a hierarchical attentional neural architecture with context windows. Training such a neural model under our framework may improvement the performance of current spoken dialogue systems. Although the current statistical SDSs do explicitly capture the dialogue history via belief tracking, they may not utilize rich linguistic information inside a coherent dialogue\cite{gasic}. Future study could integrate a conversation model into the semantic decoder and encoder to enable the current SDSs to understand and produce more coherent dialogues. In addition, current SDSs require pre-defined ontology in order to keep track of the belief state. Researcher could investigate whether we could connect a SDS to a wide coverage knowledge graph and build a dialogue system which can support a natural conversation about any topic within the knowledge graph. Cheng et al.\cite{cheng2019learning} has developed a transition-base neural semantic parser with a generic tree-generation algorithm. By integrating a conversation model with an existing neural semantic parser, we may enable it to perform semantic parsing over an extended coherent dialogue.
+
+
 
 % use the following and \cite{} as above if you use BibTeX
 % otherwise generate bibtem entries
