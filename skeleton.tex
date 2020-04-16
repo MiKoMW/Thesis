@@ -14,6 +14,7 @@
 \usepackage{tabu}
 \usepackage[options ]{algorithm2e}
 \usepackage[ruled,vlined]{algorithm2e}
+\usepackage{amsthm}
 
 
 % Flexible Qoute
@@ -25,6 +26,12 @@
 \usepackage{xcolor}
 \newcommand{\bluecheck}{{\color{blue}\checkmark}}
 \newcommand{\xmark}{\color{red}\ding{55}}%
+
+
+\newtheorem*{observation}{Observation}
+\newtheorem*{hypo}{Hypothesis}
+
+
 
 
 \renewcommand{\epigraphsize}{\small}
@@ -805,7 +812,7 @@ Sluicing                             & 27    & 0.0094                   \\ \hlin
 Additional information outside graph & 50    & 0.0174                   \\ \hline
 Additional information within graph  & 26    & 0.0090                   \\ \hline
 Conversation Control                 & 181   & 0.0628                   \\ \hline
-Conversation Control                 & 26    & 0.0090                   \\ \hline
+Totally Irrelevant                   & 26    & 0.0090                   \\ \hline
 \end{tabular}
 \caption{Statistics of Tags for the Corpus }
 \label{tab:ori}
@@ -813,10 +820,11 @@ Conversation Control                 & 26    & 0.0090                   \\ \hlin
 
 
 
-% Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
-\begin{table}[]
-\centering
+
+\begin{minipage}{\textwidth}
+        \begin{minipage}[t]{0.45\textwidth}
+            \centering
+            \makeatletter\def\@captype{table}\makeatother
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|l|l|}
 \hline
@@ -830,89 +838,399 @@ Sluicing                             & 25    & 0.0149                   \\ \hlin
 Additional information outside graph & 41    & 0.0185                   \\ \hline
 Additional information within graph  & 9     & 0.0054                   \\ \hline
 Conversation Control                 & 104   & 0.0619                   \\ \hline
-Conversation Control                 & 13    & 0.0077                   \\ \hline
+Totally Irrelevant                   & 13    & 0.0077                   \\ \hline
 \end{tabular}%
 }
 \caption{Statistics of Tags for Continuous  Conversations.}
 \label{tab:con}
-\end{table}
-
-
-
-
-% Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
-\begin{table}[]
-\centering
+        \end{minipage}
+        \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \makeatletter\def\@captype{table}\makeatother
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|l|l|}
 \hline
-Condition                            & \multicolumn{2}{l|}{Continuous}  \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{1680}        \\ \hline
-Tags                                 & Count & Proportion per Utterance \\ \hline
-Anaphora                             & 737   & 0.4387                   \\ \hline
-Short Answer                         & 529   & 0.3149                   \\ \hline
-Error                                & 6     & 0.0036                   \\ \hline
-Sluicing                             & 25    & 0.0149                   \\ \hline
-Additional information outside graph & 41    & 0.0185                   \\ \hline
-Additional information within graph  & 9     & 0.0054                   \\ \hline
-Conversation Control                 & 104   & 0.0619                   \\ \hline
-Conversation Control                 & 13    & 0.0077                   \\ \hline
+Condition                            & \multicolumn{2}{l|}{Discontinuous} \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{1200}          \\ \hline
+Tags                                 & Count  & Proportion per Utterance  \\ \hline
+Anaphora                             & 460    & 0.3833                    \\ \hline
+Short Answer                         & 373    & 0.3108                    \\ \hline
+Error                                & 5      & 0.0042                    \\ \hline
+Sluicing                             & 2      & 0.0017                    \\ \hline
+Additional information outside graph & 19     & 0.0158                    \\ \hline
+Additional information within graph  & 17     & 0.0142                    \\ \hline
+Conversation Control                 & 77     & 0.0642                    \\ \hline
+Totally Irrelevant                   & 13     & 0.0108                    \\ \hline
 \end{tabular}%
 }
-\caption{Statistics of Tags for Continuous  Conversations.}
-\label{tab:con}
-\end{table}
-
-% \begin{minipage}{\textwidth}
-%         \begin{minipage}[t]{0.45\textwidth}
-%             \centering
-%             \makeatletter\def\@captype{table}\makeatother
-%           \resizebox{\textwidth}{!}{%
-% \begin{tabular}{|l|l|l|}
-% \hline
-% Condition                            & \multicolumn{2}{l|}{NoGap Question} \\ \hline
-% Total Number of Uutterance           & \multicolumn{2}{l|}{993}            \\ \hline
-% Tags                                 & Count   & Proportion per Utterance  \\ \hline
-% Anaphora                             & 675     & 0.6789                    \\ \hline
-% Short Answer                        & 0       & 0                         \\ \hline
-% Error                                & 3       & 0.0030                    \\ \hline
-% Sluicing                             & 26      & 0.0262                    \\ \hline
-% Additional information outside graph & 16      & 0.0161                    \\ \hline
-% Additional information within graph  & 4       & 0.0040                    \\ \hline
-% Conversation Control                 & 99      & 0.0997                    \\ \hline
-% Conversation Control                 & 8       & 0.0081                    \\ \hline
-% \end{tabular}%
-% }
-% \caption{title1}
-%         \end{minipage}
-%         \begin{minipage}[t]{0.45\textwidth}
-%         \centering
-%         \makeatletter\def\@captype{table}\makeatother
-%          \resizebox{\textwidth}{!}{%
-% \begin{tabular}{|l|l|l|}
-% \hline
-% Condition                            & \multicolumn{2}{l|}{NoGap Question} \\ \hline
-% Total Number of Uutterance           & \multicolumn{2}{l|}{993}            \\ \hline
-% Tags                                 & Count   & Proportion per Utterance  \\ \hline
-% Anaphora                             & 675     & 0.6789                    \\ \hline
-% Short Answer                         & 0       & 0                         \\ \hline
-% Error                                & 3       & 0.0030                    \\ \hline
-% Sluicing                             & 26      & 0.0262                    \\ \hline
-% Additional information outside graph & 16      & 0.0161                    \\ \hline
-% Additional information within graph  & 4       & 0.0040                    \\ \hline
-% Conversation Control                 & 99      & 0.0997                    \\ \hline
-% Conversation Control                 & 8       & 0.0081                    \\ \hline
-% \end{tabular}%
-% }
-% \caption{title2}
-%         \end{minipage}
-%     \end{minipage}
-
-% \chapter{Modelling Coherent Dialogues Using Neural Networks}
+\caption{Statistics of Tags for DIscontinuous  Conversations.}
+\label{tab:dis}
+        \end{minipage}
+    \end{minipage}
 
 
-In order to encode a coherent dialogue, we need to model long-distance dependencies not only between words in one utterance, but also between sentences within the discourse. For example, in order to model an elided construction, our model has to infer the omission from the longer prior context of the conversation, because such information may not appear in the current utterance. To model that, I propose a hierarchical attentional encoder which is inspired by Xing et al. \cite{xing2018hierarchical}. I extend their model with context windows which the size of the windows is a predefined hyper-parameter to control how many previous turns we are modelling. 
+
+
+
+\begin{minipage}{\textwidth}
+        \begin{minipage}[t]{0.45\textwidth}
+            \centering
+            \makeatletter\def\@captype{table}\makeatother
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{Discontinuous1} \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{516}            \\ \hline
+Tags                                 & Count   & Proportion per Utterance  \\ \hline
+Anaphora                             & 242     & 0.4690                    \\ \hline
+Short Answer                         & 153     & 0.2965                    \\ \hline
+Error                                & 0       & 0.0000                    \\ \hline
+Sluicing                             & 1       & 0.0019                    \\ \hline
+Additional information outside graph & 14      & 0.0271                    \\ \hline
+Additional information within graph  & 9       & 0.0174                    \\ \hline
+Conversation Control                 & 51      & 0.0988                    \\ \hline
+Totally Irrelevant                   & 5       & 0.0097                    \\ \hline
+\end{tabular}%
+}
+\caption{Statistics of Tags for Discontinuous 1  Conversations.}
+\label{tab:dis1}
+
+        \end{minipage}
+        \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \makeatletter\def\@captype{table}\makeatother
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{Discontinuous2} \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{684}            \\ \hline
+Tags                                 & Count   & Proportion per Utterance  \\ \hline
+Anaphora                             & 218     & 0.0387                    \\ \hline
+Short Answer                         & 220     & 0.3216                    \\ \hline
+Error                                & 5       & 0.0073                    \\ \hline
+Sluicing                             & 1       & 0.0015                    \\ \hline
+Additional information outside graph & 5       & 0.0073                    \\ \hline
+Additional information within graph  & 8       & 0.0117                    \\ \hline
+Conversation Control                 & 26      & 0.0380                    \\ \hline
+Totally Irrelevant                   & 8       & 0.0017                    \\ \hline
+\end{tabular}%
+}
+\caption{Statistics of Tags for Discontinuous 2  Conversations.}
+\label{tab:dis2}
+
+        \end{minipage}
+    \end{minipage}
+
+
+
+According to our experiment design in Chapter 3, gaps represent non-connected topic shifts. The more non-connected topic shifts a conversation have, the less coherent it is. In our corpus, discontinuous1 (dis1) conversation has only one gap per conversation. Dis1 conversations represent conversations which the underlining logic is less coherent but still logistical. In contrast, discontinuous2 (dis2) conversations have many gaps, which the underlying logic is totally random.  
+
+According to Table\ref{tab:con} - \ref{tab:dis2}, we make the following observation and hypothesis.
+
+\begin{observation}
+The continuity and coherence have influences on these linguistic patterns. However, the influence is not influence.
+\end{observation} 
+
+\begin{hypo}
+In our corpus, answers are always related to their questions. Gaps will have little influence on answers. This smooths out the number.
+\end{hypo}
+
+
+
+In order to proof the check hypothesis, we additionally check the difference about the count of tags between questions and answers for both continuous and discontinuous conversations. Table\ref{tab:conque} - \ref{tab:disans} demonstrate the results. These results show obvious differences between the appearance of labels in questions and no obvious differences in answers. This obey the above hypothesis. Consequently, for the following statistics, we will focus on questions instead of answers.
+
+
+
+\begin{minipage}{\textwidth}
+        \begin{minipage}[t]{0.45\textwidth}
+            \centering
+            \makeatletter\def\@captype{table}\makeatother
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{Continuous  Question} \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{840}                  \\ \hline
+Tags                                 & Count      & Proportion per Utterance     \\ \hline
+Anaphora                             & 465        & 0.5536                       \\ \hline
+Short Answer                         & 0          & 0.0000                       \\ \hline
+Error                                & 3          & 0.0036                       \\ \hline
+Sluicing                             & 25         & 0.0298                       \\ \hline
+Additional information outside graph & 14         & 0.0167                       \\ \hline
+Additional information within graph  & 2          & 0.0024                       \\ \hline
+Conversation Control                 & 70         & 0.0833                       \\ \hline
+Totally Irrelevant                   & 6          & 0.0071                       \\ \hline
+\end{tabular}%
+}
+\caption{Statistics of Tags for Continuous  Questions.}
+\label{tab:conque}
+
+        \end{minipage}
+        \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \makeatletter\def\@captype{table}\makeatother
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{Discontinuous  Question} \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{600}                    \\ \hline
+Tags                                 & Count       & Proportion per Utterance      \\ \hline
+Anaphora                             & 251         & 0.4183                        \\ \hline
+Short Answer                         & 0           & 0.0000                        \\ \hline
+Error                                & 4           & 0.0067                        \\ \hline
+Sluicing                             & 2           & 0.0033                        \\ \hline
+Additional information outside graph & 9           & 0.0150                        \\ \hline
+Additional information within graph  & 7           & 0.0117                        \\ \hline
+Conversation Control                 & 53          & 0.0833                        \\ \hline
+Totally Irrelevant                   & 4           & 0.0067                        \\ \hline
+\end{tabular}%
+}
+\caption{Statistics of Tags for Discontinuous Questions.}
+\label{tab:disque}
+
+        \end{minipage}
+    \end{minipage}
+
+
+
+
+\newpage
+\begin{minipage}{\textwidth}
+        \begin{minipage}[t]{0.45\textwidth}
+            \centering
+            \makeatletter\def\@captype{table}\makeatother
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{Continuous Answer} \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{840}               \\ \hline
+Tags                                 & Count    & Proportion per Utterance    \\ \hline
+Anaphora                             & 272      & 0.3238                      \\ \hline
+Short Answer                         & 529      & 0.6298                      \\ \hline
+Error                                & 3        & 0.0036                      \\ \hline
+Sluicing                             & 0        & 0.0000                      \\ \hline
+Additional information outside graph & 17       & 0.0202                      \\ \hline
+Additional information within graph  & 7        & 0.0083                      \\ \hline
+Conversation Control                 & 34       & 0.0405                      \\ \hline
+Totally Irrelevant                   & 7        & 0.0150                      \\ \hline
+\end{tabular}%
+}
+\caption{Statistics of Tags for Continuous Answers.}
+\label{tab:conans}
+
+        \end{minipage}
+        \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \makeatletter\def\@captype{table}\makeatother
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{Discontinuous Answer} \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{600}                  \\ \hline
+Tags                                 & Count      & Proportion per Utterance     \\ \hline
+Anaphora                             & 209        & 0.3483                       \\ \hline
+Short Answer                         & 373        & 0.6217                       \\ \hline
+Error                                & 1          & 0.0017                       \\ \hline
+Sluicing                             & 0          & 0.0000                       \\ \hline
+Additional information outside graph & 10         & 0.0167                       \\ \hline
+Additional information within graph  & 10         & 0.0167                       \\ \hline
+Conversation Control                 & 24         & 0.0400                       \\ \hline
+Totally Irrelevant                   & 9          & 0.0067                       \\ \hline
+\end{tabular}%
+}
+\caption{Statistics of Tags for Discontinuous Answers.}
+\label{tab:disans}
+
+        \end{minipage}
+    \end{minipage}
+
+
+According to Table\ref{tab:conque} and Table\ref{tab:disque}, we find that:
+
+\begin{observation}
+Coherence and continuity of a conversation has an obvious influence on Anaphora and Sluicing.
+\end{observation}
+
+\begin{observation}
+To answers, short answer and anaphora are not very sensitive to the coherence of the conversation. It may also because that the answer is always related to the question. 
+\end{observation}
+
+
+Based on the above observation, we believe that the gaps in discontinuous majorly influence the appearance of Anaphor and Sluicing. Intuitively, gaps represent non-connected topic shifts, which usually introduce additional entities into the conversation context. The appearance of these additional entities makes the co-reference resolution more difficult because determining which entity the pronoun refers to in the context is more ambiguous. Human may decide use less pronouns in this case. We compare the appearance of anaphora and sluicing between utterances without gaps and utterances with gaps. The results are shown in Table\ref{tab:quenogap} and Table\ref{tab:quegap}.
+
+
+\begin{minipage}{\textwidth}
+
+
+        \begin{minipage}[t]{0.45\textwidth}
+            \centering
+            \makeatletter\def\@captype{table}\makeatother
+
+
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{Question without Gap} \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{993}                  \\ \hline
+Tags                                 & Count      & Proportion per Utterance     \\ \hline
+Anaphora                             & 675        & 0.6798                       \\ \hline
+Short Answer                         & 0          & 0.0000                       \\ \hline
+Error                                & 3          & 0.0030                       \\ \hline
+Sluicing                             & 26         & 0.0262                       \\ \hline
+Additional information outside graph & 16         & 0.0161                       \\ \hline
+Additional information within graph  & 4          & 0.0040                       \\ \hline
+Conversation Control                 & 99         & 0.0997                       \\ \hline
+Totally Irrelevant                   & 8          & 0.0081                       \\ \hline
+\end{tabular}%
+}
+\caption{Statistics of Tags for Questions without Gaps.}
+\label{tab:quenogap}
+
+
+
+        \end{minipage}
+        \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \makeatletter\def\@captype{table}\makeatother
+
+
+
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{Question with Gap} \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{447}               \\ \hline
+Tags                                 & Count    & Proportion per Utterance    \\ \hline
+Anaphora                             & 41       & 0.0917                      \\ \hline
+Short Answer                         & 0        & 0.0000                      \\ \hline
+Error                                & 4        & 0.0089                      \\ \hline
+Sluicing                             & 1        & 0.0022                      \\ \hline
+Additional information outside graph & 7        & 0.0157                      \\ \hline
+Additional information within graph  & 5        & 0.0112                      \\ \hline
+Conversation Control                 & 24       & 0.0537                      \\ \hline
+Totally Irrelevant                   & 2        & 0.0081                      \\ \hline
+\end{tabular}%
+}
+\caption{Statistics of Tags for Questions with Gaps.}
+\label{tab:quegap}
+
+
+        \end{minipage}
+    \end{minipage}
+
+
+According to Table\ref{tab:quenogap} and Table\ref{tab:quegap}, we have following observation. Based on this observation, we make two hypotheses. 
+
+\begin{observation}
+Gaps have an obvious influence on Anaphor and Sluicing. It is much more anaphor and sluicing appear in questions without gaps.
+\end{observation}
+
+Based on this observation, we make two hypothesis.
+
+\begin{hypo}
+Gaps have influences on Anaphor. An utterance is more likely to contain anaphora without a gap. 
+\end{hypo}
+
+The T-test score for this hypothesis is 5.3805E-106. This score reject the null hypothesis which there is a very little probability, the above hypothesis happens by chance. We prove that the above statement is statistically significant. We also have similar statement for Sluicing.
+
+\begin{hypo}
+Gaps have influences on anaphor. An utterance is more likely to contain anaphora without a gap. 
+\end{hypo}
+
+The T-test score for this hypothesis is 4.1702E-8 which also demonstrates the significance of the above hypothesis.
+
+We additionally interested in the effect of links to these tags. 
+
+
+
+\begin{minipage}{\textwidth}
+
+
+        \begin{minipage}[t]{0.45\textwidth}
+            \centering
+            \makeatletter\def\@captype{table}\makeatother
+
+
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{Linked Question without Gap} \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{98}                          \\ \hline
+Tags                                 & Count         & Proportion per Utterance         \\ \hline
+Anaphora                             & 63            & 0.6429                           \\ \hline
+Short Answer                         & 0             & 0.0000                           \\ \hline
+Error                                & 0             & 0.0000                           \\ \hline
+Sluicing                             & 21            & 0.2143                           \\ \hline
+Additional information outside graph & 2             & 0.0204                           \\ \hline
+Additional information within graph  & 0             & 0.0000                           \\ \hline
+Conversation Control                 & 13            & 0.1327                           \\ \hline
+Totally Irrelevant                   & 0             & 0.0000                           \\ \hline
+\end{tabular}%
+}
+\caption{Statistics of Tags for Linked Questions without Gaps.}
+\label{tab:quegaplink}
+
+
+        \end{minipage}
+        \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \makeatletter\def\@captype{table}\makeatother
+
+
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+Condition                            & \multicolumn{2}{l|}{Unlinked Question without Gap} \\ \hline
+Total Number of Uutterance           & \multicolumn{2}{l|}{895}                           \\ \hline
+Tags                                 & Count          & Proportion per Utterance          \\ \hline
+Anaphora                             & 612            & 0.6838                            \\ \hline
+Short Answer                         & 0              & 0.0000                            \\ \hline
+Error                                & 3              & 0.0034                            \\ \hline
+Sluicing                             & 5              & 0.0056                            \\ \hline
+Additional information outside graph & 14             & 0.0156                            \\ \hline
+Additional information within graph  & 4              & 0.0045                            \\ \hline
+Conversation Control                 & 86             & 0.0961                            \\ \hline
+Totally Irrelevant                   & 8              & 0.0089                            \\ \hline
+\end{tabular}%
+}
+\caption{Statistics of Tags for Unlinked Questions without Gaps.}
+\label{tab:quegapnolink}
+
+        \end{minipage}
+    \end{minipage}
+
+
+From Table\ref{tab:quegaplink} and Table\ref{tab:quegapnolink}, we observe that:
+
+\begin{observation}
+Links have an obvious influence on sluicing. Links don't have an obvious influence on anaphor.
+\end{observation}
+
+Based on this observation, we make two hypothesises:
+
+\begin{hypo}
+Links have an influence on the appearance of sluicing. A linked question is more likely to contain a sluicing construciton.
+\end{hypo}
+
+The T-test score for this hypothesis is 1.3983E-9. The none hypothesis is rejected which demonstrates the significance of the above hypothesis.
+
+We would also prove that there is no obvious relation between links and anaphora.
+
+\begin{hypo}
+Links have an influence on the appearance of anaphora.
+\end{hypo}
+
+This hypothesis is rejected by achieving a t-test score of 0.4226. It means that there is 42.26\% probability the pattern we observed in the hypothesis happens by chance. In other words, there is no sufficient evidence to show there is a correlation between the appearance of links and the appearance of sluicing.
+
+Not only for elided construction, the above statistics also demonstrates that people also try to introduce additional utterances to connect gaps between each turns. However, people sometimes give up when the conversations are totally incoherent.
+
+
+\chapter{Modelling Coherent Dialogues Using Neural Networks}
+
+In order to model the coherent dialogues in this corpus, we proposed a novel neural architecture. However, this model is not implemented due to the scale of this project. The corpus only contains 240 conversations. As I argued in Chapter 2, this may be insufficient to train such a complicated neural network. In this chapter, we introduce our proposed framework to train a neural dialogue models if the resources are aviliable in the future.
+
+\section{Hierarchical Attentional Encoder wth Context Windows}
+
+In order to encode coherent dialogue, we need to model long-distance dependencies not only between words in one utterance, but also between sentences within the discourse. For example, in order to model an elided construction, our model has to infer the omission from the longer prior context of the conversation, because such information may not appear in the current utterance. To model that, we propose a hierarchical attentional encoder which is inspired by Xing et al. \cite{xing2018hierarchical}. We extend their model with context windows which the size of the windows is a predefined hyper-parameter to control how many previous turns we are modelling. 
 
 
 \begin{figure}[h]
@@ -922,7 +1240,7 @@ In order to encode a coherent dialogue, we need to model long-distance dependenc
     \label{fig:mesh1}
 \end{figure}
 
-I would like to use BERT\cite{devlin2018bert} to provide a contextual embedding for each word. Additional turn embedding is used to denote the turn and type of a sentence. The concatenated embedding is fed into a self-attentional layer which models the dependencies within the context window. Additional sentence level attention will be used to model the dependencies between context windows. In addition, I will adapt a multi-modal deep neural network architecture to produce the dialogue state representation for downstream tasks.
+We would like to use BERT\cite{devlin2018bert} to provide a contextual embedding for each word. Additional turn embedding is used to denote the turn and type of a sentence. The concatenated embedding is fed into a self-attentional layer which models the dependencies within the context window. Additional sentence level attention will be used to model the dependencies between context windows. In addition, we will adapt a multi-modal deep neural network architecture to produce the dialogue state representation for downstream tasks.
 
 \begin{figure}[h]
     \centering
@@ -931,13 +1249,14 @@ I would like to use BERT\cite{devlin2018bert} to provide a contextual embedding 
     \label{fig:mesh1}
 \end{figure}
 
-To predict the correct node to answer a given question, we could represent a prediction as a quadruple, such as, (Subject Node, Relation, Object Node, Position of the Answer). An example of the prediction could be (Barack Obama, born, 1967, object) which corresponds to the question ``When was Obama born?". I permute all the possible combinations within the graph. Then I use a feed-forward neural network together with a softmax layer to produce a multinomial distribution over all the possible answers. Then the prediction is compared with the gold answer and we could calculate the reward or loss to train our model.
 
-\subsection{Generate coherent dialogues as a Markov decision process}
+To predict the correct node to answer a given question, we could represent a prediction as a quadruple, such as, (Subject Node, Relation, Object Node, Position of the Answer). An example of the prediction could be (Barack Obama, born, 1967, object) which corresponds to the question ``When was Obama born?". We permute all the possible combinations within the graph. Then we use a feed-forward neural network together with a softmax layer to produce a multinomial distribution over all the possible answers. Then the prediction is compared with the gold answer and we could calculate the reward or loss to train our model.
+
+\subsection{Generate Coherent Dialogues as a Markov Decision Process}
 \noindent
-As I argued above, training a dialogue system with supervised learning is not explicitly optimized to produce a coherent response. I propose to cast the response generation task as a RL task. More specifically, I consider the questioner and the answerer as part of the RL agent environment. According to Williams and Young\cite{williams2007partially}, a goal-driven dialogue system could be modelled as a partially observable Markov decision process. Inspired by Strub et al. \cite{strub2017end}, I would like to describe our response generation task as following:
+As we argued in chapter 2, training a dialogue system with supervised learning is not explicitly optimized to produce a coherent response. We propose to cast the response generation task as a RL task. More specifically, we consider the questioner and the answerer as part of the RL agent environment. According to Williams and Young\cite{williams2007partially}, a goal-driven dialogue system could be modelled as a partially observable Markov decision process. Inspired by Strub et al. \cite{strub2017end}, We would like to describe our response generation task as following:
 
-I define the state $S_t$ as the state of the dialogue at step t. An action $u_t$ corresponds to selecting a new word in the vocabulary V. The transition to the next state depends on the selected action:
+We define the state $S_t$ as the state of the dialogue at step t. An action $u_t$ corresponds to selecting a new word in the vocabulary V. The transition to the next state depends on the selected action:
 
 \begin{itemize}
 \item If we generate the end of sentence token . , the ongoing response is terminated and the next question is sampled from the questioner.
@@ -946,9 +1265,10 @@ I define the state $S_t$ as the state of the dialogue at step t. An action $u_t$
 
 A dialogue is started with an initial question and finished after a fixed number of turns. A reward is defined for every state action pair. 
 
-\subsection{Extrinsic evaluation of dialogue models}
+\subsection{Extrinsic Evaluation of Dialogue Models}
 \noindent
-I will use precision and recall, which are well-established metrics for question answering tasks, as our extrinsic evaluation metrics. In my framework, high precision and recall demonstrate a good performance of modelling the linguistic patterns within a coherent dialogue.
+
+We will use precision and recall, which are well-established metrics for question answering tasks, as our extrinsic evaluation metrics. In our framework, high precision and recall demonstrate a good performance of modelling the linguistic patterns within a coherent dialogue.
 
 
 
