@@ -134,14 +134,14 @@
 
 \abstract{
 
-Recent advances in neural network based language models enable us to learn entire dialogue models directly from conversational data. However, most of the previous systems have failed to model the longer prior context of the conversation adequately, thereby creating a situation where extended dialogues rapidly become incoherent and unnatural sounding. There is no existing dialogue corpus which contains natural conversations and is able to provide strong supervision signals to train dialogue systems with reinforcement learning. In this project, we design and collect a novel corpus contains extended coherent dialogues of questions and responses that are information in a knowledge graph. These dialogues describe the relations within a knowledge graph with clear links between the phrases in the questions to nodes in a knowledge graph. The purpose for this corpus is to perform statistical analysis about various linguistic patterns within coherent dialogues, thereby, create a framework for neural models to learn how to parse these patterns and produce more coherent responses. We mainly focus on investigating when the appearance of an elided construction is natural and convey the intended content. A detailed statistical analysis have been conducted to support our investigation.
+Recent advances in neural network based language models enable us to learn entire dialogue models directly from conversational data. However, most of the previous systems have failed to model the longer prior context of the conversation adequately, thereby creating a situation where extended dialogues rapidly become incoherent and unnatural sounding. There is no existing dialogue corpus which contains natural conversations and is able to provide strong supervision signals to train dialogue models with reinforcement learning. In this project, we design and collect a novel corpus contains extended coherent dialogues of questions and responses. These dialogues describe the relations within a knowledge graph with clear links between the phrases in the questions to nodes in a knowledge graph. The purpose for this corpus is to perform statistical analysis about various linguistic patterns within coherent dialogues, thereby, create a framework for neural models to learn how to parse these patterns and produce more coherent responses. We mainly focus on investigating when the appearance of an elided construction is natural and convey the intended content. A detailed statistical analysis have been conducted to support our investigation.
 }
 
 \maketitle
 
 \section*{Acknowledgements}
 
-This thesis is the result of my undergraduate journey. Many people have influenced, inspired and supported me during the journey. First and foremost, I would like to thank my supervisor Prof. Alex Lascarides for providing guidance, feedback and constant help for this project. Her mentorship has not just greatly influenced my work on this thesis, but will influence my research career. I am enormously grateful to all the staff at the University of Edinburgh, my personal tutor Prof. Jane Hillston, all my lecturers, ITO, Advice Place... They offer constant support and make me stronger during my journey. Special thanks goes to Informatics Student Services, who have funded this project and make the creation of our corpus possible. I appreciate all the help from whom I had to share this journey with, my lovely participants in this project, my friends and my colleges at Edinburgh. Last, but certainly not least, I would like to thank to my family in China for their selfless support and encouragement, without whom, my journey would never start at the beginning.
+This thesis is the result of my undergraduate journey. Many people have influenced, inspired and supported me during the journey. First and foremost, I would like to thank my supervisor Prof. Alex Lascarides for providing guidance, feedback and constant help for this project. Her mentorship has not just greatly influenced my work on this thesis, but will influence my research career in the future. I am also enormously grateful to all the staffs at the University of Edinburgh, my personal tutor Prof. Jane Hillston, all my lecturers, ITO, Advice Place... They offer me invaluable help and make me stronger during my journey. Special thanks to Informatics Student Services, who have funded this project and make the creation of our corpus possible. I appreciate all the help from whom I share this journey with, my lovely participants of this project, my friends and my colleges at Edinburgh. Last, but certainly not least, I would like to thank to my family in China for their selfless support and encouragement, without whom, my journey would never start at the beginning.
 
 
 \tableofcontents
@@ -182,11 +182,11 @@ Since Alan Turing published his landmark work in 1950\cite{turing1950computing},
 	\end{xlist}
 	\end{exe}
 
-As I demonstrated in the example conversation at the beginning of the chapter and repeated here, humans tend to utilise linguistic patterns, such as anaphora and sluicing to reduce repetitions. For example, in the human utterance \ref{q2}, human uses pronoun "he" to refer "Alan Turing" in question \ref{a1}. This is a typical example use of anaphora, which leads to a more concise sentence. In addition, human utterance \ref{q5} is an example of sluicing construction. Information, which can be inferred from the context, is omitted. A more refined definition of these linguistics patterns is provided in our Annotation Schema in Appendix \ref{appendix:annotation}.
+As we demonstrated in the example conversation at the beginning of the chapter and repeated here, humans tend to utilise linguistic patterns, such as anaphora and sluicing to reduce repetitions. For example, in the human utterance \ref{q2}, human uses pronoun ``he" to refer ``Alan Turing" in question \ref{a1}. This is a typical example use of anaphora, which leads to a more concise sentence. In addition, human utterance \ref{q5} is an example of sluicing constructions. Information, which can be inferred from the context, is omitted. A more refined definition of these linguistic patterns is provided in our Annotation Schema in Appendix \ref{appendix:annotation}.
 
-In contrast, dialogue systems rarely produces pronouns and unable to model elided construction therefore produce unnatural speech in the context. For example, in order to answer the second question \ref{q2}, humans are able to interpret the anaphora (He refers to Alan Turing.) and produce a short answer (In Warrington Lodge.). Compared to human's responses, Siri's responses \ref{a2} are heavy and verbose. The challenge for Siri, and many other dialogue systems, is to know when such an answer conveys the intended content, and when it doesn't. The system has to make a decent decision on when content can be elided while still ensuring that the user can easily interpret the system's message and retrieve that message accurately. In addition, a wrong interpretation of a question could lead to an unhelpful and diverged response. Siri fails to understand the context to parse fragments and interpret the sluicing in the final question \ref{q5}. The misunderstanding of the context leads to a completely unhelpful and incoherent response \ref{a5}. The main reasons of this unnaturalness for Siri is the lack of reliable systematic analysis of such linguistic patterns and the inadequate representation of the context. It is a problem which need to be adequately addressed before our agents could look forward to attempting the Turing test.
+In contrast, dialogue systems rarely produces pronouns and unable to model elliptical constructions therefore produce unnatural speech in the context. For example, in order to answer the second question \ref{q2}, humans are able to interpret the anaphora (He refers to Alan Turing.) and produce a short answer (In Warrington Lodge.). Compared to human's responses, the Siri's response \ref{a2} is heavy and verbose. The challenge for Siri, and many other dialogue systems, is to know when such an answer conveys the intended content, and when it doesn't. The system has to make a decent decision on when content can be elided while still ensuring that the user can easily interpret the system's message and retrieve that message accurately. In addition, a wrong interpretation of a question could lead to an unhelpful and diverged response. Siri fails to understand the context to parse fragments and interpret the sluicing in the final question \ref{q5}. The misunderstanding of the context leads to a completely unhelpful and incoherent response \ref{a5}. The main reasons of this unnaturalness for Siri is the lack of reliable systematic analysis of such linguistic patterns and the inadequate representation of the context. It is a problem which need to be adequately addressed before our agents could look forward to attempting the Turing test.
 
-We aim to address the gap in our understanding of the interaction between topic shifts on the one hand and the natural use of anaphora and elided constructions on the other by designing and implementing a method of data collection of humans engaged in question answering in extended dialogue, where we control the way the topic shifts in the course of a conversation. The resulting data provides an opportunity to systematically analyse the effects of topic shifts on the decisions that competent human language users make on whether to use anaphora and/or elided constructions. We motivate and describe the way we collected data in Chapter 3 and present an analysis of the data collected in Chapter 4.
+We aim to address the gap in our understanding of the interaction between topic shifts on the one hand and the natural use of anaphora and elided constructions on the other by designing and implementing a method of data collection of humans engaged in question answering in extended dialogue, where we control the way the topic shifts in the course of a conversation. The resulting data provides an opportunity to systematically analyse the effects of topic shifts on the decisions that competent human language users make on whether to use anaphora and/or elided constructions. We motivate and describe the way we collected data in Chapter 3 and present an analysis of the data in Chapter 4.
 
 In this section, we will briefly review the recent development of dialogue systems. Specifically, we will discuss two types of dialogue systems: the chit-chat dialogue systems (known as chatbots), and the task-oriented dialogue systems. We will focus on machine learning approaches to developing such systems, rather than the use of hand-crafted rules, since the former methods are now dominant and the latter are highly brittle and restricted to toy domains. We will discuss their architectures, pros and cons, and their main limitations to achieve coherent open-domain conversations. The majority of this thesis is about how to create an environment for neural models to learn linguistic patterns within coherent extended dialogues and how to integrate these models into the existing dialogue systems. It constitutes a first step towards modelling coherent open-domain conversations and will potentially enable the existing dialogue systems utilising valuable linguistic information to produce coherent responses.
 
@@ -203,11 +203,11 @@ Instead of letting machines learn the conversation strategy from human behaviour
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{elizarule.jpeg}
-    \caption{A simplified sketch of the ELIZA algorithm.}
+    \caption{A Simplified Sketch of the ELIZA Algorithm.}
     \label{fig:elizarule}
 \end{figure}
 
-There are many well-known rule-based dialogue systems in history, such as ELIZA\cite{weizenbaum1966eliza} \footnote{It is instructive that the purpose of building Eliza was to show that it is sometimes possible to fake understanding via hand-crafted rules based on key word search and template generation, even though there is no interpretation component or parsing in the system at all.}, SHRDLU\cite{winograd1972shrdlu}, ALICE\cite{wallace1995artificial}. There are also languages such as Artificial Intelligence Markup Language(AIML), which provides an effect tool to write sophisticated conversations logic in a machine-readable format\cite{wallace1995artificial}.
+There are many well-known rule-based dialogue systems in history, such as ELIZA\cite{weizenbaum1966eliza} \footnote{It is instructive that the purpose of building Eliza was to show that it is sometimes possible to fake understanding via hand-crafted rules based on key word search and template generation, even though there is no interpretation component or parsing in the system at all.}, SHRDLU\cite{winograd1972shrdlu}, ALICE\cite{wallace1995artificial}. There are also languages such as Artificial Intelligence Markup Language(AIML), which provides an effective tool to write sophisticated conversations logic in a machine-readable format\cite{wallace1995artificial}.
 
 The development of rule-based systems is an important milestone in developing modern dialogue systems. Many of them are very sophisticated and well engineered, which they attempted to model dialogue in an explanatory and deep way. The architecture of such a system involves the whole pipeline of natural language processing. However, their drawbacks are obvious: rule-based systems predominantly rely on the set of pre-defined rules and these rules have to be carefully designed and implemented. Building a sophisticated rule-based system is very expensive because the number of these rules escalates rapidly. Rule-based systems do not have the ability to understand human languages and generate meaningful natural language utterances\cite{jiweilithesis}. Consequently, they are very brittle and only able to conduct very superficial conversations. Despite the lack of intelligence, even with the recent rapid development of large fancy neural network architecture and increasing number of conversational corpora, these rule-based dialogue systems could always provide a very strong baseline.
 
@@ -220,7 +220,7 @@ There are two common architectures for such system: information retrieval (IR), 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{seq2seq.jpeg}
-    \caption{A sequence to sequence model for neural response generation.\cite{jurafsky2019speech}}
+    \caption{A Sequence to Sequence Model for Neural Response Generation.\cite{jurafsky2019speech}}
     \label{fig:seq2seq}
 \end{figure}
 
@@ -229,15 +229,15 @@ This idea was firstly developed by Ritter et al\cite{ritter2011data}. (cited in 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{HERD.jpeg}
-    \caption{The computational graph of the HRED architecture for a dialogue composed of three turns.}
+    \caption{The Computational Graph of the HRED Architecture for a Dialogue Composed of Three Turns.}
     \label{fig:HERD}
 \end{figure}
 
-However, even if one has access to an enormous dataset for training, there is still a significant proportion of unseen dialogue states. Techniques, such as smoothing, can only help to a limited extent, because of the radical extent to which data is sparse. Consequently, generating responses using end-to-end methods tends to generate generic, uninformative and non-coherent replies (e.g., generating ``I don’t know." regardless of the context). In addition, encoder-decoder response generators focus on generating single responses, instead of forming a coherent continuous conversation\cite{jurafsky2019speech}. Humans could easily notice these unnatural and mechanical responses (e.g. the Siri conversation above). Techniques, such as Reinforcement learning (RL)\cite{li2016deep} and adversarial networks\cite{li2017adversarial}, can be used to address this issue.
+However, even if one has access to an enormous dataset for training, there is still a significant proportion of unseen dialogue states. Techniques, such as smoothing, can only help to a limited extent, because of the radical extent to which data is sparse. Consequently, generating responses using end-to-end methods tends to generate generic, uninformative and non-coherent replies (e.g., generating ``I don’t know." regardless of the context). In addition, encoder-decoder response generators focus on generating single responses, instead of forming a coherent continuous conversation\cite{jurafsky2019speech}. Humans could easily notice these unnatural and mechanical responses (e.g. the Siri conversation above). Techniques, such as reinforcement learning (RL)\cite{li2016deep} and adversarial networks\cite{li2017adversarial}, can be used to address this issue.
 
 \subsection{The Goal-oriented Dialogue System}
 
- Goal-oriented dialogue systems are sometimes also called task-based dialogue systems, in which they converse with users to help complete tasks like making a restaurant reservation, booking a hotel or setting up an alarm. Famous examples of such agents are digital assistants (Siri, Alexa, Google Home, Cortana, et.)\cite{siri,alexa,googlehome,cortana} which can be viewed as a combination of chatbots and goal-oriented dialogue systems. With the power of cloud computing and internet of things technologies, these conversations AIs are changing our daily life and developing a 10 billion pounds worth industry\cite{chatbotmarket}. Here, I would like to introduce the architectures of existing statistical spoken dialogue systems (hereafter SDSs) and their main challenges to perform coherent conversations in an open domain. 
+ Goal-oriented dialogue systems are sometimes also called task-based dialogue systems, in which they converse with users to help complete tasks like making a restaurant reservation, booking a hotel or setting up an alarm. Famous examples of such agents are digital assistants (Siri, Alexa, Google Home, Cortana, et.)\cite{siri,alexa,googlehome,cortana} which can be viewed as a combination of chatbots and goal-oriented dialogue systems. With the power of cloud computing and internet of things technologies, these conversations AIs are changing our daily life and developing a 10 billion pounds worth industry\cite{chatbotmarket}. Here, we would like to introduce the architectures of existing statistical spoken dialogue systems (hereafter SDSs) and their main challenges to perform coherent conversations in an open domain. 
 
 \begin{figure}[h]
     \centering
@@ -246,7 +246,7 @@ However, even if one has access to an enormous dataset for training, there is st
     \label{fig:sds}
 \end{figure}
 
-Current SDSs have three key components which are shown as Figure\ref{fig:sds}. A semantics decoder decodes the meaning in utterances into dialogue acts which describe the current intention of the user, for example, confirm(food=Korean). Then, a dialogue manager, which usually consists of a belief tracker and a policy network, will keep track of the belief states and produce a dialogue act as the response. The dialogue manager treats dialogue generation as a partially observable Markov decision process (POMDP)\cite{williams2007partially,young2013pomdp,young2010hidden} which explicitly models the uncertainty natural of human conversations with Bayesian methods. Such framework provides robustness against the errors created by the speech recognition. Later a semantic encoder (natural language generator) will map this act back into a natural language response.
+Current SDSs have three key components which are shown as Figure \ref{fig:sds}. A semantics decoder decodes the meaning in utterances into dialogue acts which describe the current intention of the user, for example, confirm(food=Korean). Then, a dialogue manager, which usually consists of a belief tracker and a policy network, will keep track of the belief states and produce a dialogue act as the response. The dialogue manager treats dialogue generation as a partially observable Markov decision process (POMDP)\cite{williams2007partially,young2013pomdp,young2010hidden} which explicitly models the uncertainty natural of human conversations with Bayesian methods. Such a framework provides robustness against the errors created by the speech recognition. Later a semantic encoder (natural language generator) will map this act back into a natural language response.
 
 However, keeping track of the belief states under such a framework presents a tough challenge. Exact model representation is infeasible due to the limitation of computational complexity\cite{young2013pomdp}. Carefully constructed approximation and additional independent assumption are needed. For example, if we are willing to find an expensive 5-star hotel in the city center, in order to make the inference practical, we have to assume that there is no relation between a hotel is expensive and it is a 5-star hotel. It is clearly not true. In addition, as shown in Figure \ref{fig:sds}, pre-defined ontology is needed in order to keep track of the dialogue state. This makes the existing dialogue system infeasible to perform conversations in an open-domain. One research direction would be building a SDS which can support a natural conversation about any topic within a wide coverage Knowledge Graph (KG). This forms the definition of an open-domain spoken dialogue system\cite{opendomain}.
 
@@ -257,23 +257,23 @@ However, keeping track of the belief states under such a framework presents a to
 
 In this thesis, we mainly focus on creating a framework in which neural models could learn linguistic patterns within extended coherent dialogues.
 
-Firstly, we explore how to build such a framework by designing, collecting and annotating a conversational dataset. This dataset consists of extended coherent dialogues of questions and responses. These dialogues should describe the relations within a knowledge graph with clear links between the phrases in the questions to nodes in a knowledge graph. Secondly, we analyse the collected dataset statistically in order to investigate how human behave differently under different context in different domain. Later, we will introduce a proposed neural model to model these linguistic patterns and how the existing dialogue systems could benefit from this model.
+Firstly, we explore how to build such a framework by designing, collecting and annotating a conversational dataset. This dataset consists of extended coherent dialogues of questions and responses. These dialogues should describe the relations within a knowledge graph with clear links between the phrases in the questions to nodes in a knowledge graph. Secondly, we analyse the collected dataset statistically in order to investigate how human behave differently under different context in different domain. Later, we will introduce a proposed neural model to model these linguistic patterns and discuss how the existing dialogue systems could benefit from this model.
 
 We start off by providing background knowledge on available corpora to train dialogue models and how to evaluate these dialogue models in Chapter 2. In Chapter 3 and Chapter 4, we will describe the design and creation of our framework in details and perform analysis to figure out the common patterns within these dialogues. Chapter 5 will introduce our proposed neural models and methods in order to model coherent dialogues with neural networks. We will briefly summarize our findings and mention some further work in Chapter 6.
 
 \chapter{Background}
 
-In this chapter, we investigate the existing resources and frameworks to build a neural dialogue model and summarize the popular evaluation metrics for the dialogue modeling task.
+In this chapter, we investigate the existing resources and frameworks to build a neural dialogue model and summarize the popular evaluation metrics for dialogue modeling tasks.
 
 \section{Corpora for Training Dialogue Models}
 
-Humans perform dialogues with different purposes, under different situations and in different medias. There is a vast amount of data available documenting human communications. Some of these data is collected as corpora and these corpora can be classified into different categories. Each category has different characteristics, utilities and applications. In order to make the most of the available resources, we discuss the important distinctions between each type of dialogue corpora: whether the corpus features constrained or unconstrained dialogues; whether a corpus is written, spoken; whether a corpus features human-human interactions or human-machine interactions. Afterwards, I give a brief summary about current public available corpora.
+Humans perform dialogues with different purposes, under different situations and in different medias. There is a vast amount of data available documenting human communications. Some of these data is collected as corpora and these corpora can be classified into different categories. Each category has different characteristics, utilities and applications. In order to make the most of the available resources, we discuss the important distinctions between each type of dialogue corpora: whether the corpus features constrained or unconstrained dialogues; whether a corpus is written, spoken; whether a corpus features human-human interactions or human-machine interactions. Afterwards, we give a brief summary about current public available corpora.
 
 \subsection{Chit-chat or Goal-oriented Corpora}
 
 People use different languages for different purposes. We may want to call an airliner to book a ticket or chat with our friends to share our brilliant ideas. The purpose and motivation of our conversation will have a significant influence on the language we use. Similarly, the way in which a dialogue corpus is collected can also have a significant influence on the model we built from. Some conversations are relatively causal, informal and unconstrained, which we usually call them chit-chats. There are many chit-chat corpora and most of them are aiming to mimic spontaneous and unplanned spoken interactions between humans. Consequently, they are also referred as Spontaneous (Unconstrained) Corpora\cite{serban2018survey}. Another large proportion of the existing corpora focus on a particular topic or intend to solve a specific task. In such situations, the task or topic is pre-specified and participants are discouraged from deviating from the topic. We refer to these as Task-Oriented or Constrained Dialogue Corpora.
 
-Dialogues in spontaneous corpora usually have richer grammar and vocabularies, which reflect our daily communication well. However, such corpora are usually in plain text with less informative annotations. Consequently, people usually train models with end-to-end methods using those corpora. Such setting could reduce the interpretability of models' reasoning and pose additional challenges to models' evaluation, which we will discuss in later section. 
+Dialogues in spontaneous corpora usually have richer grammar and vocabularies, which reflect our daily communication well. However, such corpora are usually in plain text with less informative annotations. Consequently, people usually train models with end-to-end methods using those corpora. Such setting could reduce the interpretability of models' reasoning and pose additional challenges to models' evaluation.
 
 For constrained dialogues, some experimental conditions in which dialogues were collected can result in unnatural behaviours. Consequently, dialogues in goal-oriented corpora usually don't bear a close resemblance to our daily communication and do not correlate well to the true typical dialogue patterns in natural conversations. Therefore, all experimental conditions have to be carefully designed to make sure that the conversations have the desired properties we are looking for. Not only the experiment instruction, but also many other factors (e.g. the demographics of the participants\cite{ai2007comparing,young2013pomdp}) could significantly influence the data we collected. It is generally hard to do before we actually run the experiment. Designing a constrained dialogues is particularly challenging, 
 
@@ -281,27 +281,27 @@ For constrained dialogues, some experimental conditions in which dialogues were 
 
 Another important distinction between dialogue corpora is whether participants interact through written language, spoken language, or in a multi-modal setting (e.g. using both speech and visual modalities). Written and spoken language differ from each other and have substantially different linguistic properties. Spoken language tends to be informal, containing less information per utterance and have more pronouns than written language\cite{carter2006cambridge,biber2001diachronic}.
 
-Similarly, dialogues involving visual and other modalities differ from dialogues without these modalities\cite{serban2015survey,duncan1983charles}. When a visual modality (e.g. body language, eye contact, hand motions) is available, such non-verbal information could influence the distributions of many linguistic properties significantly\cite{gibson1963perception,lord1974perception,cooper1974control,chartrand1999chameleon,de2013speaker}.Our corpus is solely text-based and We will justify our design decision in Chapter 3. In addition, our corpus could be extended to a multi-modal setting, which would be a matter of future work.
+Similarly, dialogues involving visual and other modalities differ from dialogues without these modalities\cite{serban2015survey,duncan1983charles}. When a visual modality (e.g. body language, eye contact, hand motions) is available, such non-verbal information could influence the distributions of many linguistic properties significantly\cite{gibson1963perception,lord1974perception,cooper1974control,chartrand1999chameleon,de2013speaker}. Our corpus is solely text-based. We will justify this design decision in Chapter 3. In addition, our corpus could be extended to a multi-modal setting, which would be a matter of future work.
 
 \subsection{Human-Human or Human-Machine Corpora}
 
 Another salient distinction between dialogue corpora resides in the types of interlocutors. Conversations between two humans are totally different from conversations involving machines.
 
-This distinction is important because current computer dialogue systems exhibits very different traits than human-human dialogue\cite{doran2003comparing}. Machines are significantly constrained and normally produce less changeable dialogues. These systems do not produce the same distribution of possible responses as humans do under the same conditions. In addition, human-machines dialogues contains different type of errors and the turn-taking in these dialogues are much more predictable\cite{williams2007partially}. Consequently, in order to learn natural conversations, it is not sensible to learn from human-machine corpora, as the trained dialogue system would simply learn to approximate the policy of the the dialogue system\cite{serban2018survey}.
+This distinction is important because current computer dialogue systems exhibits very different traits than human-human dialogue\cite{doran2003comparing}. Machines are significantly constrained and normally produce less changeable dialogues. These systems do not produce the same distribution of possible responses as humans do under the same conditions. In addition, human-machine dialogues contain different type of errors and the turn-taking in these dialogues is much more predictable\cite{williams2007partially}. Consequently, in order to learn natural conversations, it is not sensible to learn from human-machine corpora, as the trained dialogue system would simply learn to approximate the policy of the system in the conversations\cite{serban2018survey}.
 
 Another possible experiment setting is called Wizard-of-Oz experiments\cite{bohus2008sorry,petrik2004wizard,budzianowski2018multiwoz,eric2019multiwoz}. In Wizard-of-Oz experiments, a human thinks he/she is speaking to a machine dialogue system, but a human is in fact controlling the dialogue system. This is very similar to Turing's test, but in reversed order. Conversations in such setting are likely to have similar distributions as the the situation when the dialogue system has nearly human-level performance. This can encourage machines to learn from human intelligence and achieve comparable performance when the behaviour of another human participant is not seriously different.  
 
 \subsection{Available Dialogue Corpora}
 
-Covering all available corpora for training dialogue models is infeasible, therefore, we would only focus on three popular categories: Human-Human spontaneous dataset, human-human constrained dataset and human-machine dataset. I would like to give examples which are well-known or directly related to this project. Table \ref{tab:HHSTable} and Table \ref{tab:HHGoal} summarize those available corpora and compare the key features between them.
+Covering all available corpora for training dialogue models is infeasible, therefore, we would only focus on three popular categories: human-human spontaneous dataset, human-human constrained dataset and human-machine dataset. We would like to give examples which are well-known or directly related to this project. Table \ref{tab:HHSTable} and Table \ref{tab:HHGoal} summarize those available corpora and compare the key features between them.
 
 \subsubsection*{Human-human Spontaneous Corpora}
 
-People talk to each other for entertainment. Here, we classify all corpora that participants talk without a pre-defined objective as spontaneous(chit-chat) corpora. Normally, the domain of these corpora would be unconstrained.
+People talk to each other for entertainment. Here, we classify all corpora that participants talk without a pre-defined objective as spontaneous (chit-chat) corpora. Normally, the domain of these corpora would be unconstrained.
 
-The majority of such spontaneous corpora are spoken. The Switchboard dataset\cite{godfrey1992switchboard} is one of the most influential spontaneous spoken corpora. This corpus consists of approximately 2,500 dialogue transcriptions from phone calls with about 500 different speakers. A computer program introduces a topic for discussion between two participants and record the conversation. There are approximately 70 casual topics in which 50 of them are frequently used. The corpus was originally designed for automatic speech recognition (hereafter ASR) task and it has also been used for other variety tasks. Another remarkable corpus is the British National Corpus (BNC)\cite{leech1992100}), which consists of about 10 million words of spoken conversations and 100 million words of written articles. The spoken part was collected in a wide range of contexts ranging from formal business or government meetings to casual phone conversations and the written samples were extracted from regional and national newspapers, published research journals and many other publications. BNC covers a variety of sources, and is representative to a wide cross-section of British English from the late twentieth century. The corpus is annotated with part-of-speech (POS) tagging for every word. The decent topics coverage makes BNC to be a very good resource as a general-purpose spoken dialogue dataset. 
+The majority of such spontaneous corpora are spoken. The Switchboard dataset\cite{godfrey1992switchboard} is one of the most influential spontaneous spoken corpora. This corpus consists of approximately 2,500 dialogue transcriptions from phone calls with about 500 different speakers. A computer program introduces a topic for discussion between two participants and record the conversation. There are approximately 70 casual topics in which 50 of them are frequently used. The corpus was originally designed for automatic speech recognition (hereafter ASR) task and it has also been used for other variety tasks. Another remarkable corpus is the British National Corpus\cite{leech1992100} (BNC), which consists of about 10 million words of spoken conversations and 100 million words of written articles. The spoken part was collected in a wide range of contexts ranging from formal business or government meetings to casual phone conversations and the written samples were extracted from regional and national newspapers, published research journals and many other publications. BNC covers a variety of sources, and is representative to a wide cross-section of British English from the late twentieth century. The corpus is annotated with part-of-speech (POS) tags for every word. The decent topics coverage makes BNC to be a very good resource as a general-purpose spoken dialogue dataset. 
 
-Instead of using spoken language, there are also numerous corpora based on different medias. With the rapid development of Internet industry, a tremendous amount of conversations are recorded. For example, online chatroom is a good source of mining conversations. NPS Internet Chatroom Conversations Corpus\cite{forsythand2007lexical}, which contains 10,567 English utterances gathered from age-specific chat rooms of different online chat platforms. This corpus is one of the first corpora uses Internet to be its media of communication. After that, several Internet-based corpora have also been collected from a variety of sources. Instead of chatrooms, lots of conversations are also happened in micro-blogs or discuss forums. Twitter Corpus\cite{ritter2010unsupervised} contains 1.3 million post-reply pairs extracted from Twitter, which was originally constructed for unsupervised dialogue acts modeling. Many other Twitter corpora with larger scale have also been collected. The Twitter Triples Corpus\cite{sordoni2015neural} is one such example, which consists of 127 million context-message-response triples. Not only for English, but also for many other languages, large micro-blogging corpora have been created, such as, the Sina Weibo Corpus\cite{shang2015neural}, which contains 4.5 million post-reply pairs in Chinese.
+Instead of using spoken language, there are also numerous corpora based on different medias. With the rapid development of Internet industry, a tremendous amount of conversations are recorded. For example, online chatroom is a good source of mining conversations. NPS Internet Chatroom Conversations Corpus\cite{forsythand2007lexical}, which contains 10,567 English utterances gathered from age-specific chatrooms of different online chat platforms. This corpus is one of the first corpora uses Internet to be its media of communication. After that, several Internet-based corpora have also been collected from a variety of sources. Instead of chatrooms, lots of conversations are also happened in micro-blogs or discuss forums. Twitter Corpus\cite{ritter2010unsupervised} contains 1.3 million post-reply pairs extracted from Twitter, which was originally constructed for unsupervised dialogue acts modeling. Many other Twitter corpora with larger scale have also been collected. The Twitter Triples Corpus\cite{sordoni2015neural} is one such example, which consists of 127 million context-message-response triples. Not only for English, but also for many other languages, large micro-blogging corpora have been created, such as, the Sina Weibo Corpus\cite{shang2015neural}, which contains 4.5 million post-reply pairs in Chinese.
 
 Corpora mined from the Internet are usually larger than corpora collected from other types of media by an order of magnitude or more. This is a significant advantage for deep learning methods. However, these corpora collected from the Internet has an enormous amount of typos, slang, and abbreviations. Particularly for twitter, due to the 140-character limitation, tweets are often very short and compressed\cite{serban2018survey}. Another challenge is that Twitter conversations often rely on implicit contexts, for example recent public events outside the conversation. In order to model such conversations, a dialogue model must be able to infer such implicit contexts by referencing some form of external knowledge source. This is a particularly difficult task.
 
@@ -317,15 +317,15 @@ Corpora mined from the Internet are usually larger than corpora collected from o
 Type                                                                                          & Name                                                                                                                            & Year                      & Source        & \begin{tabular}[c]{@{}l@{}}Number \\ of Dialogues\end{tabular} & \begin{tabular}[c]{@{}l@{}}Number\\ of Words\end{tabular} & Annotation                                                                                                 \\ \hline
 \multirow{9}{*}{\begin{tabular}[c]{@{}l@{}}Human-human \\ spontaneous\\ corpora\end{tabular}} & Switchboard\cite{godfrey1992switchboard}                                                                                        & 1992                      & Spoken        & 2,400                                                          & 3M                                                        &                                                                                                            \\ \cline{2-7} 
                                                                                               & British National Corpus\cite{leech1992100}                                                                                      & 1992                      & Spoken/Writen & 854                                                            & 10M/100M                                                  & Part of speech tags.                                                                                       \\ \cline{2-7} 
-                                                                                              & NPS Chat Corpus\cite{forsythand2007lexical}                                                                                     & 2007                      & Online Chat   & 704                                                            & 100M                                                      & \begin{tabular}[c]{@{}l@{}}Dialogue acts and\\ Part of speech tags.\end{tabular}                           \\ \cline{2-7} 
+                                                                                              & NPS Chat Corpus\cite{forsythand2007lexical}                                                                                     & 2007                      & Online Chat   & 704                                                            & 100M                                                      & \begin{tabular}[c]{@{}l@{}}Dialogue acts and\\ part of speech tags.\end{tabular}                           \\ \cline{2-7} 
                                                                                               & Twitter Corpus \cite{ritter2010unsupervised}                                                                                    & 2010                      & Microblog     & 1.3M                                                           & 125M                                                      &                                                                                                            \\ \cline{2-7} 
                                                                                               & Twitter Triple Corpus\cite{sordoni2015neural}                                                                                   & 2015                      & Microblog     & 4232                                                           & 65K                                                       &                                                                                                            \\ \cline{2-7} 
                                                                                               & DailyDialog\cite{li2017dailydialog}                                                                                             & \multicolumn{1}{l|}{2017} & Online Chat   & 13K                                                            & 15M                                                       & Emotion of speakers.                                                                                       \\ \cline{2-7} 
                                                                                               & \begin{tabular}[c]{@{}l@{}}The Cambridge and Nottingham \\ Corpus of Discourse in English\cite{mccarthy1998spoken}\end{tabular} & \multicolumn{1}{l|}{1998} & Spoken        & -                                                              & 5M                                                        & \begin{tabular}[c]{@{}l@{}}Relationship between\\ speakers and interaction type.\end{tabular}              \\ \cline{2-7} 
                                                                                               & \begin{tabular}[c]{@{}l@{}}D64 Multimodal Conversation\\  Corpus\cite{oertel2013d64}\end{tabular}                               & \multicolumn{1}{l|}{2013} & Video         & 2                                                              & 70K                                                       & \begin{tabular}[c]{@{}l@{}}Physical head, torso and\\ arm motion.\end{tabular}                             \\ \cline{2-7} 
-                                                                                              & Topical Chat\cite{Gopalakrishnan2019}                                                                                           & \multicolumn{1}{l|}{2019} & Online Chat   & 10784                                                          & 4M                                                        & \begin{tabular}[c]{@{}l@{}}Links between plain text \\ grounded knowledge\\ and conversation.\end{tabular} \\ \hline
+                                                                                              & Topical Chat\cite{Gopalakrishnan2019}                                                                                           & \multicolumn{1}{l|}{2019} & Online Chat   & 10784                                                          & 4M                                                        & \begin{tabular}[c]{@{}l@{}}Links between plain text \\ knowledge and conversation.\end{tabular} \\ \hline
 \end{tabular}
-\caption{Example human-human spontaneous corpora.}
+\caption{Example Human-human Spontaneous Corpora.}
 \label{tab:HHSTable}
 \end{table}
 \end{landscape}
@@ -335,21 +335,21 @@ Type                                                                            
 
 \subsubsection*{Human-Human Goal-oriented dataset}
 
-For many corpora, the topic of the conversation specified beforehand and participants are discouraged from deviating. Most of the participants in those conversations are aiming to solve a specific task or help the other participants to solve the task. This may introduce biases which influence the distributions of the properties and human behaviours in the conversations. As a result, any restrictions introduced to the conversations should be carefully considered. On the other hand, imposing restrictions can also bring huge benefits. A goal-driven framework makes it possible to apply reinforcement learning to explicitly optimize some desired properties (e.g. coherence, vocabulary diversity) which is normally impossible to do with supervised learning\cite{jurafsky2019speech}. The success rate of the task or the goal could also be an effective extrinsic evaluation metric which we will discuss in later section. Here, we give some typical tasks for the existing goal-oriented corpora.
+For many corpora, the topic of the conversation specified beforehand and participants are discouraged from deviating. Most of the participants in those conversations are aiming to solve a specific task or help the other participants to solve the task. This may introduce biases which influence the distributions of the linguistic properties and human behaviours in the conversations. As a result, any restrictions introduced to the conversations should be carefully considered. On the other hand, imposing restrictions can also bring huge benefits. A goal-driven framework makes it possible to apply reinforcement learning to explicitly optimize some desired properties (e.g. coherence, vocabulary diversity) which is normally impossible to do with supervised learning\cite{jurafsky2019speech}. The success rate of the task or the goal could also be an effective extrinsic evaluation metric which we will discuss in later section. Here, we give some typical tasks for the existing goal-oriented corpora.
 
 Several corpora focus on task planning or path-finding through the collaboration of two participants. In these corpora, one person acts as the decision maker and the other acts as the observer. The observer usually helps to decision maker to achieve his/her goals. A well-known example corpus is the HCRC Map Task Corpus\cite{anderson1991hcrc}, which has unscripted, task-oriented dialogue transcriptions. In this corpus, each participants must collaboratively reproduce a route from one of the participant’s map to the map of another participant via natural language conversions. 
 
 Another popular scenario is persuasion or debate. A common task for a specific participant in the conversation can be to convince another participant of some opinion or topic. Generally these corpora are annotated with the outcome of the debate, for example, how convinced an audience is of the argument after the conversation. The Intelligence Squared Debate Dataset\cite{zhang2016conversational} covers the “Intelligence Squared” Oxford-style debates with a variety of topics. However, for each session of debate, the topic of that debate is predefined and constrained. The outcome of the debate is provided (how many of the audience members were for the given proposal or against, before and after the debate).
 
-Another popular task is to perform question-answering (hereafter QA) tasks grounding on external knowledge. Many researchers are aiming to creates a mini-game where two players ask and answer sequential questions in turns. In each turn, an interlocutor has to ask questions about a predefined fact or he/she could decide what to ask in a given domain and the other interlocutor has to answer the questions based on the conversation history accordingly. The majority of the corpora in this category provide external knowledge base for each participants instead of grounding the conversations on participants' own knowledge. This could reduce the implicit bias introduce by different participants.
+Another popular task is to perform question-answering (hereafter QA) tasks grounding on external knowledge. Many researchers are aiming to creates a mini-game where two players ask and answer sequential questions in turns. In each turn, an interlocutor has to ask questions about a predefined fact or he/she could decide what to ask in a given domain and the other interlocutor has to answer the questions based on the conversation history accordingly. The majority of the corpora in this category provide an external knowledge base for each participants instead of grounding the conversations on participants' own knowledge. This could reduce the implicit bias introduced by different participants.
 
-GuessWhat\cite{de2017guesswhat} is a two-player game where the goal is to identify an object in a complex visual scene by asking a sequence of yes/no questions. There are 150k human-human dialogues collected which contains 821k questions together with Boolean answers. A human participant has to ask sequential related to a given imange in order to find a location of an object. The location is predefined and only visible to one of the participants (the one answers the questions). This minigame forms a common type of tasks, which is usually called visual question answering (VQA) task. There are many efforts towards this direction\cite{strub2017end,shekhar2017foil,reddy2019coqa,zhou2018dataset,de2017guesswhat,das2017visual,das2017learning}, in which they try to model visually grounded conversations using different machine learning paradigms (including RL) in a question answering setting. However, the imperfect performance of the image encoding network leads to a poor RL policy, which is the bottleneck of the whole system. Instead of learning the best conversational strategy, the model learns to find the most effective protocol by utilizing the strength of the answering network. This protocol will clearly not produce natural conversations.
+GuessWhat\cite{de2017guesswhat} is a two-player game where the goal is to identify an object in a complex visual scene by asking a sequence of yes/no questions. There are 150k human-human dialogues collected which contains 821k questions together with Boolean answers. A human participant has to ask sequential related to a given imange in order to find a location of an object. The location is predefined and only visible to one of the participants (the one answers the questions). This mini-game forms a common type of tasks, which is usually called a visual question answering (VQA) task. There are many efforts towards this direction\cite{strub2017end,shekhar2017foil,reddy2019coqa,zhou2018dataset,de2017guesswhat,das2017visual,das2017learning}, in which they try to model visually grounded conversations using different machine learning paradigms (including RL) in a question answering setting. However, the imperfect performance of the image encoding network leads to a poor RL policy, which is the bottleneck of the whole system. Instead of learning the best conversation strategy, the model learns to find the most effective protocol by utilizing the strength of the answering network. This protocol will clearly not produce natural conversations.
 
 Instead of grounding conversations on images, Reddy et al.\cite{reddy2019coqa} proposed a conversational question answering challenge (CoQA) which contains question answering conversations in natural language grounded on a short paragraph with its supporting evidence. However, the top models on the leader board surpass human performance. Even if we ignore the sequence labelling nature of the task, which humans may under-perform, it is clear that even the state of the art neural model would not achieve human intelligence on these kinds of natural language understanding tasks. The results above demonstrate that whatever representations these models learn, they are fundamentally different from what we are expecting. This emphasises the importance of the interpretability of a network's reasoning. We need a framework in which we can perform controlled evaluation, because only then we can justify its decisions.
 
 To the best of our knowledge, there is no publicly available corpus suitable on training coherent open-domain dialogue models. Such a corpus should make transparent when an utterance makes a coherent contribution to its context vs. when it doesn't. The corpus should contain both coherent conversations as well as incoherent conversations. It should be collected (much like the HCRC map task corpus was) from competent human language users, in an unscripted fashion.
 
-We are aiming to achieve this by manipulating what the humans must address next in their conversation via a knowledge graph (this controls whether the next utterance is coherent or not), but not controlling how they say what they have to say (so it is the human's choice on whether to use anaphoric expressions or elided constructions, or not). This bears a lot of similarities to the way the HCRC map task corpus was collected by the way, but there are also differences. Instead of using maps, we decide to use structural knowledge graphs (to present the task but also to control coherence of the next dialogue move). Both of their tasks and ours incorporate asymmetry, but different kinds), among the dialogue participants. Participants in HCRC map task could see maps with or without annotated routines. However, our tasks will provide the same knowledge graphs with the same markings, but they are aiming to achieving different goals using that graph.
+We are aiming to achieve this by manipulating what the humans must address next in their conversation via a knowledge graph (this controls whether the next utterance is coherent or not), but not controlling how they say what they have to say (so it is the human's choice on whether to use anaphoric expressions or elided constructions, or not). This bears a lot of similarities to the way the HCRC map task corpus was collected by the way, but there are also differences. Instead of using maps, we decide to use structural knowledge graphs (to present the task but also to control coherence of the next dialogue move). Both of their tasks and ours incorporate asymmetry, but different kinds), among the dialogue participants. Participants in HCRC map task could see maps with or without annotated routines. However, our tasks will provide the same knowledge graphs with the same markings, but they are aiming to achieve different goals using those graphs.
 
 In Chapter 3, we will discuss our task design in detail and justify our design decisions. 
 
@@ -363,39 +363,39 @@ In Chapter 3, we will discuss our task design in detail and justify our design d
 \begin{tabular}{|l|l|r|l|l|l|l|}
 \hline
 Type                                                                                           & Name                                                              & Year                      & Source              & \begin{tabular}[c]{@{}l@{}}Number \\ of Dialogues\end{tabular} & \begin{tabular}[c]{@{}l@{}}Number\\ of Words\end{tabular} & Description                                                                                                                                                                              \\ \hline
-\multirow{6}{*}{\begin{tabular}[c]{@{}l@{}}Human-Human\\ Goal-oriented\\ Corpora\end{tabular}} & HCRC Map Task Corpus\cite{anderson1991hcrc}                       & 1991                      & Spoken              & 128                                                            & 147K                                                      & \begin{tabular}[c]{@{}l@{}}Dialogues from HLAP Task in which \\ speakers must collaborate verbally\\ to reproduce on one participants \\ map a route printed on the others.\end{tabular} \\ \cline{2-7} 
+\multirow{6}{*}{\begin{tabular}[c]{@{}l@{}}Human-human\\ Goal-oriented\\ Corpora\end{tabular}} & HCRC Map Task Corpus\cite{anderson1991hcrc}                       & 1991                      & Spoken              & 128                                                            & 147K                                                      & \begin{tabular}[c]{@{}l@{}}Dialogues from HLAP Task in which \\ speakers must collaborate verbally\\ to reproduce on one participants \\ map a route printed on the others.\end{tabular} \\ \cline{2-7} 
                                                                                                & Intelligence Squared Debate Dataset\cite{zhang2016conversational} & 2016                      & Debates             & 854                                                            & 10M                                                       & \begin{tabular}[c]{@{}l@{}}Various topics in Oxford-style debates,\\  each constrained to one subject. \\ Audience opinions provided pre- and\\  post-debates.\end{tabular}              \\ \cline{2-7} 
-                                                                                               & GuessWhat                                                         & 2017                      & Mini Game           & 160K                                                           & 4M                                                        & \begin{tabular}[c]{@{}l@{}}Identify an object in a complex visual\\ scene by asking a sequence of \\ yes/no questions\end{tabular}                                                       \\ \cline{2-7} 
-                                                                                               & Complex Sequential Question Answering\cite{2018complex}           & 2010                      & Semi-auto Generated & 169K                                                           &                                                           & \begin{tabular}[c]{@{}l@{}}Sequential Question Answering Utterance\\ generated based on human defined templet\end{tabular}                                                               \\ \cline{2-7} 
+                                                                                               & GuessWhat\cite{de2017guesswhat}                                                         & 2017                      & Mini Game           & 160K                                                           & 4M                                                        & \begin{tabular}[c]{@{}l@{}}Identify an object in a complex visual\\ scene by asking a sequence of \\ yes/no questions\end{tabular}                                                       \\ \cline{2-7} 
+                                                                                               & Complex Sequential Question Answering\cite{saha2018complex}           & 2010                      & Semi-auto Generated & 169K                                                           &                                                           & \begin{tabular}[c]{@{}l@{}}Sequential Question Answering Utterance\\ generated based on human defined templet\end{tabular}                                                               \\ \cline{2-7} 
                                                                                                & CoQA\cite{reddy2019coqa}                                          & 2019                      & QA Chat             & 8K                                                             &                                                           & \begin{tabular}[c]{@{}l@{}}Question Answering Conversation grounded \\ on short paragraph. Labeled with text spans\\ as supporting evidence.\end{tabular}                                \\ \cline{2-7} 
                                                                                                & QuAC\cite{choi2018quac}                                           & \multicolumn{1}{l|}{2018} & QA Chat             & 14K                                                            & 5.6M                                                      & \begin{tabular}[c]{@{}l@{}}Question Answering Conversation grounded\\ on wikipeida text. Labeled with text spans\\ as supporting evidence. Annotated with\\  dialogue acts.\end{tabular} \\ \hline
 \end{tabular}%
 }
-\caption{Example Human-Human Goal-oriented Corpora}
+\caption{Example Human-human Goal-oriented Corpora}
 \label{tab:HHGoal}
 \end{table}
 \end{landscape}
 
 \subsubsection*{Human-Machine Corpora}
 
-Most of the Human-machine Corpora are goal-oriented. Humans usually talk to machines in order to accomplish specific tasks or enquiry information. The ATIS (Air Travel Information System) Pilot Corpus\cite{hemphill1990atis} is one of the first human-machine corpora. It consists of conversations between human participants and a travel-type booking system, secretly operated by humans. This dataset contains 1041 utterances. The Carnegie Mellon Communicator Corpus\cite{bennett2002carnegie} also contains human-machine interactions with a travel booking system. It is a medium-sized dataset of interactions with a real time system providing flight information, hotel information, and car rentals. The user’s comments are recorded after the each dialogues.
+Most of the human-machine corpora are goal-oriented. Humans usually talk to machines in order to accomplish specific tasks or enquiry information. The ATIS (Air Travel Information System) Pilot Corpus\cite{hemphill1990atis} is one of the first human-machine corpora. It consists of conversations between human participants and a travel-type booking system, secretly operated by humans. This dataset contains 1041 utterances. The Carnegie Mellon Communicator Corpus\cite{bennett2002carnegie} also contains human-machine interactions with a travel booking system. It is a medium-sized dataset of interactions with a real time system providing flight information, hotel information, and car rentals. The user’s comments are recorded after the each dialogues.
 
-Instead of making queries or making reservations, people also talk to machines for other purposes. The DIALOG mathematical proof dataset\cite{wolska2004annotated} is a Wizard-of-Oz dataset involving an automated tutoring system that attempts to advise students on proving mathematical theorems. In the dataset, a system gives heuristics that provides clues when students come up with an incorrect answer. There are only 66 dialogues in the dataset which consists of a conglomeration of text-based interactions with the system, as well as think-aloud audio and video footage recorded by the users as they interacted with the system. 
+Instead of making queries or making reservations, people also talk to machines for other purposes. The DIALOG mathematical proof dataset\cite{wolska2004annotated} is a Wizard-of-Oz dataset involving an automated tutoring system that attempts to advise students on proving mathematical theorems. In the dataset, a system gives heuristics that provide clues when students come up with incorrect answers. There are only 66 dialogues in the dataset which consists of a conglomeration of text-based interactions with the system, as well as think-aloud audio and video footage recorded by the users as they interacted with the system. 
 
 
 \section{Dialogue Model Evaluation}
 
-Evaluating dialogue models is one of the most challenging aspects of building dialogue systems. Dialogue systems are generally evaluated by humans, however, human evaluation is very time consuming and expensive. Although user satisfaction is our ultimate goal for building a dialogue system, it is often necessary to optimize the performance on some automatic metrics for multiple times prior to release. It is inefficient and almost infeasible to run experiments with real user during the whole development circle. In this section, I will investigate some commonly used approaches for dialogue system evaluation and discuss the pros and cons of each approach. Those approaches are roughly classified into three categories: Intrinsic Evaluation, Extrinsic Evaluation and Human Evaluation.
+Evaluating dialogue models is one of the most challenging aspects of building dialogue systems. Dialogue systems are generally evaluated by humans, however, human evaluation is very time consuming and expensive. Although user satisfaction is our ultimate goal for building a dialogue system, it is often necessary to optimize the performance on some automatic metrics for multiple times prior to release. It is inefficient and almost infeasible to run experiments with real users during the whole development circle. In this section, we will investigate some commonly used approaches for dialogue system evaluation and discuss the pros and cons of each approach. Those approaches are roughly classified into three categories: Intrinsic Evaluation, Extrinsic Evaluation and Human Evaluation.
 
 \subsection{Intrinsic Evaluation}
 
 \subsubsection*{Word Overlap Metrics}
 
-As I mentioned in Chapter 1, modelling dialogues could be views as a machine translation task. Consequently, we may borrow machine translation evaluation metrics, such as BLEU scores\cite{papineni2002bleu}, to evaluate dialogue models. BLEU score could be applied to calculate the word overlap between a machine generated utterance and the actual next utterance in the conversation. However, for assessing dialogue system reposes, such a measure has been reported not to correlate well with human judgment\cite{liu2016not}. One significant issue is natural language is ambiguous. For a given utterance, there will be a vast amount of valid responses. These responses may not share the same word at all. In this case, systems producing diverse and "interesting" responses, will score poorly with BLEU score. In fact, Sordoni et al. have demonstrated that human responses may be scored poorly according to word overlap metrics\cite{sordoni2015neural}.
+As we mentioned in Chapter 1, modelling dialogues could be views as a machine translation task. Consequently, we may borrow machine translation evaluation metrics, such as BLEU scores\cite{papineni2002bleu}, to evaluate dialogue models. BLEU score could be applied to calculate the word overlap between a machine generated utterance and the actual next utterance in the conversation. However, for assessing dialogue system responses, such a measure has been reported not to correlate well with human judgment\cite{liu2016not}. One significant issue is natural language is ambiguous. For a given utterance, there will be a vast amount of valid responses. These responses may not share the same word at all. In this case, systems producing diverse and ``interesting" responses, will score poorly with BLEU score. In fact, Sordoni et al.\cite{sordoni2015neural} have demonstrated that human responses may be scored poorly according to word overlap metrics.
 
 \subsubsection*{Word Perplexity}
 
-For probabilistic language models, word perplexity is a well-established performance metric\cite{bengio2003neural,mikolov2010recurrent}. Word perplexity has also be suggested for evaluating generative dialogue models\cite{pietquin2013survey}. Perplexity explicitly measures the probability that the model will generate the gold next utterance given the prior context of the conversation. Lower perplexity demonstrates better performance. The probabilistic nature of perplexity can potentially evade the exact matching issue of BLEU and consider multiple possible valid responses.
+For probabilistic language models, word perplexity is a well-established performance metric\cite{bengio2003neural,mikolov2010recurrent}. Word perplexity has also been suggested for evaluating generative dialogue models\cite{pietquin2013survey}. Perplexity explicitly measures the probability that the model will generate the gold next utterance given the prior context of the conversation. Lower perplexity demonstrates better performance. The probabilistic nature of perplexity can potentially evade the exact matching issue of BLEU and consider multiple possible valid responses.
 
 \subsection{Extrinsic Evaluation}
 
@@ -411,11 +411,11 @@ For many aspects we are interested in dialogue systems, there is no well establi
 
 \chapter{Extended Dialogues Grounded on Knowledge Graph: A Corpus}
 
-In this chapter, we design and collect a novel corpus contains extended coherent dialogues of questions and responses that are information in a knowledge graph. These dialogues describe the relations within a knowledge graph with clear links between the phrases in the questions to nodes in a knowledge graph. The purpose for this corpus is to perform statistical analysis about various linguistic patterns within coherent dialogues, thereby, create a framework for neural models to learn how to parse these patterns and produce more coherent responses. The main focus for this project is to investigate when the appearance of an elided construction is natural and convey the intended content. I firstly introduce our framework design. Then, I discuss how this framework is implemented and how the corpus is collected. Finally, I compare our work with other existing corpora and show the advantage of our framework in achieving the above goal.
+In this chapter, we design a novel corpus contains extended coherent dialogues of questions and responses. These dialogues describe the relations within a knowledge graph with clear links between the phrases in the questions to nodes in the knowledge graph. An example knowledge graph looks like Figure \ref{fig:kg}. The purpose for this corpus is to perform statistical analysis about various linguistic patterns within coherent dialogues, thereby, create a framework for neural models to learn how to parse these patterns and produce more coherent responses. The main focus for this project is to investigate when the appearance of an elided construction is natural and conveys the intended content. We firstly introduce our framework design. Then, we discuss how this framework is implemented and how the corpus is collected. Finally, we compare our work with other existing corpora and show the advantage of our framework in achieving the above goal.
 
 \section{Corpus Design}
 
-In order to create a framework for neural networks to model various linguistic patterns within a coherent dialogue and ultimately build a dialogue which could perform natural conversations in open-domain, there are some important required the our framework:
+In order to create a framework for neural networks to model various linguistic patterns within a coherent dialogue and ultimately build a dialogue system which can perform natural conversations in open-domain, there are some important requirement the our framework:
 
 \begin{enumerate}
    \item The dialogues should be coherent and natural
@@ -425,13 +425,13 @@ In order to create a framework for neural networks to model various linguistic p
    \item The framework could be potentially adapted to open-domain.
 \end{enumerate}
 
-These are the design principles for our corpus. To achieve the above goal and collect natural conversations, human interlocutors are necessary. In our corpus, human-human conversations are collected instead of human-machine or machine-generated conversations. Williams and Young\cite{williams2007partially} have argued that, under equivalent circumstances, machines are producing the different distribution of possible responses than humans. As I mention in the Chapter 1, a small divergences or misunderstanding of the context will lead to a completely incoherent and unnatural conversations. Consequently, it is very hard to produce coherent conversation when machines are involved as interlocutors. Online chatroom is selected to be the media of the conversations in order to reduce the biases introduced by automatic speech recognition\cite{williams2007partially} as well as remain the information natural of chit-chat conversation. All the conversations are goal-oriented, in fact topic-oriented, and the participants are discouraged from deviating from the topic. As I mentioned in chapter 2, this facilitates the training (apply reinforcement learning) and testing (extrinsic evaluation) for our model development. Participants are instructed to perform question-answering tasks about a knowledge graph. Consequently, we could use common question-answering evaluation metrics such as precision, recall and F1 score to be our external evaluation metrics. The sequences of questions and answers are predefined. The participants have to follow a script to perform the conversation. By doing this, we could manually create different contexts where we hypothesis a linguistic pattern (e.g. ellipsis) could possible appear or not, and test our hypothesis statistically. If our hypothesis is significant, we may build probabilistic models with neural networks.
+These are the design principles for our corpus. To achieve the above goal and collect natural conversations, human interlocutors are necessary. In our corpus, human-human conversations are collected instead of human-machine or machine-generated conversations. Williams and Young\cite{williams2007partially} have argued that, under equivalent circumstances, machines are producing the different distribution of possible responses than humans. As we mention in the Chapter 1, small divergences or misunderstanding of the context will lead to a completely incoherent and unnatural conversations. Consequently, it is very hard to produce coherent conversation when machines are involved as interlocutors. The conversations are collected via a text-based online chatroom in order to reduce the biases introduced by automatic speech recognition\cite{williams2007partially} as well as remain the information natural of chit-chat conversations. All the conversations are goal-oriented, in fact topic-oriented, and the participants are discouraged from deviating from the topic. As we mentioned in Chapter 2, this facilitates the training (apply reinforcement learning) and testing (extrinsic evaluation) for our model development. Participants are instructed to perform question-answering tasks about a knowledge graph. Consequently, we could use common question-answering evaluation metrics such as precision, recall and F1 score to be our external evaluation metrics. The sequences of questions and answers are predefined. The participants have to follow a script to perform the conversation. By doing this, we could manually create different contexts where we hypothesis a linguistic pattern (e.g. ellipsis) could possible appear or not, and test our hypothesis statistically. If our hypothesis is significant, we may build probabilistic models with neural networks.
 
-As outlined above, our corpora should be considered as a human-human goal-oriented written corpus. In the rest of this section, I give a concise definition of our task and a brief description of our corpus. Then, I introduce three important aspect in our corpus design and justify our decision.
+As outlined above, our corpora should be considered as a human-human goal-oriented written corpus. In the rest of this section, we give a concise definition of our task and a brief description of our corpus. Then, we introduce three important aspect in our corpus design and justify our decisions.
 
 \subsection{Task Definition}
 
-Our task pairs up two participants, a Questioner and an Answerer, who discuss the relations between entities within in a sampled knowledge graph. A knowledge graph is a directed graph, which the nodes in the graph represent entities in real world; the edges represent relations among these entities; the arrow on the edge indicates the direction of the relation. Figure\ref{fig:kg} is an example knowledge graph talking about Alan Turing. 
+Our task pairs up two participants, a Questioner and an Answerer, who discuss the relations between entities within in a sampled knowledge graph. A knowledge graph is a directed graph, which the nodes in the graph represent entities in real world; the edges represent relations among these entities; the arrow on the edge indicates the direction of the relation. Figure \ref{fig:kg} is an example knowledge graph talking Alan Turing. 
 
 \begin{figure}[h]
     \centering
@@ -441,41 +441,67 @@ Our task pairs up two participants, a Questioner and an Answerer, who discuss th
 \end{figure}
 
 
-The Questioner and The Answerer will talk in turns. They have freedom to choose how to phrase their sentences and keep the conversation natural, although, what they are talking about is constrained. Each turn, there will be a unique highlighted (red) relation in the graph together with a highlighted (green) node in this edge. The participants should only talk about the unique highlighted edge and node in each turn.
+The Questioner and the Answerer will talk in turns. They have freedom to choose how to phrase their sentences and keep the conversation natural, although, what they are talking about is constrained. Each turn, there will be a unique highlighted (red) relation in the graph together with a highlighted (green) node in this edge. The participants should only talk about the unique highlighted edge and node in each turn.
 
-The Questioner is the initiator of the conversation. In order to start a conversation, Questioner should ask a question based on the relation (edge) in red. The node marked in green should be the answer of the question. The Questioner will send the natural language question together with the same graph with the same marking to the Answerer. After the Answerer received the question, he/she have to answer the question according to the marked graph and the conversation history so far. Then the Answerer will send the response to the Questioner and the marking on the graph will be updated according to a predefined script. Now the two participants have to start next turn. One import fact is the conversation history so far is always visible to both participants. Consequently, their utterance will always depend on the context of the on-going conversation.
+The Questioner is the initiator of the conversation. In order to start a conversation, the Questioner should ask a question based on the relation (edge) in red. The node marked in green should be the answer of the question. The Questioner will send the natural language question together with the same graph with the same marking to the Answerer. After the Answerer received the question, he/she have to answer the question according to the marked graph and the conversation history so far. Then the Answerer will send the response to the Questioner and the marking on the graph will be updated according to a predefined script. Now the two participants have to start next turn. One important fact is the conversation history so far is always visible to both participants. Consequently, their utterances will always depend on the context of the on-going conversation.
+
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{qa1.png}
+    \includegraphics[width=1\textwidth]{q1.png}
+    \includegraphics[width=1\textwidth]{a1.png}
     \caption{Question Answering Interface for Questioner(above) and Answerer(below).}
     \label{fig:kgjson}
 \end{figure}
 
-The conversation will be automatically terminated after 6 turns. In addition, between different conversations, the underlying knowledge graph may be different, but remain the same within each conversation. During the experiment, participants are unable to see each other. There is no non-verbal commutation between the two participants and they are paid for this task.
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=1\textwidth]{qa1.png}
+%     \caption{Question Answering Interface for Questioner(above) and Answerer(below).}
+%     \label{fig:kgjson}
+% \end{figure}
+
+A conversation will be automatically terminated after 6 turns. In a conversation, the markings (highlights) will be different, but the knowledge graph remains the same. During the experiment, participants are unable to see each other. There is no non-verbal commutation between the two participants and they are paid for this task.
 
 \subsection{Corpus Description}
 
-Our corpus consists of 240 coherent extended conversations collected via crowd-sourcing. Each conversation contains 6 turns and each turn composed of a natural language question and a natural language answer to that question. All utterances in a conversation are correlated on its prior context and the grounded knowledge graph and linked to the marking on knowledge graph of that turn. Figure\ref{fig:exampledata} is an example datapoint in our corpus.
+Our corpus consists of 240 coherent extended conversations collected via crowd-sourcing. Each conversation contains 6 turns and each turn is composed of a natural language question and a natural language answer to that question. All utterances in a conversation are correlated to its prior context and the grounded knowledge graph and linked to the marking on the knowledge graph of that turn. Figure \ref{fig:exampledata} is an example datapoint in our corpus.
+
+\begin{exe}
+	\ex
+		\begin{xlist}
+			\ex \label{qq1} Q: What date was Alan Turing born?
+			\ex \label{aa1} A: He was born on 23 June, 1912
+			\ex \label{qq2} Q: Where?
+			\ex \label{aa2} A: Hmm... I believe in Maida Vale
+			\ex \label{qq3} Q: And do you happen to know what his occupation was?
+			\ex \label{aa3} A: He was what's known as a computer scientist
+			\ex \label{qq4} Q: Do you know any of his notable work?
+			\ex \label{aa4} A: Yeah, intelligent machinery
+			\ex \label{qq5} Q: where was he educated?
+			\ex \label{aa5} A: In King's College- this dude was a smarty!
+			\ex \label{qq6} Q: What university is that part of?
+			\ex \label{aa6} A: University of Cambridge- the best!!
+\end{xlist}
+\end{exe}
+
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{eaxmppledata.png}
+    \includegraphics[width=\textwidth]{graphs.png}
     \caption{An Example Collected Conversation and its Grounded Knowledge Graph.}
     \label{fig:exampledata}
 \end{figure}
 
-All the knowledge graphs are sampled from WikiData\cite{vrandevcic2014wikidata} and each graph has 12 nodes. The sequence of marking (highlighted relations and nodes) in each conversation is predefined by human annotators. Some demographic information of the participants, such as age, gender and nationalities, are collection under their permission. In addition, all the data entries are annotated with labels in Table\ref{tab:terms} and Table\ref{tab:tags} which will be discussed later in this section.
-
-
-
+All the knowledge graphs are sampled from WikiData\cite{vrandevcic2014wikidata} and each graph has 12 nodes. The sequences of highlighted relations and nodes were designed to control for the coherence of the current question in its discourse context, so that the corpus as a whole incorporates variation in the extent to which the topic of the current question shifts from the prior topics of prior questions and answers. This sequence of marking is predefined by human annotators. Some demographic information of the participants, such as age, gender and nationalities, is collected under their permission. In addition, all the data entries are annotated with labels in Table \ref{tab:terms} and Table \ref{tab:tags} which will be discussed later in this section.
 
 \subsection{Important Aspects of the Corpus}
 \subsubsection*{Knowledge Graph as External Knowledge}
 
-Instead of letting the participants to ask questions solely based on their prior common knowledge, external information as grounded knowledge is provided. Different people have different interpretation about the world, conversations based on participants' common knowledge often rely on implicit context about the participants. This brings additional challenge to produce dialogue state representations.
+Instead of letting the participants ask questions solely based on their prior common knowledge, external information as grounded knowledge is provided. Different people have different interpretation about the world. Conversations based on participants' common knowledge often rely on implicit contexts about the participants. This brings additional challenges to produce dialogue state representations.
 
-As I mentioned in Chapter 2, using images or text paragraph is not idea for modeling open domain coherent dialogues in a question answering setting\cite{strub2017end,shekhar2017foil,reddy2019coqa,zhou2018dataset,de2017guesswhat,das2017visual,das2017learning,reddy2019coqa}. In our framework, we use knowledge graph as our external knowledge base. There are many advantages for using knowledge graphs as the external knowledge:
+As we mentioned in Chapter 2, using images or text paragraphs for modeling open domain coherent dialogues in a question answering setting\cite{strub2017end,shekhar2017foil,reddy2019coqa,zhou2018dataset,de2017guesswhat,das2017visual,das2017learning,reddy2019coqa} has limitations. In our framework, we use knowledge graphs as our external knowledge base. There are many advantages for using knowledge graphs as the external knowledge:
 
 \begin{figure}[h]
     \centering
@@ -485,12 +511,12 @@ As I mentioned in Chapter 2, using images or text paragraph is not idea for mode
 \end{figure}
 
 \begin{enumerate}
-   \item \textbf{Knowledge graph have two modalities.} 
-   As illustrated in Figure\ref{fig:kgjson} and Figure\ref{fig:kg}, knowledge graph can be stored as structural data in the computer memory or visualized as an image graph. These two representations convey exactly the same information with different modalities. This provides both machine-readability and human-readability. By doing this, human participants don't outperform during the task and machines could learn effectively through the strong supervision signals it provided.
+   \item \textbf{Knowledge graphs have two modalities.} 
+   As illustrated in Figure \ref{fig:kgjson} and Figure \ref{fig:kg}, a knowledge graph can be stored as structural data in the computer memory or visualized as an image graph. These two representations convey exactly the same information with different modalities. This provides both machine-readability and human-readability. By doing this, human participants don't under-perform during the task and machines could learn effectively through the strong supervision signals it provided.
    
-   \item \textbf{Knowledge graphs are unambiguous.} Different people have different way to interpret a sentence and label a text span. This makes the evaluation of the text-based question-answering task very challenging. As I mentioned above, human usually under-perform under such tasks. Unlike plain text, knowledge graph is unambiguous. Accurate evaluation is possible under this framework.
+   \item \textbf{Knowledge graphs are unambiguous.} Different people have different way to interpret a sentence and label a text span. This makes the evaluation of the text-based question-answering task very challenging. As we mentioned above, human usually under-perform under such tasks. Unlike plain text, knowledge graph is unambiguous. Accurate evaluation is possible under this framework.
    
-   \item  \textbf{Knowledge graphs are structural.} Knowledge graphs are structural in the sense that the relations between entities are easily interpretable. This makes it extremely easy to control the topic and topic switch of the conversations.
+   \item  \textbf{Knowledge graphs are structural.} Knowledge graphs are structural in the sense that the relations between entities are easily interpretable. This makes it extremely easy to control the topics and topic switches of the conversations.
    
     \item \textbf{Knowledge graphs are open domain.} There are many existing knowledge graph datasets\cite{vrandevcic2014wikidata,bollacker2008freebase}. These knowledge graphs covers a wide range of topics which could be considered as open-domain.
     
@@ -500,33 +526,51 @@ As I mentioned in Chapter 2, using images or text paragraph is not idea for mode
 \end{enumerate}
 
 
-As outlined above, knowledge graphs  is a good resource of external knowledge in our task. There are two popularly knowledge graphs which are widely used in literature, we decide to use WikiData\cite{vrandevcic2014wikidata} instead of Freebase\cite{bollacker2008freebase}. WikiData has an operating API. Researchers could directly query the API instead of dealing with raw data which can be hundreds of Gigabit.
+As outlined above, knowledge graphs are good resources of external knowledge in our task. There are two popularly knowledge graphs which are widely used in literature, we decide to use WikiData\cite{vrandevcic2014wikidata} instead of Freebase\cite{bollacker2008freebase}. WikiData has an operating API. Researchers could directly query the API instead of dealing with raw data which can be hundreds of Gigabit.
 
 \subsubsection*{Natural Conversation Grounded on Knowledge Graph}
 
-For each conversation, there will be 6 relations and answer nodes highlighted in sequence. The sequence of the highlighted relations together with the highlighted node, which we call a path, is predefined in order to control the topic switches for each conversation. Different patterns of topic switches (paths) will have influence on the appearances of various linguistic patterns. In Table\ref{tab:terms}, I would like to introduce some terminologies before we investigate the relations between those two patterns. 
+For each conversation, there will be 6 relations and answer nodes highlighted in sequence. The sequence of the highlighted relations together with the highlighted nodes, which we call a path, is predefined in order to control the topic switches for each conversation. Different patterns of topic switches (paths) will have influence on the appearances of various linguistic patterns. In Table \ref{tab:terms}, we would like to introduce some terminologies before we investigate those patterns. Figure \ref{fig:gaps} and Figure \ref{fig:links} are example sequences of gaps and links.
 
-
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
 \begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|l|}
 \hline
 Terms         & Definition                                                                                                                                                                                                                       \\ \hline
 Gaps          & \begin{tabular}[c]{@{}l@{}}If there is no overlap between the entities in relations between the previous \\ turn and the current turn, then we label the current turn with ‘Gap’ label.\end{tabular}                             \\ \hline
+Links         & \begin{tabular}[c]{@{}l@{}}When two turns are talking about the same entity, we call the following,\\ turn is linked to the previous turn if there is a strong correlation between,\\ their grounded relationships.\end{tabular} \\ \hline
 Continuous    & A conversation with no gap is called continuous.                                                                                                                                                                                 \\ \hline
 Discontinuous & A conversation with one or more gaps is called continuous.                                                                                                                                                                       \\ \hline
-Links         & \begin{tabular}[c]{@{}l@{}}When two turns are talking about the same entity, we call the following \\ turn is linked to the previous turn if there is a strong correlation between \\ their grounded relationships.\end{tabular} \\ \hline
-\end{tabular}
-\caption{Definition for Graph Annotation}
+\end{tabular}%
+}
+\caption{Definition for Graph Annotations.}
 \label{tab:terms}
 \end{table}
 
 
-We sampled 10 sub graphs from Wikidata in 10 distinct topics. For each subgraph, we generate 4 paths for each graph with different number of gaps and links in the path. By doing this, we would like to investigate under what situation, human tend to produce various linguistic patterns, particularly elided construction, in an extended coherent dialogue.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gaps.png}
+    \caption{An Example Marking Sequence of Gaps.}
+    \label{fig:gaps}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{links.png}
+    \caption{An Example Marking Sequence of Links.}
+    \label{fig:links}
+\end{figure}
+
+We sampled 10 sub graphs from Wikidata in 10 distinct topics. For each subgraph, we generate 4 paths with different number of gaps and links in the path. By doing this, we would like to investigate under what situation, human tend to produce various linguistic patterns, particularly elided constructions, in an extended coherent dialogue.
 
 
-\subsubsection*{Annotations for Linguistics Patterns}
+\subsubsection*{Annotations for Linguistic Patterns}
 
-Each utterance in the corpus is tagged with various linguistics patterns by human annotators. There are eight such tags in our corpus. Four of them are considered to be class label. Consequently, tagging those tags is a classification task which the annotator see the whole utterance and annotate the tags to the whole sentence. The rest four tags are sequence labels, which these tags are labeled to a text span of the original utterance. Table\ref{tab:tags} summarizes the details about our tag set. All annotators are tagging the corpus according to the annotation schema in Appendix.  
+Each utterance in the corpus is tagged with various linguistic patterns by human annotators. There are eight such tags in our corpus. Four of them are considered to be class label. Consequently, tagging those tags is a classification task which the annotators see the whole utterance and annotate the tags to the whole sentence. The rest four tags are sequence labels, which these tags are labeled to a text span of the original utterance. Table \ref{tab:tags} summarizes the details about our tag set. All annotators are tagging the corpus according to the annotation schema in Appendix \ref{appendix:annotation}. The detailed definition and examples for each tag are described in this annotation schema.
 
 % Please add the following required packages to your document preamble:
 % \usepackage{multirow}
@@ -547,9 +591,11 @@ Type                            & Tag                                           
                                 & Totally Irrelevant                                                             & \begin{tabular}[c]{@{}l@{}}Totally irrelevant tag should be used when pieces of\\ utterance is totally irrelevant to the question answering\\ conversation. By deleting such pieces of information,\\ we will not influence the coherence of the conversation\\ or the meaning of the utterance. In addition, this tag should\\ only be considered if the part of utterance is not labelled as\\ other labels. In other words, labels, such as Conversation\\ Control, will have higher precedence.\end{tabular} \\ \hline
 \end{tabular}%
 }
-\caption{Definition of Tag Set.}
+\caption{Definition of our Tag Set.}
 \label{tab:tags}
 \end{table}
+
+
 
 
 \newpage
@@ -559,7 +605,7 @@ This section introduces the tool-kits have been developed and used during this p
 
 \subsection{Sampling from Knowledge Graph}
 
-In order sample sub-graphs from Wikidata, a Java toolkit named KnowledgeGraphClient is developed.
+In order to sample sub-graphs from Wikidata, a Java toolkit named KnowledgeGraphClient is developed.
 
 \begin{figure}[h]
     \centering
@@ -568,11 +614,9 @@ In order sample sub-graphs from Wikidata, a Java toolkit named KnowledgeGraphCli
     \label{fig:client}
 \end{figure}
 
-In order to interact with Wikidata, a Java package name Wikidata Toolkit\cite{wikitoolkit} is used. This package provide APIs to query Wikidata for entities (nodes in Figure\ref{fig:kg}) and relations relation to it.
+In order to interact with Wikidata, a Java package name Wikidata Toolkit\cite{wikitoolkit} is used. This package provides APIs to query Wikidata for entities (nodes in Figure \ref{fig:kg}) and relations related to it.
 
-
-
-A sub-graph is sampled via a depth-first search algorithm. We pre-defined a set of "interesting relations" which we only explore a connected node if the relation connecting that node and current node is in the set. We clearly don't want to include relations which are rarely mentioned in our daily life. For example, we would rarely talk about relations like: Obama is an instance of human and human is a subclass of animal. We start the search at a predefined node, for example, Obama(Q76). Q76 is the unique Wikidata ID for Obama. We potentially could traversal all nodes which are connected to Obama, however, I set the maximum depth of the search to be 4. In other words, we only explore nodes 4 connection away from the starting node. After the search, we would have a set of edges and nodes which will form a directed graph. In order to visualise the graph, I tried to apply force-directed algorithm to make reduce the overlap among these nodes.
+A sub-graph is sampled via a depth-first search algorithm. We pre-defined a set of ``interesting relations" which we only explore a connected node if the relation connecting that node and current node is in the set. We clearly don't want to include relations which are rarely mentioned in our daily life. For example, we would rarely talk about relations like: Obama is an instance of human and human is a subclass of animal. We start the search at a predefined node, for example, Obama(Q76). Q76 is the unique Wikidata ID for Obama. We potentially could traversal all nodes which are connected to Obama, however, we set the maximum depth of the search to be 4. In other words, we only explore nodes 4 connection away from the starting node. After the search, we would have a set of edges and nodes which will form a directed graph. In order to visualise the graph, we tried to apply force-directed algorithm to reduce the overlap among these nodes.
 
 \begin{figure}[h]
     \centering
@@ -581,11 +625,11 @@ A sub-graph is sampled via a depth-first search algorithm. We pre-defined a set 
     \label{fig:obama}
 \end{figure}
 
-However, such a graph is not very human interpretable and visible. I decided to follow a semi-automatic approach which I manually select nodes and edges from the above graph and directly give the coordinate for each node. In addition, the paths are also manually generated. By this approach, we generated 40 graphs in 10 distinct topics.
+However, such a graph is not very human interpretable and visible. We decide to follow a semi-automatic approach which we manually select nodes and edges from the above graph and directly give the coordinate for each node. In addition, the paths are also manually generated. By this approach, we generate 40 graphs in 10 distinct topics.
 
 \subsection{Generating Questions from Knowledge Graph}
 
-Instead of collecting dialogues from human participants, Indurthi et al.\cite{indurthi2017generating} has tried to automatically generate question answer pairs from a given knowledge graph. From each such set, they use a subset of keywords to generate a natural language question that has a unique answer. They treat this subset of keywords as a sequence and use an encoder-decoder model to generate natural questions from it.
+Instead of collecting dialogues from human participants, Indurthi et al.\cite{indurthi2017generating} has tried to automatically generate question answer pairs from a given knowledge graph. They use a subset of keywords to generate a natural language question that has a unique answer. They treat this subset of keywords as a sequence and use an encoder-decoder model to generate natural questions from it.
 
 
 \begin{table}[]
@@ -599,29 +643,29 @@ Parent Predicate & designation   \\
 Domain           & person        \\
 Range            & organization  \\ \hline
 \end{tabular}
-\caption{An example set of keywords constructed from the triple(Sundar Pichai, CEO, Google)\cite{indurthi2017generating}}
+\caption{An Example Set of Keywords Constructed from the Triple(Sundar Pichai, CEO, Google)\cite{indurthi2017generating}.}
 \label{tab:keyword}
 \end{table}
 
-We re-implemented their experiment in a similar setting and the experiment results are shown in Table\ref{tab:genresult}. The larger model is a bi-directional RNN containing one hidden layer of 1000 units. We also build a small model, use a bi-directional RNN containing one hidden layer of 500 units due to the limitation of computation power. However, their method faces domain-adaption problem which could not produce grammatical sentences with out-domain data. Consequently, this dataset requires human intelligence and crowdsourcing is reqiured. 
+We re-implemented their experiment in a similar setting and the experiment results are shown in Table \ref{tab:genresult}. The larger model is a bi-directional RNN containing one hidden layer of 1000 units. We also build a small model, which uses a bi-directional RNN containing one hidden layer of 500 units due to the limitation of computation power. However, their method faces domain-adaption problem which could not produce grammatical sentences with out-domain data. Consequently, this dataset requires human intelligence and crowdsourcing is reqiured. 
 
 \begin{table}[]
 \centering
 \begin{tabular}{|l|l|}
 \hline
-Models                 & BLEU Score \\ \hline
+Model                  & BLEU Score \\ \hline
 BiRNN-Large-Reported   & 50.14      \\ \hline
 BiRNN-Small-Experiment & 38.45      \\ \hline
 BiRNN-Large-Experiment & 49.72      \\ \hline
 \end{tabular}
-\caption{Experiment Result for Generating Conversation\cite{indurthi2017generating}}
+\caption{Experiment Result for Generating Conversation\cite{indurthi2017generating}.}
 \label{tab:genresult}
 \end{table}
 
 \newpage
 \subsection{Web-interface for Data Collection}
 
-In order to collect this corpus via crowd-sourcing, we built a web-interface together with a web server from scratch. A large proportion of our effort for this project have been spent into developing this software. There are two major challenges during the development: 1) This is a production system, which real users have to interact with this system. Consequently, the system has to be thoroughly tested. 2) Sometimes, human behaviour are unpredictable. It's very challenging to design and implement a robust system that could handle unexpected human behaviours.
+In order to collect this corpus via crowd-sourcing, we built a web-interface together with a web server from scratch. A large proportion of our effort for this project has been spent developing this software. There are two major challenges during the development: 1) This is a production system, which real users have to interact with. Consequently, the system has to be thoroughly tested. 2) Sometimes, human behaviours are unpredictable. It's very challenging to design and implement a robust system that could handle unexpected human behaviours.
 
 
 \begin{figure}[h]
@@ -631,16 +675,16 @@ In order to collect this corpus via crowd-sourcing, we built a web-interface tog
     \label{fig:web}
 \end{figure}
 
-As shown in Figure\ref{fig:web}, if a new user participates in our experiment, he/she will be shown a detailed instruction about the experiment. If the participant decides to take part in the experiment, he/she has to sign a consent form according to the data protection regulation. If the user agrees with the terms and conditions of the experiment, after registering an account, the user could see the web-page for our task. More detailed workflow and screen shots of this web interface are in appendix. In order to develop this web interface, we have used many packages.
+As shown in Figure \ref{fig:web}, if a new user participates in our experiment, he/she will be shown a detailed instruction about the experiment. If the participant decides to take part in the experiment, he/she has to sign a consent form according to the data protection regulation. If the user agrees with the terms and conditions of the experiment, after registering an account, the user could see the web-page for our task. More detailed workflow and screen shots of this web interface are in Appendix \ref{fig:interface}. In order to develop this web interface, we have used many packages in Table \ref{tab:packages}.
 
 \begin{table}[]
 \centering
 \begin{tabular}{|l|l|}
 \hline
 Package                  & Purpose                                                   \\ \hline
-NodeJS\cite{nodejs}      & Writing Web-server.                                       \\ \hline
+NodeJS\cite{nodejs}      & Writing web-server.                                       \\ \hline
 MongoDB\cite{monodb}     & Database for storing user information and collected data. \\ \hline
-ReactJS\cite{react}      & Build user interfaces.                                    \\ \hline
+ReactJS\cite{react}      & Build user interface.                                    \\ \hline
 AntD\cite{antd}           & Components for user interface.                  \\ \hline
 G6\cite{g6}              & Rendering knowledge graphs in front end.                   \\ \hline
 Socket.IO\cite{socketio} & Writing the socket server for online chatting.                \\ \hline
@@ -650,11 +694,11 @@ Socket.IO\cite{socketio} & Writing the socket server for online chatting.       
 \end{table}
 
 
-\subsubsection{Tools for Annotating the Dataset}
+\subsection{Tools for Annotating the Dataset}
 
-In order to annotate the dataset, a toolkit named doccano\cite{doccano} is used. This is an easy to use web application which provides features for sequence to sequences tasks, classification tasks and sequence labelling tasks. Many other annotation tools have also been explored. However, most of them are professional and complicated to set up.
+In order to annotate the dataset, a toolkit named doccano\cite{doccano} is used. This is an easy to use web application which provides features for sequence to sequence tasks, classification tasks and sequence labelling tasks. Many other annotation tools have also been explored. However, most of them are professional and complicated to set up.
 
-In addition, I develop a tool for post-processing and parsing our corpus which is frequently used during my data analysis.
+In addition, we develop a tool for post-processing and parsing our corpus which is frequently used during my data analysis.
 
 \begin{figure}[h]
     \centering
@@ -662,8 +706,6 @@ In addition, I develop a tool for post-processing and parsing our corpus which i
     \caption{Toolkit for Post-processing and Parsing the Dataset.}
     \label{fig:parser}
 \end{figure}
-
-
 
 \newpage
 \section{Data Collection Procedure}
@@ -680,21 +722,21 @@ In this section, we introduce how the corpus is collected. The whole data collec
 \end{enumerate}
 
 
-In this section, we discuss our data collection procedure in the following order: Advertising the Experiment and Scheduling the Experiment. Finally, I would like to give some advises for futures researchers who are aiming to collect a dialogue corpus in a lager scale.
+In this section, we discuss our data collection procedure in the following order: Advertising the Experiment and Scheduling the Experiment. Finally, we would like to give some advises for futures researchers who are aiming to collect a dialogue corpus in a lager scale.
 
 \subsubsection*{Advertising the Experiment}
 
-In order to recruit enough participants for this project, advertising this experiment is crucial. We have try several methods:
+In order to recruit enough participants for this project, advertising this experiment is crucial. We have tried several methods:
 
 \begin{enumerate}
    \item Emailing the whole Informatics students.
 
-   \item Pinning leaflet around the camps. 
+   \item Pinning leaflets around the campus (see Appendix \ref{appendix:leaflet} for details). 
  
-   \item Posting advertisement on social medial (Facebook).
+   \item Posting advertisements on social medial (Facebook).
 \end{enumerate}
 
-Emailing students is the most effective approach which I recruit most of the participant from. An alternative approach is to deploy this experiment to crowdsourcing platform, such as Amazon Mechanic Turk\cite{mturk}. Hundreds of participants could be recruited overnight if the experiment is reasonably paid.
+Emailing students is the most effective approach which we recruit most of the participants from. An alternative approach is to deploy this experiment to crowdsourcing platform, such as Amazon Mechanic Turk\cite{mturk}. Hundreds of participants could be recruited overnight if the experiment is reasonably paid.
 
 
 \subsubsection*{Scheduling the Experiment}
@@ -705,11 +747,11 @@ Finally, we start following the this procedural and it works reasonably well.
 
 \begin{enumerate}
 
-    \item Participants have to be registered on a list if they are interested in his project.
+    \item Participants have to be registered on a list if they are interested in this project.
 
    \item Build an online survey and ask participants roughly when are they available next week.
 
-   \item Pair up participants who are available on the same data.
+   \item Pair up participants who are available on the same date.
  
    \item Ask permission to share their emails with other participants.
    
@@ -723,11 +765,11 @@ However, when the scale of the corpus goes larger (thousands of conversations), 
 
 \section{Data Annotation Procedure}
 
-The whole corpus is annotated by in-house annotators (my friends and I) according to an annotation schema (See Appendix). The majority of the annotation work is done by myself. A subset of the corpus (10\%) has been annotated twice by different annotators, in order to calculate the inter-annotator agreement. Cohen's Kappa is used for calculating the agreement between annotators.
+The whole corpus is annotated by in-house annotators (my friends and I) according to an annotation schema (See Appendix \ref{appendix:annotation}). The majority of the annotation work is done by myself. A subset of the corpus (10\%) has been annotated twice by different annotators, in order to calculate the inter-annotator agreement. Cohen's Kappa is used for calculating the agreement between annotators.
 
 \section{Compare to Previous Work}
 
-Our corpus contains natural extended conversations grounded on an external wide-coverage structural knowledge graph. At present, there are no such datasets exist (see Table\ref{tab:compare}) and this is what our corpus mainly developed for.
+Our corpus contains natural extended conversations grounded on an external wide-coverage structural knowledge graph. At present, there is no such dataset exist (see Table \ref{tab:compare}) and this is what our corpus mainly developed for.
 
 % Please add the following required packages to your document preamble:
 % \usepackage{graphicx}
@@ -754,11 +796,11 @@ Our Dataset                       & 2020 & \bluecheck & \bluecheck           & N
 
 \chapter{Analysis and Discussion}
 
-In this chapter, we perform some quantitative and qualitative analysis based on our corpus. We made several hypothesis according to our observation and we test the significance of these hypothesis statistically using t-test.
+In this chapter, we perform some quantitative and qualitative analysis based on our corpus. We made several hypotheses according to our observations and we test the significance of these hypotheses statistically using t-test.
 
 \section{Summary of the Corpus}
 
-In previous chapter, we introduce a novel conversational question answering corpus. Our corpus contains 240 natural conversations, each has 6 question-answering pairs, in 10 distinct topics. These conversations are divided into two categories: continuous and discontinuous. There are 140 continuous and 100 discontinues conversations. Discontinues conversations are additionally split into two subgroup, discontinuous1 (conversation with only one gap) and discontinuous2 (conversations with many gaps). There are 43 "dis1" conversations and 57 "dis2" conversations. Table\ref{tab:topiccount} shows a detailed count for conversations of each topics in each categories.
+In previous chapter, we introduce a novel conversational question answering corpus. Our corpus contains 240 natural conversations, each has 6 question-answering pairs, in 10 distinct topics. These conversations are divided into two categories: continuous and discontinuous. There are 140 continuous and 100 discontinues conversations. Discontinues conversations are additionally split into two subgroup, discontinuous1 (conversation with only one gap) and discontinuous2 (conversations with many gaps). There are 43 ``dis1" conversations and 57 ``dis2" conversations. Table \ref{tab:topiccount} shows a detailed count for conversations of each topics in each categories.
 
 % Please add the following required packages to your document preamble:
 % \usepackage{graphicx}
@@ -783,7 +825,7 @@ Tianjin            & Q1173       & 13         & 6              & 5              
 
 
 
-Table\ref{tab:datacount} shows basic statistics for our corpus.
+Table \ref{tab:datacount} shows basic statistics for our corpus.
 
 \begin{table}[]
 \centering
@@ -824,7 +866,7 @@ Sluicing                                                                       &
 \label{tab:agree}
 \end{table}
 
-According to Table\ref{tab:agree}, Anaphora and Short Answer have a almost perfect agreement. Labels such as "Additional information outside graph" and "Conversation Control" have a lower Kappa score. This behaviour is expected and there are several reason:
+According to Table \ref{tab:agree}, Anaphora and Short Answer have a almost perfect agreement. Labels such as ``Additional information outside graph" and ``Conversation Control" have a lower Kappa score. This behaviour is expected and there are several reason:
 
 \begin{enumerate}
 
@@ -836,7 +878,7 @@ According to Table\ref{tab:agree}, Anaphora and Short Answer have a almost perfe
  
    \item Annotating Amphora is a classification task, which is easier than a sequence labelling task.
    
-   \item Annotators have to make inference about the conversation context in order to make a decision for tags like "Additional information within graph".
+   \item Annotators have to make inference about the conversation context in order to make a decision for tags like ``Additional information within graph".
    
 \end{enumerate}
 
@@ -850,7 +892,7 @@ There are totally 17 native English speakers involved in our experiment. 7 of th
 
 In this section, we perform some statistical analysis on the dataset. We additionally make some hypothesises according to our observations. The significance of each hypothesises is tested via t-test.
 
-Table\ref{tab:ori} shows the count of each tags in the whole corpus. In this table, the filed of "Condition" is empty. This means all numbers in that table are subject to the whole corpus. If the filed of "Condition" is "Question", it means we only consider all the questions in this table. This filed acts like a filter for the dataset. In the table, it shows how many utterances satisfies the given "Condition". It also shows that how many utterances contain each tag and the proportion of the utterances with that tag in the utterances satisfies the "Condition". For example, Table\ref{tab:ori} shows that there are 2880 utterances in the dataste. 1197 of them contain Anaphora tag which consisit 41.56\% of thses utterances.
+Table \ref{tab:ori} shows the count of each tags in the whole corpus. In this table, the filed of ``Condition" is empty. This means all numbers in that table are subject to the whole corpus. If the filed of ``Condition" is ``Question", it means we only consider all the questions in this table. This filed acts like a filter for the dataset. In the table, it shows how many utterances satisfies the given ``Condition". It also shows that how many utterances contain each tag and the proportion of the utterances with that tag in the utterances satisfies the ``Condition". For example, Table \ref{tab:ori} shows that there are 2880 utterances in the dataste. 1197 of them contain Anaphora tag which consisit 41.56\% of thses utterances.
 
 \begin{table}[]
 \centering
@@ -979,7 +1021,7 @@ Totally Irrelevant                   & 8       & 0.0017                    \\ \h
 
 According to our experiment design in Chapter 3, gaps represent non-connected topic shifts. The more non-connected topic shifts a conversation have, the less coherent it is. In our corpus, discontinuous1 (dis1) conversation has only one gap per conversation. Dis1 conversations represent conversations which the underlining logic is less coherent but still logistical. In contrast, discontinuous2 (dis2) conversations have many gaps, which the underlying logic is totally random.  
 
-According to Table\ref{tab:con} - \ref{tab:dis2}, we make the following observation and hypothesis.
+According to Table \ref{tab:con} - \ref{tab:dis2}, we make the following observation and hypothesis.
 
 \begin{observation}
 The continuity and coherence have influences on these linguistic patterns. However, the influence is not influence.
@@ -991,7 +1033,7 @@ In our corpus, answers are always related to their questions. Gaps will have lit
 
 
 
-In order to proof the check hypothesis, we additionally check the difference about the count of tags between questions and answers for both continuous and discontinuous conversations. Table\ref{tab:conque} - \ref{tab:disans} demonstrate the results. These results show obvious differences between the appearance of labels in questions and no obvious differences in answers. This obey the above hypothesis. Consequently, for the following statistics, we will focus on questions instead of answers.
+In order to proof the check hypothesis, we additionally check the difference about the count of tags between questions and answers for both continuous and discontinuous conversations. Table \ref{tab:conque} - \ref{tab:disans} demonstrate the results. These results show obvious differences between the appearance of labels in questions and no obvious differences in answers. This obey the above hypothesis. Consequently, for the following statistics, we will focus on questions instead of answers.
 
 
 
@@ -1098,7 +1140,7 @@ Totally Irrelevant                   & 9          & 0.0067                      
     \end{minipage}
 
 
-According to Table\ref{tab:conque} and Table\ref{tab:disque}, we find that:
+According to Table \ref{tab:conque} and Table \ref{tab:disque}, we find that:
 
 \begin{observation}
 Coherence and continuity of a conversation has an obvious influence on Anaphora and Sluicing.
@@ -1109,7 +1151,7 @@ To answers, short answer and anaphora are not very sensitive to the coherence of
 \end{observation}
 
 
-Based on the above observation, we believe that the gaps in discontinuous majorly influence the appearance of Anaphor and Sluicing. Intuitively, gaps represent non-connected topic shifts, which usually introduce additional entities into the conversation context. The appearance of these additional entities makes the co-reference resolution more difficult because determining which entity the pronoun refers to in the context is more ambiguous. Human may decide use less pronouns in this case. We compare the appearance of anaphora and sluicing between utterances without gaps and utterances with gaps. The results are shown in Table\ref{tab:quenogap} and Table\ref{tab:quegap}.
+Based on the above observation, we believe that the gaps in discontinuous majorly influence the appearance of Anaphor and Sluicing. Intuitively, gaps represent non-connected topic shifts, which usually introduce additional entities into the conversation context. The appearance of these additional entities makes the co-reference resolution more difficult because determining which entity the pronoun refers to in the context is more ambiguous. Human may decide use less pronouns in this case. We compare the appearance of anaphora and sluicing between utterances without gaps and utterances with gaps. The results are shown in Table \ref{tab:quenogap} and Table \ref{tab:quegap}.
 
 
 \begin{minipage}{\textwidth}
@@ -1172,7 +1214,7 @@ Totally Irrelevant                   & 2        & 0.0081                      \\
     \end{minipage}
 
 
-According to Table\ref{tab:quenogap} and Table\ref{tab:quegap}, we have following observation. Based on this observation, we make two hypotheses. 
+According to Table \ref{tab:quenogap} and Table \ref{tab:quegap}, we have following observation. Based on this observation, we make two hypotheses. 
 
 \begin{observation}
 Gaps have an obvious influence on Anaphor and Sluicing. It is much more anaphor and sluicing appear in questions without gaps.
@@ -1208,7 +1250,7 @@ We additionally interested in the effect of links to these tags.
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{Linked Question without Gap} \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{98}                          \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{98}                          \\ \hline
 Tags                                 & Count         & Proportion per Utterance         \\ \hline
 Anaphora                             & 63            & 0.6429                           \\ \hline
 Short Answer                         & 0             & 0.0000                           \\ \hline
@@ -1253,7 +1295,7 @@ Totally Irrelevant                   & 8              & 0.0089                  
     \end{minipage}
 
 
-From Table\ref{tab:quegaplink} and Table\ref{tab:quegapnolink}, we observe that:
+From Table \ref{tab:quegaplink} and Table \ref{tab:quegapnolink}, we observe that:
 
 \begin{observation}
 Links have an obvious influence on sluicing. Links don't have an obvious influence on anaphor.
@@ -1275,12 +1317,12 @@ Links have an influence on the appearance of anaphora.
 
 This hypothesis is rejected by achieving a t-test score of 0.4226. It means that there is 42.26\% probability the pattern we observed in the hypothesis happens by chance. In other words, there is no sufficient evidence to show there is a correlation between the appearance of links and the appearance of sluicing.
 
-Not only for elided construction, the above statistics also demonstrates that people also try to introduce additional utterances to connect gaps between each turns. However, people sometimes give up when the conversations are totally incoherent.
+Not only for elided constructions, the above statistics also demonstrates that people also try to introduce additional utterances to connect gaps between each turns. However, people sometimes give up when the conversations are totally incoherent.
 
 
 \chapter{Modelling Coherent Dialogues Using Neural Networks}
 
-In order to model the coherent dialogues in this corpus, we proposed a novel neural architecture. However, this model is not implemented due to the scale of this project. The corpus only contains 240 conversations. As I argued in Chapter 2, this may be insufficient to train such a complicated neural network. In this chapter, we introduce our proposed framework to train a neural dialogue models if the resources are available in the future.
+In order to model the coherent dialogues in this corpus, we proposed a novel neural architecture. However, this model is not implemented due to the scale of this project. The corpus only contains 240 conversations. As we argued in Chapter 2, this may be insufficient to train such a complicated neural network. In this chapter, we introduce our proposed framework to train a neural dialogue models if the resources are available in the future.
 
 \section{Hierarchical Attentional Encoder with Context Windows}
 
@@ -1306,7 +1348,7 @@ We would like to use BERT\cite{devlin2018bert} to provide a contextual embedding
 
 To predict the correct node to answer a given question, we could represent a prediction as a quadruple, such as, (Subject Node, Relation, Object Node, Position of the Answer). An example of the prediction could be (Barack Obama, born, 1967, object) which corresponds to the question ``When was Obama born?". We permute all the possible combinations within the graph. Then we use a feed-forward neural network together with a softmax layer to produce a multinomial distribution over all the possible answers. Then the prediction is compared with the gold answer and we could calculate the reward or loss to train our model.
 
-\subsection{Generate Coherent Dialogues as a Markov Decision Process}
+\section{Generate Coherent Dialogues as a Markov Decision Process}
 \noindent
 As we argued in chapter 2, training a dialogue system with supervised learning is not explicitly optimized to produce a coherent response. We propose to cast the response generation task as a RL task. More specifically, we consider the questioner and the answerer as part of the RL agent environment. According to Williams and Young\cite{williams2007partially}, a goal-driven dialogue system could be modelled as a partially observable Markov decision process. Inspired by Strub et al. \cite{strub2017end}, We would like to describe our response generation task as following:
 
@@ -1319,7 +1361,7 @@ We define the state $S_t$ as the state of the dialogue at step t. An action $u_t
 
 A dialogue is started with an initial question and finished after a fixed number of turns. A reward is defined for every state action pair. 
 
-\subsection{Extrinsic Evaluation of Dialogue Models}
+\section{Extrinsic Evaluation of Dialogue Models}
 \noindent
 
 We will use precision and recall, which are well-established metrics for question answering tasks, as our extrinsic evaluation metrics. In our framework, high precision and recall demonstrate a good performance of modelling the linguistic patterns within a coherent dialogue.
@@ -1350,11 +1392,11 @@ We prove the statistical significance of those hypothesis on our corpus.
 
 \section{Future Work}
 
-Due to the scale of this project and the limitation of the available resources, only 240 conversations have been collected in the corpus. In order to train decent dialogue models using deep neural networks, a larger corpus should be collected. For collecting a larger corpus, both the topics of the knowledge graphs and tags in our tag set should be further diversified.
+Due to the scale of this project and the limitation of the available resources, only 240 conversations have been collected in the corpus. In order to train decent dialogue models using deep neural networks, a larger corpus should be collected. For collecting a larger corpus, both the topics of the knowledge graphs and tags in our tag set could be further diversified. In addition, we could extend our corpus to a multi-model setting, which we could try to investigate how visual modality interacts in a coherent dialogues.
 
-During this project, we have implemented a web interface for this task-specific dialogue collection experiment. This interface is for single purpose. A general purpose toolkit for crowd sourcing goal-orientated dialogue corpora should be developed. This toolkit should facilitate researchers to design, create and deploy such tasks into crowd sourcing platforms, such as Amazon Mechanic Turk\cite{mturk}. There are existing similar toolkits\cite{lee2018dialcrowd,miller2017parlai}, it's not easy enough to create a similar experiment by only using these tools.
+During this project, we have implemented a web interface for this task-specific dialogue collection experiment. This interface is for the single purpose. A general purpose toolkit for crowd sourcing goal-orientated dialogue corpora should be developed. This toolkit should facilitate researchers to design, create and deploy such tasks into crowd sourcing platforms, such as Amazon Mechanic Turk\cite{mturk}. There are existing toolkits\cite{lee2018dialcrowd,miller2017parlai}. However, it's not easy enough to create a similar experiment by only using these tools.
 
-In chapter 5, we proposed a hierarchical attentional neural architecture with context windows. Training such a neural model under our framework may improvement the performance of current spoken dialogue systems. Although the current statistical SDSs do explicitly capture the dialogue history via belief tracking, they may not utilize rich linguistic information inside a coherent dialogue\cite{gasic}. Future study could integrate a conversation model into the semantic decoder and encoder to enable the current SDSs to understand and produce more coherent dialogues. In addition, current SDSs require pre-defined ontology in order to keep track of the belief state. Researcher could investigate whether we could connect a SDS to a wide coverage knowledge graph and build a dialogue system which can support a natural conversation about any topic within the knowledge graph. Cheng et al.\cite{cheng2019learning} has developed a transition-base neural semantic parser with a generic tree-generation algorithm. By integrating a conversation model with an existing neural semantic parser, we may enable it to perform semantic parsing over an extended coherent dialogue.
+In Chapter 5, we proposed a hierarchical attentional neural architecture with context windows. Training such a neural model under our framework may improve the performance of current spoken dialogue systems. Although the current statistical SDSs do explicitly capture the dialogue history via belief tracking \cite{gasic}, they may not utilize rich linguistic information inside a coherent dialogue. Future studies could integrate a conversation model into the semantic decoder and encoder of SDSs to enable the current SDSs to understand and produce more coherent dialogues. In addition, current SDSs require a pre-defined ontology in order to keep track of the belief state. Researchers could investigate whether we could connect a SDS to a wide coverage knowledge graph and build a dialogue system which can support a natural conversation about any topic within the knowledge graph. Furthermore, Cheng et al.\cite{cheng2019learning} has developed a transition-base neural semantic parser with a generic tree-generation algorithm. By integrating a conversation model with an existing neural semantic parser, we may enable it to perform semantic parsing over an extended coherent dialogue.
 
 
 
@@ -1365,11 +1407,42 @@ In chapter 5, we proposed a hierarchical attentional neural architecture with co
 
 \appendix
 \chapter{Annotation Schema for this Corpus}
-
-\includepdf[pages={1-}]{AnnotationSchema.pdf}
 \label{appendix:annotation}
+\includepdf[pages={1-}]{AnnotationSchema.pdf}
 
-\chapter{Questionnaire Testing}
+\chapter{Screenshots for Web Interface}
+\label{fig:interface}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{regi.png}
+    
+    
+    \label{fig:regi}
+\end{figure}
 
 
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{conssent.png}
+    \label{fig:cons}
+\end{figure}
+
+\includepdf[pages={1-}]{p2.pdf}
+
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{info.png}
+    \label{fig:info}
+\end{figure}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{work.png}
+    \label{fig:work}
+\end{figure}
+
+\chapter{Leaflet for Advertising this Experiment}
+\label{appendix:leaflet}
+
+\includepdf[pages={1-}]{pin.pdf}
+\label{}
 \end{document}
