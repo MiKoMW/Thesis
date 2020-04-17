@@ -12,9 +12,13 @@
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{tabu}
-\usepackage[options ]{algorithm2e}
-\usepackage[ruled,vlined]{algorithm2e}
 \usepackage{amsthm}
+\usepackage{color}
+\usepackage{gb4e}
+\usepackage{pdfpages}
+\usepackage{attachfile2}
+
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
 
 
 % Flexible Qoute
@@ -23,13 +27,29 @@
 \usepackage{pifont}% http://ctan.org/pkg/pifont
 
 \usepackage{amssymb}
-\usepackage{xcolor}
+
+
+
+
 \newcommand{\bluecheck}{{\color{blue}\checkmark}}
 \newcommand{\xmark}{\color{red}\ding{55}}%
 
 
-\newtheorem*{observation}{Observation}
-\newtheorem*{hypo}{Hypothesis}
+\newtheorem{observation}{Observation}[chapter]
+\newtheorem{hypo}{Hypothesis}[chapter]
+
+\newbool{insubexample}
+\newtheorem{example}{Example}[section]% Example
+\newtheorem{subexample}{Example}[example]% Sub-example
+\renewcommand{\thesubexample}{\theexample(\alph{subexample})}%
+\AtBeginEnvironment{example}{\global\boolfalse{insubexample}}%
+\AtBeginEnvironment{subexample}{%
+  \ifbool{insubexample}{}{\global\booltrue{insubexample}%
+    \refstepcounter{example}}%
+}%
+
+
+
 
 
 
@@ -81,7 +101,9 @@
 
 \begin{document}
 
-\title{Building Coherent Open-domain Dialogue Systems Using Neural Networks}
+
+
+\title{Building Coherent Open-domain Dialogue Systems: Data Collection and Analysis}
 
 \author{Songbo Hu}
 
@@ -140,11 +162,31 @@ Where? \\
 You're at Edinburgh, Scotland.
 }{\textit{Songbo and Siri 2020}}
 
-A dialogue system is a conversational agent that can converse with humans in natural language. It can help us solve many tedious tasks effectively or bring entertainment value to our daily life. Recent advances in dialogue systems (such as virtual assistants\cite{alexa,cortana,siri}) enable us to engage in natural conversational interactions with computers. It substantially increases the accessibility of state of the art technologies to people with diverse backgrounds. And for those with impairments, it could transform their daily living into a journey toward capability instead of disability.
+A dialogue system is a conversational agent that can converse with humans in natural language. It can help us solve many tedious tasks effectively or bring entertainment value to our daily life. Recent advances in dialogue systems (such as virtual assistants\cite{alexa,cortana,siri}) enable us to engage in natural conversational interactions and access to machine readable knowledge and information with computers. It substantially increases the accessibility of state of the art technologies to people with diverse backgrounds. And for those with impairments, it could transform their daily living into a journey toward capability instead of disability.
 
-Since Alan Turing published his landmark work in 1950\cite{turing1950computing}, the intelligence level of a machine is described as how well the machine is able to fool a human into believing that it, the machine, is a human based on its text responses. If a human is unable to distinguish the difference between the machine from a human, the machine is said to have passed the Turing test. We could say such a machine signifies a significantly high level of intelligence of an AI. It has been the goal for the development of dialogue systems for decades and various attempts have been proposed to pass the Turing test. Recently, advances in neural network based language models enable us to learn entire dialogue models directly from conversational data. Although we improve the performance of neural models by increasing the number of parameters and training with more data, we are still far from our goal. Most of the previous systems have failed to model the longer prior context of the conversation adequately, thereby creating a situation where extended dialogues rapidly become incoherent and unnatural sounding, with repetition being a key problem. 
+Since Alan Turing published his landmark work in 1950\cite{turing1950computing}, the intelligence level of a machine is described as how well the machine is able to fool a human into believing that it, the machine, is a human based on its text responses. If a human is unable to distinguish the difference between the machine from a human, the machine is said to have passed the Turing test. We could say such a machine signifies a significantly high level of intelligence. It has been the goal for the development of dialogue systems for decades and various attempts have been proposed to pass the Turing test. Recently, advances in neural network based language models enable us to learn entire dialogue models directly from conversational data. Although we improve the performance of neural models by increasing the number of parameters and training with more data, we are still far from our goal. Most of the previous systems have failed to model the longer prior context of the conversation adequately, thereby creating a situation where extended dialogues rapidly become incoherent and unnatural sounding, with repetition being a key problem. 
 
-As I demonstrated in the example conversation at the beginning, humans tend to utilise linguistic patterns, such as anaphora and sluicing to reduce repetitions. In contract, dialogue systems rarely produces pronouns and unable to model elided construction therefore produce unnatural speech in the context. For example, in order to answer the second question ("Where was he born?"), humans are able to interpret the anaphora (He refers to Alan Turing.) and produce a short answer (In Warrington Lodge.). Compared to human's responses, Siri's responses are heavy and verbose. The challenge for Siri, and many other dialogue systems, is to know when such an answer conveys the intended content, and when it doesn't. The system has to make a decent decision on when content can be elided while still ensuring that the user can easily interpret the system's message and retrieve that message accurately. In addition, a wrong interpretation of a question could lead to an unhelpful and diverged response. Siri fails to understand the context to parse fragments and interpret the sluicing in the final question. The misunderstanding of the context leads to a completely unhelpful and incoherent response. The main reasons of this unnaturalness for Siri is the lack of reliable systematic analysis of such linguistic patterns and the inadequate representation of the context. It is a problem which need to be adequately addressed before our agents could look forward to attempting the Turing test. This is the main motivation for this project.
+\begin{exe}
+	\ex
+		\begin{xlist}
+			\ex \label{q1} Q: When was Alan Turing born?
+			\ex \label{a1} A: Alan Turing was born on Sunday 13 June 1912.
+			\ex \label{q2} Q: Where was he born?
+			\ex \label{a2} A: Alan Turing was born in Warrington Lodge.
+			\ex \label{q3} Q: Who is his father?
+			\ex \label{a3} A: Julius Mathison Turing is Alan Turing’s father.
+			\ex \label{q4} Q: When was he born?
+			\ex \label{a4} A: Julius Mathison Turing was born 9 November 1873.
+			\ex \label{q5} Q: Where?
+			\ex \label{a5} A: You’re at Edinburgh, Scotland.
+	\end{xlist}
+	\end{exe}
+	
+	
+
+As I demonstrated in the example conversation at the beginning of the chapter and repeated here, humans tend to utilise linguistic patterns, such as anaphora and sluicing to reduce repetitions. For example, in the human utterance \ref{q2}, human uses pronoun "he" to refer "Alan Turing" in question \ref{a1}. This is a typical example use of anaphora, which leads to a more concise and coherent sentence. In addition, human utterance \ref{q5} is an example of sluicing construction. Information, which can be inferred from the context, is omitted. A more refined definition of these linguistics patterns is provided in our Annotation Schema in Appendix \ref{appendix:annotation}. 
+
+In contrast, dialogue systems rarely produces pronouns and unable to model elided construction therefore produce unnatural speech in the context. For example, in order to answer the second question ("Where was he born?"), humans are able to interpret the anaphora (He refers to Alan Turing.) and produce a short answer (In Warrington Lodge.). Compared to human's responses, Siri's responses are heavy and verbose. The challenge for Siri, and many other dialogue systems, is to know when such an answer conveys the intended content, and when it doesn't. The system has to make a decent decision on when content can be elided while still ensuring that the user can easily interpret the system's message and retrieve that message accurately. In addition, a wrong interpretation of a question could lead to an unhelpful and diverged response. Siri fails to understand the context to parse fragments and interpret the sluicing in the final question. The misunderstanding of the context leads to a completely unhelpful and incoherent response. The main reasons of this unnaturalness for Siri is the lack of reliable systematic analysis of such linguistic patterns and the inadequate representation of the context. It is a problem which need to be adequately addressed before our agents could look forward to attempting the Turing test. This is the main motivation for this project.
 
 In this section, we will briefly review the recent development of dialogue systems. Specifically, we will discuss two types of dialogue systems: the chit-chat dialogue systems (known as chat bots), and the task-oriented dialogue systems.  We will focus on machine learning approaches to developing such systems, rather than the use of hand-crafted rules, since the former methods are now dominant and the latter are highly brittle and restricted to toy domains. We will discuss their architectures, pros and cons, and their main limitations to achieve coherent open-domain conversations. The majority of this thesis is about how to create an environment for neural models to learn linguistic patterns within coherent extended dialogues and how to integrate these models into the existing dialogue systems. It constitutes a first step towards modelling coherent open-domain conversations and will potentially enable the existing dialogue systems utilising valuable linguistic information to produce coherent responses.
 
@@ -1311,5 +1353,14 @@ In chapter 5, we proposed a hierarchical attentional neural architecture with co
 % otherwise generate bibtem entries
 \bibliographystyle{plain}
 \bibliography{mybibfile}
+
+\appendix
+\chapter{Annotation Schema for this Corpus}
+
+\includepdf[pages={1-}]{AnnotationSchema.pdf}
+\label{appendix:annotation}
+
+\chapter{Questionnaire Testing}
+
 
 \end{document}
