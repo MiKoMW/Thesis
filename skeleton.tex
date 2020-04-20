@@ -647,7 +647,7 @@ Range            & organization  \\ \hline
 \label{tab:keyword}
 \end{table}
 
-We re-implemented their experiment in a similar setting and the experiment results are shown in Table \ref{tab:genresult}. The larger model is a bi-directional RNN containing one hidden layer of 1000 units. We also build a small model, which uses a bi-directional RNN containing one hidden layer of 500 units due to the limitation of computation power. However, their method faces domain-adaption problem which could not produce grammatical sentences with out-domain data. Consequently, this dataset requires human intelligence and crowdsourcing is reqiured. 
+We re-implemented their experiment in a similar setting and the experiment results are shown in Table \ref{tab:genresult}. The larger model is a bi-directional RNN containing one hidden layer of 1000 units. We also build a small model, which uses a bi-directional RNN containing one hidden layer of 500 units due to the limitation of computation power. However, their method faces domain-adaption problem which could not produce grammatical sentences with out-domain data. Consequently, this dataset requires human intelligence and crowdsourcing is required. 
 
 \begin{table}[]
 \centering
@@ -796,11 +796,11 @@ Our Dataset                       & 2020 & \bluecheck & \bluecheck           & N
 
 \chapter{Analysis and Discussion}
 
-In this chapter, we perform some quantitative and qualitative analysis based on our corpus. We made several hypotheses according to our observations and we test the significance of these hypotheses statistically using t-test.
+In this chapter, we perform quantitative and qualitative analyses based on our corpus. We make several hypotheses according to our observations and we test the significance of these hypotheses statistically using t-test.
 
 \section{Summary of the Corpus}
 
-In previous chapter, we introduce a novel conversational question answering corpus. Our corpus contains 240 natural conversations, each has 6 question-answering pairs, in 10 distinct topics. These conversations are divided into two categories: continuous and discontinuous. There are 140 continuous and 100 discontinues conversations. Discontinues conversations are additionally split into two subgroup, discontinuous1 (conversation with only one gap) and discontinuous2 (conversations with many gaps). There are 43 ``dis1" conversations and 57 ``dis2" conversations. Table \ref{tab:topiccount} shows a detailed count for conversations of each topics in each categories.
+In previous chapter, we introduce a novel conversational question answering corpus. Our corpus contains 240 natural conversations, each has 6 question-answering turns, in 10 distinct topics. These conversations are divided into two categories: continuous and discontinuous conversations. There are 140 continuous and 100 discontinues conversations. Discontinues conversations are additionally split into two subgroups, discontinuous1 (conversation with only one gap) and discontinuous2 (conversations with many gaps). There are 43 ``dis1" conversations and 57 ``dis2" conversations. Table \ref{tab:topiccount} shows a detailed count for conversations of each topics in each categories.
 
 % Please add the following required packages to your document preamble:
 % \usepackage{graphicx}
@@ -808,9 +808,9 @@ In previous chapter, we introduce a novel conversational question answering corp
 \begin{tabular}{|l|l|l|l|l|}
 \hline
 Topics             & WikiData ID & Continuous & Discontinuous1 & Discontinuous2 \\ \hline
-AlanTuring         & Q7251       & 13         & 6              & 5              \\ \hline
-JKRowlin           & Q34660      & 14         & 6              & 6              \\ \hline
-Knuth              & Q17457      & 19         & 0              & 6              \\ \hline
+Alan Turing        & Q7251       & 13         & 6              & 5              \\ \hline
+JK Rowlin          & Q34660      & 14         & 6              & 6              \\ \hline
+Donald Knuth       & Q17457      & 19         & 0              & 6              \\ \hline
 Obama              & Q76         & 9          & 5              & 6              \\ \hline
 Berkshire Hathaway & Q217583     & 12         & 7              & 5              \\ \hline
 Softbank           & Q201653     & 18         & 0              & 6              \\ \hline
@@ -824,29 +824,37 @@ Tianjin            & Q1173       & 13         & 6              & 5              
 \end{table}
 
 
-
-Table \ref{tab:datacount} shows basic statistics for our corpus.
+Table \ref{tab:datacount} shows basic statistics about our corpus. Figure \ref{fig:relationcount} demonstrates the common relations which are asked in the conversations. This also reflects what types of questions are asked within the corpus.
 
 \begin{table}[]
 \centering
 \begin{tabular}{|l|l|}
 \hline
 Number of Dialogues & 240   \\ \hline
-Number of Questions & 2.9K  \\ \hline
-Number of Answers   & 2.9K  \\ \hline
+Number of Questions & 1.4K  \\ \hline
+Number of Answers   & 1.4K  \\ \hline
 Number of Words     & 1.8K  \\ \hline
 Number of Tokens    & 15.2K \\ \hline
 \end{tabular}
-\caption{Counts of the Dataset.}
+\caption{Counts of the Corpus.}
 \label{tab:datacount}
 \end{table}
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.2\textwidth]{graph1.png}
+    \caption{Counts of Common Relations in the Corpus.}
+    \label{fig:relationcount}
+\end{figure}
 
 
 
 
 \subsection*{Inter-Annotator Agreement of the Corpus}
 
-Inter-annotator agreement is a measure of how well two (or more) annotators can make the same annotation decision for a certain category. Cohen's Kappa is used here for calculating the agreement score between two annotators. The higher agreement score for a tag, the more confident the tag is valid. High agreement scores are desirable properties for a corpus to demonstrate the good quality of its annotations. 
+Inter-annotator agreement is a measure of how well two (or more) annotators can make the same annotation decision for a certain category. Cohen's Kappa is used here for calculating the agreement score between two annotators. The higher agreement score for a tag, the more confident the tag is valid. High agreement scores are desirable properties for a corpus which demonstrate the good quality of its annotations.
 
 \begin{table}[]
 \centering
@@ -870,9 +878,9 @@ According to Table \ref{tab:agree}, Anaphora and Short Answer have a almost perf
 
 \begin{enumerate}
 
-    \item According to the annotation schema, the criteria for tags, such as Anaphora, is less ambiguous. Different interpretation of the semantics of the sentences usually doesn't influence on the judgment of that tag.
+    \item According to the annotation schema (Appendix \ref{appendix:annotation}), the criteria for tags, such as Anaphora, is less ambiguous. Different interpretation of the semantics of the sentences usually doesn't influence on the judgment of that tag.
     
-   \item There are obvious heuristics for tags, such as Anaphora and Sluicing. For example, the appearance of a pronoun may indicate the appearance of an anaphora and the appearance of a wh word indicates the possibility of a sluicing. 
+   \item There are obvious heuristics for some tags, such as Anaphora and Sluicing. For example, the appearance of a pronoun may indicate the appearance of an anaphora and the appearance of a wh word indicates the possibility of a sluicing. 
 
    \item Tags, like Amphora, can usually be determined by the grammars instead of semantics of a sentence. 
  
@@ -882,25 +890,27 @@ According to Table \ref{tab:agree}, Anaphora and Short Answer have a almost perf
    
 \end{enumerate}
 
-In addition, we noticed that the Kappa score is 0.0 for many tags. Some tags are extremely sparse in the corpus and many rarely appear within the 10\% of the dataset.
+In addition, we notice that the Kappa score is 0.0 for many tags. Some tags are extremely sparse in the corpus and many rarely appear within the 10\% of the dataset.
 
-\subsection*{Demographic of the Participants}
+\subsection*{Demographics of the Participants}
 
-There are totally 17 native English speakers involved in our experiment. 7 of them are female and 10 of them are male. The majority of the participants (11) are from the United Kingom, 4 participants are from Singapore and 2 participants are from the United States. All participants are students from the University of Edinburgh and all of them are between 18 and 24.
+There are total 17 native English speakers involved in our experiment. 7 of them are female and 10 of them are male. The majority of the participants (11) are from the United Kingom, 4 participants are from Singapore and 2 participants are from the United States. All participants are students from the University of Edinburgh and all of them are between 18 and 24 years old.
 
 \section{Statistical Analysis}
 
-In this section, we perform some statistical analysis on the dataset. We additionally make some hypothesises according to our observations. The significance of each hypothesises is tested via t-test.
+In this section, we perform statistical analysis on the corpus. We additionally make some hypotheses according to our observations. The significance of each hypothesis is tested via t-test.
 
-Table \ref{tab:ori} shows the count of each tags in the whole corpus. In this table, the filed of ``Condition" is empty. This means all numbers in that table are subject to the whole corpus. If the filed of ``Condition" is ``Question", it means we only consider all the questions in this table. This filed acts like a filter for the dataset. In the table, it shows how many utterances satisfies the given ``Condition". It also shows that how many utterances contain each tag and the proportion of the utterances with that tag in the utterances satisfies the ``Condition". For example, Table \ref{tab:ori} shows that there are 2880 utterances in the dataste. 1197 of them contain Anaphora tag which consisit 41.56\% of thses utterances.
+Table \ref{tab:ori} shows the count of each tag in the whole corpus. In this table, the ``Condition" is empty. It means all the utterances in this corpus are considered in this table. If the ``Condition" is ``Question", we only consider all the utterances which are questions in this table. In this table, it shows how many utterances satisfies the given ``Condition". It also shows that how many utterances contain each tag and the proportion of the utterances contain that tag in all the utterances satisfies the ``Condition". 
+
+For example,Table \ref{tab:ori} shows that there are 2880 utterances in the dataste. 1197 of them contain Anaphora tag which consists 41.56\% of these utterances.
 
 \begin{table}[]
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{}            \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{2880}        \\ \hline
-Tags                                 & Count & Proportion per Utterance \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{2880}        \\ \hline
+Tags                                 & Count & \# per Utterance \\ \hline
 Anaphora                             & 1197  & 0.4156                   \\ \hline
 Short Answer                         & 902   & 0.3132                   \\ \hline
 Error                                & 11    & 0.0038                   \\ \hline
@@ -925,8 +935,8 @@ Totally Irrelevant                   & 26    & 0.0090                   \\ \hlin
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{Continuous}  \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{1680}        \\ \hline
-Tags                                 & Count & Proportion per Utterance \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{1680}        \\ \hline
+Tags                                 & Count & \# per Utterance \\ \hline
 Anaphora                             & 737   & 0.4387                   \\ \hline
 Short Answer                         & 529   & 0.3149                   \\ \hline
 Error                                & 6     & 0.0036                   \\ \hline
@@ -947,8 +957,8 @@ Totally Irrelevant                   & 13    & 0.0077                   \\ \hlin
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{Discontinuous} \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{1200}          \\ \hline
-Tags                                 & Count  & Proportion per Utterance  \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{1200}          \\ \hline
+Tags                                 & Count  & \# per Utterance  \\ \hline
 Anaphora                             & 460    & 0.3833                    \\ \hline
 Short Answer                         & 373    & 0.3108                    \\ \hline
 Error                                & 5      & 0.0042                    \\ \hline
@@ -976,8 +986,8 @@ Totally Irrelevant                   & 13     & 0.0108                    \\ \hl
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{Discontinuous1} \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{516}            \\ \hline
-Tags                                 & Count   & Proportion per Utterance  \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{516}            \\ \hline
+Tags                                 & Count   & \# per Utterance  \\ \hline
 Anaphora                             & 242     & 0.4690                    \\ \hline
 Short Answer                         & 153     & 0.2965                    \\ \hline
 Error                                & 0       & 0.0000                    \\ \hline
@@ -999,9 +1009,9 @@ Totally Irrelevant                   & 5       & 0.0097                    \\ \h
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{Discontinuous2} \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{684}            \\ \hline
-Tags                                 & Count   & Proportion per Utterance  \\ \hline
-Anaphora                             & 218     & 0.0387                    \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{684}            \\ \hline
+Tags                                 & Count   & \# per Utterance  \\ \hline
+Anaphora                             & 218     & 0.3187                    \\ \hline
 Short Answer                         & 220     & 0.3216                    \\ \hline
 Error                                & 5       & 0.0073                    \\ \hline
 Sluicing                             & 1       & 0.0015                    \\ \hline
@@ -1019,23 +1029,19 @@ Totally Irrelevant                   & 8       & 0.0017                    \\ \h
 
 
 
-According to our experiment design in Chapter 3, gaps represent non-connected topic shifts. The more non-connected topic shifts a conversation have, the less coherent it is. In our corpus, discontinuous1 (dis1) conversation has only one gap per conversation. Dis1 conversations represent conversations which the underlining logic is less coherent but still logistical. In contrast, discontinuous2 (dis2) conversations have many gaps, which the underlying logic is totally random.  
+According to our experiment design in Chapter 3, gaps represent non-connected topic shifts. The more non-connected topic shifts a conversation has, the less coherent it is. In our corpus, discontinuous1 (dis1) conversation has only one gap per conversation. Dis1 conversations represent conversations which the underlining logic is less coherent but still logistical. In contrast, discontinuous2 (dis2) conversations have many gaps, which the underlying logic is totally random.  
 
-According to Table \ref{tab:con} - \ref{tab:dis2}, we make the following observation and hypothesis.
+According to Table \ref{tab:con} - \ref{tab:dis2}, we have the following observations and hypotheses.
 
 \begin{observation}
-The continuity and coherence have influences on these linguistic patterns. However, the influence is not influence.
+The continuity and coherence have influences on these linguistic patterns. However, the influence is not obvious.
 \end{observation} 
 
 \begin{hypo}
-In our corpus, answers are always related to their questions. Gaps will have little influence on answers. This smooths out the number.
+In our corpus, answers are always related to their questions. Gaps will have little influences on answers. This smooths out the number and makes the pattern less obvious.
 \end{hypo}
 
-
-
-In order to proof the check hypothesis, we additionally check the difference about the count of tags between questions and answers for both continuous and discontinuous conversations. Table \ref{tab:conque} - \ref{tab:disans} demonstrate the results. These results show obvious differences between the appearance of labels in questions and no obvious differences in answers. This obey the above hypothesis. Consequently, for the following statistics, we will focus on questions instead of answers.
-
-
+In order to proof the above hypothesis, we additionally check the difference of the counts of tags between questions and answers for both continuous and discontinuous conversations. Table \ref{tab:conque} - \ref{tab:disans} demonstrate the results. These results show obvious differences between the appearance of tags in questions and don't make sharp differences in answers. This confirms the above hypothesis. Consequently, for the following statistics, we focus on questions instead of answers.
 
 \begin{minipage}{\textwidth}
         \begin{minipage}[t]{0.45\textwidth}
@@ -1045,8 +1051,8 @@ In order to proof the check hypothesis, we additionally check the difference abo
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{Continuous  Question} \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{840}                  \\ \hline
-Tags                                 & Count      & Proportion per Utterance     \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{840}                  \\ \hline
+Tags                                 & Count      & \# per Utterance     \\ \hline
 Anaphora                             & 465        & 0.5536                       \\ \hline
 Short Answer                         & 0          & 0.0000                       \\ \hline
 Error                                & 3          & 0.0036                       \\ \hline
@@ -1068,8 +1074,8 @@ Totally Irrelevant                   & 6          & 0.0071                      
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{Discontinuous  Question} \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{600}                    \\ \hline
-Tags                                 & Count       & Proportion per Utterance      \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{600}                    \\ \hline
+Tags                                 & Count       & \# per Utterance      \\ \hline
 Anaphora                             & 251         & 0.4183                        \\ \hline
 Short Answer                         & 0           & 0.0000                        \\ \hline
 Error                                & 4           & 0.0067                        \\ \hline
@@ -1089,7 +1095,6 @@ Totally Irrelevant                   & 4           & 0.0067                     
 
 
 
-\newpage
 \begin{minipage}{\textwidth}
         \begin{minipage}[t]{0.45\textwidth}
             \centering
@@ -1098,8 +1103,8 @@ Totally Irrelevant                   & 4           & 0.0067                     
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{Continuous Answer} \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{840}               \\ \hline
-Tags                                 & Count    & Proportion per Utterance    \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{840}               \\ \hline
+Tags                                 & Count    & \# per Utterance    \\ \hline
 Anaphora                             & 272      & 0.3238                      \\ \hline
 Short Answer                         & 529      & 0.6298                      \\ \hline
 Error                                & 3        & 0.0036                      \\ \hline
@@ -1121,8 +1126,8 @@ Totally Irrelevant                   & 7        & 0.0150                      \\
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{Discontinuous Answer} \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{600}                  \\ \hline
-Tags                                 & Count      & Proportion per Utterance     \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{600}                  \\ \hline
+Tags                                 & Count      & \# per Utterance     \\ \hline
 Anaphora                             & 209        & 0.3483                       \\ \hline
 Short Answer                         & 373        & 0.6217                       \\ \hline
 Error                                & 1          & 0.0017                       \\ \hline
@@ -1147,11 +1152,11 @@ Coherence and continuity of a conversation has an obvious influence on Anaphora 
 \end{observation}
 
 \begin{observation}
-To answers, short answer and anaphora are not very sensitive to the coherence of the conversation. It may also because that the answer is always related to the question. 
+To answers, short answer and anaphora are not very sensitive to the coherence of the conversation. It may also because that the answer is always related to the question.
 \end{observation}
 
 
-Based on the above observation, we believe that the gaps in discontinuous majorly influence the appearance of Anaphor and Sluicing. Intuitively, gaps represent non-connected topic shifts, which usually introduce additional entities into the conversation context. The appearance of these additional entities makes the co-reference resolution more difficult because determining which entity the pronoun refers to in the context is more ambiguous. Human may decide use less pronouns in this case. We compare the appearance of anaphora and sluicing between utterances without gaps and utterances with gaps. The results are shown in Table \ref{tab:quenogap} and Table \ref{tab:quegap}.
+Based on the above observations, we could see a decrease number of Anaphora and Sluicing when the conversations are less coherent. We are additionally interested if there is a determining factor in such conversations which controls these linguistic patterns. we believe that the gaps in discontinuous conversations majorly influence the appearance of Anaphor and Sluicing. Intuitively, gaps represent non-connected topic shifts, which usually introduce additional entities into the conversation context. The appearance of these additional entities makes the co-reference resolution more difficult because determining which entity the pronoun refers to in the context is more ambiguous. Human may decide use less elliptical constructions in this case. We compare the appearance of Anaphora and Sluicing between utterances without gaps and utterances with gaps in Table \ref{tab:quenogap} and Table \ref{tab:quegap}.
 
 
 \begin{minipage}{\textwidth}
@@ -1166,8 +1171,8 @@ Based on the above observation, we believe that the gaps in discontinuous majorl
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{Question without Gap} \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{993}                  \\ \hline
-Tags                                 & Count      & Proportion per Utterance     \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{993}                  \\ \hline
+Tags                                 & Count      & \# per Utterance     \\ \hline
 Anaphora                             & 675        & 0.6798                       \\ \hline
 Short Answer                         & 0          & 0.0000                       \\ \hline
 Error                                & 3          & 0.0030                       \\ \hline
@@ -1194,8 +1199,8 @@ Totally Irrelevant                   & 8          & 0.0081                      
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{Question with Gap} \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{447}               \\ \hline
-Tags                                 & Count    & Proportion per Utterance    \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{447}               \\ \hline
+Tags                                 & Count    & \# per Utterance    \\ \hline
 Anaphora                             & 41       & 0.0917                      \\ \hline
 Short Answer                         & 0        & 0.0000                      \\ \hline
 Error                                & 4        & 0.0089                      \\ \hline
@@ -1214,29 +1219,25 @@ Totally Irrelevant                   & 2        & 0.0081                      \\
     \end{minipage}
 
 
-According to Table \ref{tab:quenogap} and Table \ref{tab:quegap}, we have following observation. Based on this observation, we make two hypotheses. 
+According to Table \ref{tab:quenogap} and Table \ref{tab:quegap}, we have the following observation. Based on this observation, we make two hypotheses. 
 
 \begin{observation}
-Gaps have an obvious influence on Anaphor and Sluicing. It is much more anaphor and sluicing appear in questions without gaps.
+Gaps have an profound influence on Anaphor and Sluicing. The number of Anaphor and Sluicing increases in questions without gaps.
 \end{observation}
 
-Based on this observation, we make two hypothesis.
+Based on this observation, we make two hypotheses.
 
 \begin{hypo}
-Gaps have influences on Anaphor. An utterance is more likely to contain anaphora without a gap. 
+Gaps have influences on Anaphor. An utterance is more likely to contain Anaphora if there is no gap between this utterance and its previous utterance.
 \end{hypo}
 
-The T-test score for this hypothesis is 5.3805E-106. This score reject the null hypothesis which there is a very little probability, the above hypothesis happens by chance. We prove that the above statement is statistically significant. We also have similar statement for Sluicing.
+The T-test score for this hypothesis is $5.3805 \times 10^{-106}$. This score rejects the null hypothesis which there is a very little probability ($5.3805 \times 10^{-106}$), the above hypothesis happens by chance. We prove that the above statement is statistically significant. We also have similar statement for Sluicing.
 
 \begin{hypo}
-Gaps have influences on anaphor. An utterance is more likely to contain anaphora without a gap. 
+Gaps have influences on Sluicing. An utterance is more likely to contain Sluicing if there is no gap between this utterance and its previous utterance.
 \end{hypo}
 
-The T-test score for this hypothesis is 4.1702E-8 which also demonstrates the significance of the above hypothesis.
-
-We additionally interested in the effect of links to these tags. 
-
-
+The T-test score for this hypothesis is $4.1702 \times 10^{-8}$ which also demonstrates the significance of the above hypothesis.
 
 \begin{minipage}{\textwidth}
 
@@ -1251,7 +1252,7 @@ We additionally interested in the effect of links to these tags.
 \hline
 Condition                            & \multicolumn{2}{l|}{Linked Question without Gap} \\ \hline
 Total Number of Utterance           & \multicolumn{2}{l|}{98}                          \\ \hline
-Tags                                 & Count         & Proportion per Utterance         \\ \hline
+Tags                                 & Count         & \# per Utterance         \\ \hline
 Anaphora                             & 63            & 0.6429                           \\ \hline
 Short Answer                         & 0             & 0.0000                           \\ \hline
 Error                                & 0             & 0.0000                           \\ \hline
@@ -1276,8 +1277,8 @@ Totally Irrelevant                   & 0             & 0.0000                   
 \begin{tabular}{|l|l|l|}
 \hline
 Condition                            & \multicolumn{2}{l|}{Unlinked Question without Gap} \\ \hline
-Total Number of Uutterance           & \multicolumn{2}{l|}{895}                           \\ \hline
-Tags                                 & Count          & Proportion per Utterance          \\ \hline
+Total Number of Utterance           & \multicolumn{2}{l|}{895}                           \\ \hline
+Tags                                 & Count          & \# per Utterance          \\ \hline
 Anaphora                             & 612            & 0.6838                            \\ \hline
 Short Answer                         & 0              & 0.0000                            \\ \hline
 Error                                & 3              & 0.0034                            \\ \hline
@@ -1295,38 +1296,118 @@ Totally Irrelevant                   & 8              & 0.0089                  
     \end{minipage}
 
 
-From Table \ref{tab:quegaplink} and Table \ref{tab:quegapnolink}, we observe that:
+Similarly, we are interested in the effect of links to these tags. From Table \ref{tab:quegaplink} and Table \ref{tab:quegapnolink}, we observe that:
 
 \begin{observation}
-Links have an obvious influence on sluicing. Links don't have an obvious influence on anaphor.
+Links have an obvious influence on Sluicing. The utterance with a link between its previous utterance is likely to contain a Sluicing construction. Links don't have an obvious influence on Anaphor.
 \end{observation}
 
 Based on this observation, we make two hypothesises:
 
 \begin{hypo}
-Links have an influence on the appearance of sluicing. A linked question is more likely to contain a sluicing construciton.
+Links have an influence on the appearance of Sluicing. The utterance with a link between its previous utterance is likely to contain a Sluicing construction.
 \end{hypo}
 
-The T-test score for this hypothesis is 1.3983E-9. The none hypothesis is rejected which demonstrates the significance of the above hypothesis.
+The T-test score for this hypothesis is $1.3983 \times 10^{-9}$. The none hypothesis is rejected which demonstrates the significance of the above hypothesis.
 
-We would also prove that there is no obvious relation between links and anaphora.
+We would also prove that there is no obvious relation between links and Anaphora.
 
 \begin{hypo}
-Links have an influence on the appearance of anaphora.
+Links have an influence on the appearance of Anaphora.
 \end{hypo}
 
-This hypothesis is rejected by achieving a t-test score of 0.4226. It means that there is 42.26\% probability the pattern we observed in the hypothesis happens by chance. In other words, there is no sufficient evidence to show there is a correlation between the appearance of links and the appearance of sluicing.
+This hypothesis achieves a t-test score of 0.4226. It means that there is 42.26\% probability the pattern we observed in the hypothesis happens by chance. In other words, there is no statistically sufficient evidence to show there is a correlation between the appearance of links and the appearance of sluicing constructions.
 
-Not only for elided constructions, the above statistics also demonstrates that people also try to introduce additional utterances to connect gaps between each turns. However, people sometimes give up when the conversations are totally incoherent.
+\section{Qualitative Analysis}
+
+There are many interesting patterns in the corpus, however, we are unable to show them statistically because of the limited size of the corpus. In this section, we give numerous examples of participants' utterances. Based on these examples, I discuss our observations and the implication about the challenges to build a coherent open-domain dialogue system.
+
+\begin{exe}
+	\ex
+		\begin{xlist}
+			\ex \label{exp1q1} Q: Which country was Alan Turing a citizen of?
+			\ex \label{exp1a1} A: He was a citizen of the United Kingdom.
+			\ex \label{exp1q2} Q: \underline{By birth or immigration?}
+			\ex \label{exp1a2} A: By birth; he was born in Maida Vale.
+	\end{xlist}
+\end{exe}
+
+The underlining question \ref{exp1q2} asks about the place of birth of Alan Turing. Without the context, human would normally ask this question by using the interrogative "where" or explicitly motioning the "place of birth" in the question. However, because the previous question (context) has mentioned his citizenship, our participant decides to phrase the question as \ref{exp1q2}. This utterance will be extremely hard for an artificial dialogue system to parse, understand and produce a valid coherent response to. There is no overlap between the words in the utterance and the tokens in its underlying relations in the knowledge graph ("place pf birth" in Figure \ref{fig:kg}). Actually, the problem is even harder. The question \ref{exp1q2} doesn't explicitly ask the place of birth, human has to make a decent inference to workout the underlying meaning of this question.
+
+\begin{exe}
+	\ex
+	\label{exp4}
+
+		\begin{xlist}
+			\ex \label{exp2q1} Q: And what is Mr Turing's place of birth?
+			\ex \label{exp2a1} A: He was born in Maida Vale.
+			\ex \label{exp2q2} Q: \underline{Notable work of Turing} is 'Intelligent Machinery', when was this incepted?
+			\ex \label{exp2a2} A: 1984.
+	\end{xlist}
+\end{exe}
+
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=6cm]{alandis2t1.png}
+\end{minipage}
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=6cm]{alandis2t2.png}
+\end{minipage}
+\caption{The Underlying Marking for Example \ref{exp4}. Left Figure for Turn a,b and Right Figure for Turn c,d.}
+\label{fig:exp4fig}
+\end{figure}
+
+As demonstrated in Figure \ref{fig:exp4fig}, there is a gap in turn 2 in Example \ref{exp4}. Humans try to introduce additional information to connect gaps between each turns. These utterances could be information within the conversation context or information within the grounded graph but not explicitly mentioned. However, people sometimes give up when the conversations are totally incoherent.
+
+
+\begin{exe}
+	\ex
+	\label{exp5}
+		\begin{xlist}
+			\ex \label{exp3q1} Q: \underline{Hey bro, I've been living under a rock my whole life...} do you know who wrote Harry Potter?
+			\ex \label{exp3a1} A: J.K Rowling did man.
+	\end{xlist}
+\end{exe}
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{jk.png}
+    \caption{Example Knowledge Graph of JK Rowling.}
+    \label{fig:jk}
+\end{figure}
+
+
+\begin{exe}
+	\ex
+	\label{exp6}
+		\begin{xlist}
+			\ex \label{exp3q1} Q: So, where did she write Harry Potter?
+			\ex \label{exp3a1} A: She wrote harry potter in the United Kingdom of Great Britain and northern Ireland, mostly \underline{in the muggle part}.
+			\ex \label{exp3q1} Q: Did any of her main characters NOT grow up \underline{in the muggle world}?
+			\ex \label{exp3a1} A: A few grew up with Ron Weasley.
+	\end{xlist}
+\end{exe}
+
+
+Example \ref{exp5} is an example that human introduces additional utterances to improve the coherence. In Example \ref{exp6}, the human participant use additional information outside the grounded knowledge graph \ref{fig:jk} to disambiguate the potential answers in the graph. It is worth mentioning, in our instructions, human participants are not encouraged to add additional utterances to the dialogues, but they decided to do so in order to improve the coherence of the overall conversations.
+
+All the examples and patterns we mentioned above is extremely challenging and unachievable for the current state of the art systems. Building coherent dialogue systems will remain a central topic for the research of dialogue systems and artificial intelligence.
+
 
 
 \chapter{Modelling Coherent Dialogues Using Neural Networks}
 
-In order to model the coherent dialogues in this corpus, we proposed a novel neural architecture. However, this model is not implemented due to the scale of this project. The corpus only contains 240 conversations. As we argued in Chapter 2, this may be insufficient to train such a complicated neural network. In this chapter, we introduce our proposed framework to train a neural dialogue models if the resources are available in the future.
+In order to model the coherent dialogues in this corpus, we proposed a novel neural architecture. However, this model is not implemented due to the limitation of the scale of this project. This corpus only contains 240 conversations. As we argued in Chapter 2, this is insufficient to train such a complicated neural network. In this chapter, we introduce our proposed framework to train a neural dialogue model if the resources are available in the future.
 
 \section{Hierarchical Attentional Encoder with Context Windows}
 
-In order to encode coherent dialogue, we need to model long-distance dependencies not only between words in one utterance, but also between sentences within the discourse. For example, in order to model an elided construction, our model has to infer the omission from the longer prior context of the conversation, because such information may not appear in the current utterance. To model that, we propose a hierarchical attentional encoder which is inspired by Xing et al. \cite{xing2018hierarchical}. We extend their model with context windows which the size of the windows is a predefined hyper-parameter to control how many previous turns we are modelling. 
+In order to encode coherent dialogues, we need to model long-distance dependencies not only between words in one utterance, but also between sentences within the discourse. For example, in order to model an elided construction, our model has to infer the omission from the longer prior context of the conversation, because such information may not appear in the current utterance. To model that, we propose a hierarchical attentional encoder which is inspired by Xing et al. \cite{xing2018hierarchical}. We extend their model with context windows which the size of the windows is a predefined hyper-parameter to control how many previous turns we are modelling. 
 
 
 \begin{figure}[h]
@@ -1350,7 +1431,7 @@ To predict the correct node to answer a given question, we could represent a pre
 
 \section{Generate Coherent Dialogues as a Markov Decision Process}
 \noindent
-As we argued in chapter 2, training a dialogue system with supervised learning is not explicitly optimized to produce a coherent response. We propose to cast the response generation task as a RL task. More specifically, we consider the questioner and the answerer as part of the RL agent environment. According to Williams and Young\cite{williams2007partially}, a goal-driven dialogue system could be modelled as a partially observable Markov decision process. Inspired by Strub et al. \cite{strub2017end}, We would like to describe our response generation task as following:
+As we argued in Chapter 2, training a dialogue system with supervised learning is not explicitly optimized to produce a coherent response. We propose to cast the response generation task as a RL task. More specifically, we consider the questioner and the answerer as part of the RL agent environment. According to Williams and Young\cite{williams2007partially}, a goal-driven dialogue system could be modelled as a partially observable Markov decision process. Inspired by Strub et al. \cite{strub2017end}, we would like to describe our response generation task as following:
 
 We define the state $S_t$ as the state of the dialogue at step t. An action $u_t$ corresponds to selecting a new word in the vocabulary V. The transition to the next state depends on the selected action:
 
@@ -1375,9 +1456,9 @@ We will use precision and recall, which are well-established metrics for questio
 
 \section{Summary}
 
-In this project, we first briefly introduce the history and development of dialogue systems in terms of rule-based system, corpus-based systems and the architecture of the state of the art spoken dialogue systems. Then we discuss the important distinctions between different dialogue corpora: whether the corpus features constrained or unconstrained dialogues; whether a corpus is written, spoken; whether a corpus features human-human interactions or human-machine interactions. Afterwards, we review the publicly available corpora for training dialogue systems. We also investigate Intrinsic Evaluation, Extrinsic Evaluation and Human Evaluation methods for dialogue system evaluation and discuss the pros and cons of each approach.
+In this project, we first briefly introduce the history of and progresses in dialogue systems in terms of rule-based systems, corpus-based systems and the architecture of the state of the art spoken dialogue systems. Then we discuss the important distinctions between different dialogue corpora: whether the corpus features constrained or unconstrained dialogues; whether a corpus is written, spoken; whether a corpus features human-human interactions or human-machine interactions. Afterwards, we review the publicly available corpora for training dialogue systems. We also investigate Intrinsic Evaluation, Extrinsic Evaluation and Human Evaluation methods for dialogue system evaluation and discuss the pros and cons of each approach.
 
-The motivation for this project is to build a coherent open-domain dialogue systems with neural networks. To the best of our knowledge, there is no publicly available corpus suitable on training coherent open-domain dialogue models. To achieve this goal, we design and collect a novel corpus contains extended coherent dialogues of questions and responses that are information in a knowledge graph. These dialogues describe the relations within a knowledge graph with clear links between the phrases in the questions to nodes in a knowledge graph. The purpose for this corpus is to perform statistical analysis about various linguistic patterns within coherent dialogues, thereby, create a framework for neural models to learn how to parse these patterns and produce more coherent responses. This corpus has been collected via crowd-sourcing. The dialogue collection experiment was running for 3 months which 30 sessions have been organized. In order to prepare this experiment, several toolkits have been developed.
+The motivation for this project is to build a coherent open-domain dialogue systems with neural networks. To the best of our knowledge, there is no publicly available corpus suitable for training coherent open-domain dialogue models. To achieve this goal, we design and collect a novel corpus which contains extended coherent dialogues of questions and responses that are information in a knowledge graph. These dialogues describe the relations within a knowledge graph with clear links between the phrases in the questions to nodes in a knowledge graph. The purpose for this corpus is to perform statistical analysis about various linguistic patterns within coherent dialogues, thereby, create a framework for neural models to learn how to parse these patterns and produce more coherent responses. This corpus has been collected via crowd-sourcing. The dialogue collection experiment was running for 3 months which 30 experiment sessions have been organized. In order to prepare for this experiment, several toolkits have been developed.
 
 The main focus for this project is to investigate when the appearance of an elided construction is natural and convey the intended content. A detailed statistical analysis have been conducted on this corpus. We find:
 
@@ -1388,15 +1469,15 @@ The main focus for this project is to investigate when the appearance of an elid
  
 \end{enumerate}
 
-We prove the statistical significance of those hypothesis on our corpus.
+We prove the statistical significance of those hypothesis on our corpus. We also shows how challenging and exciting to model coherent dialogues via example dialogues in our corpus. This will remain our research interests for future.
 
 \section{Future Work}
 
-Due to the scale of this project and the limitation of the available resources, only 240 conversations have been collected in the corpus. In order to train decent dialogue models using deep neural networks, a larger corpus should be collected. For collecting a larger corpus, both the topics of the knowledge graphs and tags in our tag set could be further diversified. In addition, we could extend our corpus to a multi-model setting, which we could try to investigate how visual modality interacts in a coherent dialogues.
+Due to the scale of this project and the limitation of the available resources, only 240 conversations have been collected in the corpus. In order to train decent dialogue models using deep neural networks, a larger corpus should be collected. For collecting a larger corpus, both the topics of the knowledge graphs and tags in our tag set could be further diversified. In addition, we could extend our corpus to a multi-model setting, which we could try to investigate how visual modality interacts with languages in coherent dialogues.
 
 During this project, we have implemented a web interface for this task-specific dialogue collection experiment. This interface is for the single purpose. A general purpose toolkit for crowd sourcing goal-orientated dialogue corpora should be developed. This toolkit should facilitate researchers to design, create and deploy such tasks into crowd sourcing platforms, such as Amazon Mechanic Turk\cite{mturk}. There are existing toolkits\cite{lee2018dialcrowd,miller2017parlai}. However, it's not easy enough to create a similar experiment by only using these tools.
 
-In Chapter 5, we proposed a hierarchical attentional neural architecture with context windows. Training such a neural model under our framework may improve the performance of current spoken dialogue systems. Although the current statistical SDSs do explicitly capture the dialogue history via belief tracking \cite{gasic}, they may not utilize rich linguistic information inside a coherent dialogue. Future studies could integrate a conversation model into the semantic decoder and encoder of SDSs to enable the current SDSs to understand and produce more coherent dialogues. In addition, current SDSs require a pre-defined ontology in order to keep track of the belief state. Researchers could investigate whether we could connect a SDS to a wide coverage knowledge graph and build a dialogue system which can support a natural conversation about any topic within the knowledge graph. Furthermore, Cheng et al.\cite{cheng2019learning} has developed a transition-base neural semantic parser with a generic tree-generation algorithm. By integrating a conversation model with an existing neural semantic parser, we may enable it to perform semantic parsing over an extended coherent dialogue.
+In Chapter 5, we proposed a hierarchical attentional neural architecture with context windows. Training such a neural model under our framework may improve the performance of current spoken dialogue systems. Although the current statistical SDSs do explicitly capture the dialogue history via belief tracking \cite{gasic}, they may not utilize rich linguistic information inside a coherent dialogue. Future studies could investigate how to integrate a conversation model into the semantic decoder and encoder of SDSs. This could enable the current SDSs to understand and produce more coherent dialogues. In addition, current SDSs require a pre-defined ontology in order to keep track of the belief state. Researchers could investigate whether we could connect a SDS to a wide coverage knowledge graph and build a dialogue system which can support natural conversations about any topics within the knowledge graph. Furthermore, Cheng et al.\cite{cheng2019learning} has developed a transition-base neural semantic parser with a generic tree-generation algorithm. By integrating a conversation model with an existing neural semantic parser, we may enable it to perform semantic parsing over an extended coherent dialogue.
 
 
 
