@@ -594,6 +594,12 @@ Computer Science}}
       \null\vskip 6.1cm
       \begin{minipage}[t][7.6cm]{10.5cm}
          \begin{center}
+         
+\vspace*{-10\baselineskip}
+\includegraphics[width=0.40\textwidth]{\eushield}
+\vspace*{4\baselineskip}
+         
+         
          {\LARGE\bfseries \@chapterfont \@title \par
             \ifthenelse{\boolean{draftthesis}}{\large \@draftmessage}{}
          }\vfil
